@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
     /* Variables */
     char memory[TOTAL_MEMORY];
     char input;
+    int result;
     
     /* The menu and operations */
     fprintf(stdout, "'h' or '?' for help, 'q' to quit.\n");
@@ -29,7 +30,15 @@ int main(int argc, char *argv[])
         switch(input) {
             /* load the file */
             case 'l':
-                
+                if((result = load_file(memory, TOTAL_MEMORY)) > 0) {
+					fprintf(stdout, "File loaded.\n");
+				}
+				else if(result == -1){
+					fprintf(stdout, "Error loading file.\n");
+				}
+				else {
+					fprintf(stdout, "Created file.\n");
+				}
                 break;
             
             /* write the file */    
