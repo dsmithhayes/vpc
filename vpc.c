@@ -26,11 +26,11 @@ int main(int argc, char *argv[])
 	fprintf(stdout, "'h' or '?' for help, 'q' to quit.\n");
 	get_input(&input);
        
-    while(1) {
-        switch(input) {
-            /* load the file */
-            case 'l':
-                if((result = load_file(memory, TOTAL_MEMORY)) > 0)
+	while(1) {
+		switch(input) {
+			/* load the file */
+			case 'l':
+				if((result = load_file(memory, TOTAL_MEMORY)) > 0)
 					fprintf(stdout, "File loaded.\n");
 				else if(result == -1)
 					fprintf(stdout, "Error loading file.\n");
@@ -41,25 +41,25 @@ int main(int argc, char *argv[])
 				
                 break;
             
-            /* write the file */    
-            case 'w':
-                
-                break;
-            
-            /* display the help menu */
-            case '?':
-            case 'h':
-                display_help();
-                break;
-        }
-        
-        if(input == 'q')
+			/* write the file */    
+			case 'w':
+				
+				break;
+			
+			/* display the help menu */
+			case '?':
+			case 'h':
+				display_help();
+				break;
+		}
+		
+		if(input == 'q')
 			break;
-        
-        get_input(&input);
-    }
-    
-    return 0;
+		
+		get_input(&input);
+	}
+	
+	return 0;
 }
 
 /*
@@ -68,16 +68,16 @@ int main(int argc, char *argv[])
 */
 void display_help()
 {
-    fprintf(stdout, "d\tdump memory\n");
-    fprintf(stdout, "g\tgo - run the program\n");
-    fprintf(stdout, "l\tload a file into memory\n");
-    fprintf(stdout, "m\tmemory modify\n");
-    fprintf(stdout, "q\tquit\n");
-    fprintf(stdout, "r\tdisplay registers\n");
-    fprintf(stdout, "t\ttrace - execute one instruction\n");
-    fprintf(stdout, "w\twrite file\n");
-    fprintf(stdout, "z\treset all registers to 0\n");
-    fprintf(stdout, "?, h\tdisplay this menu\n\n");
+	fprintf(stdout, "d\tdump memory\n");
+	fprintf(stdout, "g\tgo - run the program\n");
+	fprintf(stdout, "l\tload a file into memory\n");
+	fprintf(stdout, "m\tmemory modify\n");
+	fprintf(stdout, "q\tquit\n");
+	fprintf(stdout, "r\tdisplay registers\n");
+	fprintf(stdout, "t\ttrace - execute one instruction\n");
+	fprintf(stdout, "w\twrite file\n");
+	fprintf(stdout, "z\treset all registers to 0\n");
+	fprintf(stdout, "?, h\tdisplay this menu\n\n");
 }
 
 /*
@@ -85,17 +85,14 @@ void display_help()
 */
 void get_input(char *in)
 {
-    fprintf(stdout, "> ");
-    *in = (char)fgetc(stdin);
+	fprintf(stdout, "> ");
+	*in = (char)fgetc(stdin);
 }
 
 /*
     This routine will write a file to the buffered memory.
 */
-void write_file(void *memory)
-{
-    
-}
+void write_file(void *memory) { }
 
 /*
     This routine will load a file into the buffered memory.
