@@ -17,28 +17,28 @@ int  load_file(void *memory, unsigned int max);
 /* Entry point */
 int main(int argc, char *argv[])
 {
-    /* Variables */
-    char memory[TOTAL_MEMORY];
-    char input;
-    int result;
-    
-    /* The menu and operations */
-    fprintf(stdout, "'h' or '?' for help, 'q' to quit.\n");
-    get_input(&input);
-    
+	/* Variables */
+	char memory[TOTAL_MEMORY];
+	char input;
+	int result;
+	
+	/* The menu and operations */
+	fprintf(stdout, "'h' or '?' for help, 'q' to quit.\n");
+	get_input(&input);
+       
     while(1) {
         switch(input) {
             /* load the file */
             case 'l':
-                if((result = load_file(memory, TOTAL_MEMORY)) > 0) {
+                if((result = load_file(memory, TOTAL_MEMORY)) > 0)
 					fprintf(stdout, "File loaded.\n");
-				}
-				else if(result == -1){
+				else if(result == -1)
 					fprintf(stdout, "Error loading file.\n");
-				}
-				else {
-					fprintf(stdout, "Created file.\n");
-				}
+				else if(result == -2)
+					fprintf(stdout, "Error reading the file.\n");
+				else if(result == -3)
+					fprintf(stdout, "File is empty.\n");
+				
                 break;
             
             /* write the file */    
@@ -102,16 +102,16 @@ void write_file(void *memory)
 */
 int load_file(void *memory, unsigned int max)
 {
-    char *file_name;			/* user given */
-    static FILE *f;				/* the actual file */
+	char *file_name;			/* user given */
+	static FILE *f;				/* the actual file */
 	static char *mode = "a+";	/* change this? */
-    unsigned int size;
-    
-    fprintf(stdout, "file: ");
-    fscanf(stdin, "%s", file_name);
-    
-    /* -1 on failure to open the file */
-    if((f = fopen((const char *)file_name, mode)) == NULL)
+	unsigned int size;
+	
+	fprintf(stdout, "file: ");
+	fscanf(stdin, "%s", file_name);
+	
+	/* -1 on failure to open the file */
+	if((f = fopen((const char *)file_name, mode)) == NULL)
 		return -1;
 	
 	/* -2 on failure to seek to the end */
@@ -120,13 +120,14 @@ int load_file(void *memory, unsigned int max)
 	else
 		return -2;
 	
-    if(size > max) {
+	if(size > max) {
 		fprintf(stdout, "File truncated...\n");
 		size = max;
 	}
 	
 	rewind(f);
 	
+	/* -3 means it didn't read shit. */
 	if(fgets(memory, size, f) == NULL)
 		return -3;
 	else
