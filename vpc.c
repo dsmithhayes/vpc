@@ -81,17 +81,16 @@ void display_help()
 }
 
 /*
-    this routine just captures the input
+    This routine just captures the input. Basic.
 */
 void get_input(char *in)
 {
     fprintf(stdout, "> ");
-    *in = (int)fgetc(stdin);
+    *in = (char)fgetc(stdin);
 }
 
 /*
-    This routine will write a file to the buffered
-    memory.
+    This routine will write a file to the buffered memory.
 */
 void write_file(void *memory)
 {
@@ -99,12 +98,11 @@ void write_file(void *memory)
 }
 
 /*
-    This routine will load a file into
-    the buffered memory.
+    This routine will load a file into the buffered memory.
 */
 int load_file(void *memory, unsigned int max)
 {
-    static char *file_name;		/* user given */
+    char *file_name;			/* user given */
     static FILE *f;				/* the actual file */
 	static char *mode = "a+";	/* change this? */
     unsigned int size;
@@ -112,16 +110,25 @@ int load_file(void *memory, unsigned int max)
     fprintf(stdout, "file: ");
     fscanf(stdin, "%s", file_name);
     
-    /* -1 on failure. */
-    if((f = fopen(file_name, mode)) == NULL)
+    /* -1 on failure to open the file */
+    if((f = fopen((const char *)file_name, mode)) == NULL)
 		return -1;
 	
-	size = ftell(f);
+	/* -2 on failure to seek to the end */
+	if(fseek(f, 0, SEEK_END) == 0) 	/* Sucess */
+		size = ftell(f);
+	else
+		return -2;
 	
     if(size > max) {
 		fprintf(stdout, "File truncated...\n");
 		size = max;
 	}
 	
-	return (int) fread(memory, sizeof(char), size, f);
+	rewind(f);
+	
+	if(fgets(memory, size, f) == NULL)
+		return -3;
+	else
+		return size;
 }
