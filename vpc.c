@@ -39,8 +39,8 @@ int main(int argc, char *argv[])
 				else if(result == -3)
 					fprintf(stdout, "File is empty.\n");
 				
-                break;
-            
+				break;
+				
 			/* write the file */    
 			case 'w':
 				
