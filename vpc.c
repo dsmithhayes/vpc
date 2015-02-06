@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 {
     char selection;
     static char memory[TOTAL_MEMORY];
-    unsigned int res;    /* result of load_file(); */
+    int res;    /* result of load_file(); */
     
     fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");
     fprintf(stdout, "Type '?' or 'h' for a list of commands.\n");
