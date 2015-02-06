@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 {
     char selection;
     static char memory[TOTAL_MEMORY];
-    int err;
+    unsigned int res;    /* result of load_file(); */
     
     fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");
     fprintf(stdout, "Type '?' or 'h' for a list of commands.\n");
@@ -36,10 +36,10 @@ int main(int argc, char *argv[])
                 break;
             
             case 'l':
-                if((err = load_file(memory, TOTAL_MEMORY)) > 0)
-                    fprintf(stdout, "file loaded.\n");
+                if((res = load_file(memory, TOTAL_MEMORY)) > 0)
+                    fprintf(stdout, "file loaded. %d bytes read.\n", res);
                 else
-                    fprintf(stdout, "error loading file: %d\n", err);
+                    fprintf(stdout, "error loading file: %d\n", res);
                 break;
             
             case 'w':
@@ -80,6 +80,7 @@ void display_help()
 void write_file(void *memory) 
 { 
     int size;
+    unsigned int res;   /* result of fwrite */
     char file_name[INPUT_BUFFER];
     FILE *f;
 
@@ -102,8 +103,8 @@ void write_file(void *memory)
         size = TOTAL_MEMORY;
     
     /* actually write the memory to a file */
-    if(fwrite(memory, 1, size, f) > 0)
-        fprintf(stdout, "write file successful.\n");
+    if((res = fwrite(memory, 1, size, f)) > 0)
+        fprintf(stdout, "wrote %d bytes to file successfully.\n", res);
     else
         fprintf(stdout, "error writing file.\n");
     
