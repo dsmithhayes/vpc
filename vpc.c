@@ -5,58 +5,51 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#define TOTAL_MEMORY    16000U  /* 16kB */
+#define TOTAL_MEMORY    16000U  /*  16 kB */
+#define INPUT_BUFFER    256     /* 256 B  */ 
 
 /* Function prototypes */
 void display_help();
-void get_input(char *in);
 void write_file(void *memory);
 int  load_file(void *memory, unsigned int max);
 
 /* Entry point */
 int main(int argc, char *argv[])
 {
-    /* Variables */
+    char selection;
     char memory[TOTAL_MEMORY];
-    char input;
-    int result;
     
-    /* The menu and operations */
-    fprintf(stdout, "'h' or '?' for help, 'q' to quit.\n");
-    get_input(&input);
+    fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");
+    fprintf(stdout, "Type '?' or 'h' for a list of commands.\n");
     
     while(1) {
-        switch(input) {
-            /* load the file */
-            case 'l':
-                if((result = load_file(memory, TOTAL_MEMORY)) > 0)
-                    fprintf(stdout, "File loaded.\n");
-                else if(result == -1)
-                    fprintf(stdout, "Error loading file.\n");
-                else if(result == -2)
-                    fprintf(stdout, "Error reading the file.\n");
-                else if(result == -3)
-                    fprintf(stdout, "File is empty.\n");
-                
+        fprintf(stdout, "> ");
+        fgets(&selection, 3, stdin);
+        
+        switch(selection) {
+            case 'q':
+                exit(0);
                 break;
-                
-            /* write the file */    
-            case 'w':
+            
+            case 'l':
+                if(load_file(memory, TOTAL_MEMORY) > 0)
+                    fprintf(stdout, "file loaded.\n");
+                else
+                    fprintf(stdout, "error.\n");
                 
                 break;
             
-            /* display the help menu */
+            case 'w':
+                write_file(memory);
+                break;
+            
             case '?':
             case 'h':
                 display_help();
                 break;
         }
-        
-        if(input == 'q')
-            break;
-        
-        get_input(&input);
     }
     
     return 0;
@@ -81,52 +74,76 @@ void display_help()
 }
 
 /*
-    This routine just captures the input. Basic.
-*/
-void get_input(char *in)
-{
-    fprintf(stdout, "> ");
-    *in = (char)fgetc(stdin);
-}
-
-/*
     This routine will write a file to the buffered memory.
 */
-void write_file(void *memory) { }
+void write_file(void *memory) 
+{ 
+    int size;
+    char file_name[INPUT_BUFFER];
+    FILE *f;
+
+    fprintf(stdout, "Name of file: ");
+    fgets(file_name, INPUT_BUFFER, stdin);
+    
+    file_name[strlen(file_name) - 1] = '\0';
+    
+    if((f = fopen((const char*) file_name, "w+")) == NULL) {
+        fprintf(stdout, "Error opening file to write.");
+        exit(1);
+    }
+
+    fprintf(stdout, "Number of bytes to write: ");
+    fscanf(stdin, "%d", &size);    
+
+    if(size > TOTAL_MEMORY)
+        size = TOTAL_MEMORY;
+    
+    if(fwrite(memory, 1, size, f) > 0)
+        fprintf(stdout, "Write file successful.\n");
+    else
+        fprintf(stdout, "Error writing file.\n");
+    
+    fclose(f);
+}
 
 /*
     This routine will load a file into the buffered memory.
 */
 int load_file(void *memory, unsigned int max)
 {
-    char *file_name;            /* user given */
-    static FILE *f;             /* the actual file */
-    static char *mode = "a+";   /* change this? */
+    char file_name[INPUT_BUFFER];       /* user given */
+    FILE *f;                            /* the actual file */
+    const char *mode = "r";             /* change this? */
     unsigned int size;
     
     fprintf(stdout, "file: ");
-    fscanf(stdin, "%s", file_name);
+    fgets(file_name, INPUT_BUFFER - 1, stdin);
+    
+    file_name[strlen(file_name) - 1] = '\0';
     
     /* -1 on failure to open the file */
     if((f = fopen((const char *)file_name, mode)) == NULL)
         return -1;
     
     /* -2 on failure to seek to the end */
-    if(fseek(f, 0, SEEK_END) == 0)      /* Sucess */
+    if(fseek(f, 0, SEEK_END) == 0)
         size = ftell(f);
     else
         return -2;
     
     if(size > max) {
-        fprintf(stdout, "File truncated...\n");
+        fprintf(stdout, "file truncated...\n");
         size = max;
     }
     
     rewind(f);
     
     /* -3 means it didn't read shit. */
-    if(fgets(memory, size, f) == NULL)
+    if(fgets(memory, size, f) == NULL) {
+        fclose(f);
         return -3;
-    else
-        return size;
+    }
+    
+    fclose(f);
+    return size;
 }
