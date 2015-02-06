@@ -127,7 +127,7 @@ int load_file(void *memory, unsigned int max)
     unsigned int size;
     
     fprintf(stdout, "file: ");
-    fgets(file_name, INPUT_BUFFER - 1, stdin);
+    fgets(file_name, INPUT_BUFFER, stdin);
     
     file_name[strlen(file_name) - 1] = '\0';
     
