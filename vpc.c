@@ -8,7 +8,8 @@
 #include <string.h>
 
 #define TOTAL_MEMORY    16000U  /*  16 kB */
-#define INPUT_BUFFER    256     /* 256 B  */ 
+#define INPUT_BUFFER    256     /* 256  B */ 
+#define MENU_INPUT_SIZE 3       /*   3  B */
 
 /* Function prototypes */
 void display_help();
@@ -19,14 +20,14 @@ int  load_file(void *memory, unsigned int max);
 int main(int argc, char *argv[])
 {
     char selection;
-    char memory[TOTAL_MEMORY];
+    static char memory[TOTAL_MEMORY];
     
     fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");
     fprintf(stdout, "Type '?' or 'h' for a list of commands.\n");
     
     while(1) {
         fprintf(stdout, "> ");
-        fgets(&selection, 3, stdin);
+        fgets(&selection, MENU_INPUT_SIZE, stdin);
         
         switch(selection) {
             case 'q':
