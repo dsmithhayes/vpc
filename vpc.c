@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
 {
     char selection;
     static char memory[TOTAL_MEMORY];
+    int err;
     
     fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");
     fprintf(stdout, "Type '?' or 'h' for a list of commands.\n");
@@ -35,11 +36,10 @@ int main(int argc, char *argv[])
                 break;
             
             case 'l':
-                if(load_file(memory, TOTAL_MEMORY) > 0)
+                if((err = load_file(memory, TOTAL_MEMORY)) > 0)
                     fprintf(stdout, "file loaded.\n");
                 else
-                    fprintf(stdout, "error.\n");
-                
+                    fprintf(stdout, "error loading file: %d\n", err);
                 break;
             
             case 'w':
@@ -83,32 +83,41 @@ void write_file(void *memory)
     char file_name[INPUT_BUFFER];
     FILE *f;
 
-    fprintf(stdout, "Name of file: ");
+    /* Get the user to input a new file name. */
+    fprintf(stdout, "name of file: ");
     fgets(file_name, INPUT_BUFFER, stdin);
     
     file_name[strlen(file_name) - 1] = '\0';
     
     if((f = fopen((const char*) file_name, "w+")) == NULL) {
-        fprintf(stdout, "Error opening file to write.");
+        fprintf(stdout, "error opening file to write.");
         exit(1);
     }
-
+    
+    /* Ask for how many bytes to write. */
     fprintf(stdout, "Number of bytes to write: ");
     fscanf(stdin, "%d", &size);    
 
     if(size > TOTAL_MEMORY)
         size = TOTAL_MEMORY;
     
+    /* actually write the memory to a file */
     if(fwrite(memory, 1, size, f) > 0)
-        fprintf(stdout, "Write file successful.\n");
+        fprintf(stdout, "write file successful.\n");
     else
-        fprintf(stdout, "Error writing file.\n");
+        fprintf(stdout, "error writing file.\n");
     
     fclose(f);
 }
 
 /*
-    This routine will load a file into the buffered memory.
+    This routine will load a file into the buffered memory, it will
+    return the size of the file loaded.
+    
+    errors:
+        -1:     error opening the file
+        -2:     error finding the size of the file
+        -3:     error reading the file into the virtual memory
 */
 int load_file(void *memory, unsigned int max)
 {
