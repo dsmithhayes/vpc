@@ -15,11 +15,7 @@ main(int argc, char *argv[])
 {
     char selection;
     static char memory[TOTAL_MEMORY];
-<<<<<<< HEAD
-    int res;   /* result of load_file(); */
-=======
-    int res;    /* result of load_file(); */
->>>>>>> 93fc9eaed53b3787a3860aae0cac983124059d7a
+    int file_size;   /* result of load_file(); */
     
     fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");
     fprintf(stdout, "Type '?' or 'h' for a list of commands.\n");
@@ -37,10 +33,10 @@ main(int argc, char *argv[])
             
             case 'l':   /* load a file */
             case 'L':
-                if((res = load_file(memory, TOTAL_MEMORY)) > 0)
+                if((file_size = load_file(memory, TOTAL_MEMORY)) > 0)
                     fprintf(stdout, 
                             "file loaded. %d (0x%x) bytes read.\n", 
-                            res, res);
+                            file_size, file_size);
                 else
                     perror("load_file: ");
                 
