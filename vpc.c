@@ -15,7 +15,11 @@ main(int argc, char *argv[])
 {
     char selection;
     static char memory[TOTAL_MEMORY];
+<<<<<<< HEAD
     int res;   /* result of load_file(); */
+=======
+    int res;    /* result of load_file(); */
+>>>>>>> 93fc9eaed53b3787a3860aae0cac983124059d7a
     
     fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");
     fprintf(stdout, "Type '?' or 'h' for a list of commands.\n");
