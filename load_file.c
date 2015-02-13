@@ -1,13 +1,18 @@
+/*
+    file:   load_file.c
+    author: Dave Smith-Hayes
+    date:   February 13th, 2015
+    
+    this file defines the load_file() function.
+*/
+    
 #include "vpc.h"
 
 /*
     This routine will load a file into the buffered memory, it will
     return the size of the file loaded.
     
-    errors:
-        -1:     error opening the file
-        -2:     error finding the size of the file
-        -3:     error reading the file into the virtual memory
+    returns errno of appropriate failure, or the size of he file.
 */
 int 
 load_file(void *memory, unsigned int max)
@@ -17,20 +22,20 @@ load_file(void *memory, unsigned int max)
     const char *mode = "r";             /* change this? */
     unsigned int size;
     
-    fprintf(stdout, "file: ");
+    fprintf(stdout, "file> ");
     fgets(file_name, INPUT_BUFFER, stdin);
     
     file_name[strlen(file_name) - 1] = '\0';
     
     /* -1 on failure to open the file */
     if((f = fopen((const char *)file_name, mode)) == NULL)
-        return -1;
+        return errno;
     
     /* -2 on failure to seek to the end */
     if(fseek(f, 0, SEEK_END) == 0)
         size = ftell(f);
     else
-        return -2;
+        return errno;
     
     if(size > max) {
         fprintf(stdout, "file truncated...\n");
@@ -42,7 +47,7 @@ load_file(void *memory, unsigned int max)
     /* -3 means it didn't read shit. */
     if(fgets(memory, size, f) == NULL) {
         fclose(f);
-        return -3;
+        return errno;
     }
     
     fclose(f);

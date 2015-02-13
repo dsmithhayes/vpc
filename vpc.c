@@ -1,3 +1,11 @@
+/*
+    file:   load_file.c
+    author: Dave Smith-Hayes
+    date:   February 13th, 2015
+    
+    this is the entry point of the program.
+*/
+
 #include "vpc.h"
 
 /* Entry point */
@@ -12,34 +20,41 @@ main(int argc, char *argv[])
     fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");
     fprintf(stdout, "Type '?' or 'h' for a list of commands.\n");
     
+    /* main program loop */
     while(1) {
         fprintf(stdout, "> ");
         fgets(&selection, MENU_INPUT_SIZE, stdin);
         
         switch(selection) {
             case 'q':
+            case 'Q':
                 exit(0);
                 break;
             
-            case 'l':
+            case 'l':   /* load a file */
+            case 'L':
                 if((res = load_file(memory, TOTAL_MEMORY)) > 0)
                     fprintf(stdout, 
-                            "file loaded. %d bytes read.\n", res);
+                            "file loaded. %d (0x%x) bytes read.\n", 
+                            res, res);
                 else
-                    fprintf(stdout, 
-                            "error loading file: %d\n", res);
+                    perror("load_file: ");
+                
                 break;
             
-            case 'w':
+            case 'w':   /* write the file */
+            case 'W':
                 write_file(memory);
                 break;
             
-            case 'd':
-            
+            case 'd':   /* dump the memory */
+            case 'D':
+                
                 break;
             
-            case 'm':
-            
+            case 'm':   /* modify the memory */
+            case 'M':
+                
                 break;
             
             case '?':

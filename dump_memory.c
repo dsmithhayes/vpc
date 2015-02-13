@@ -1,35 +1,44 @@
+/*
+    file:   dump_memory.c
+    author: Dave Smith-Hayes
+    date:   February 13th, 2015
+    
+    dump_memory() is arbitrarily called with values. Who knows how it
+    will act if you supply an offset larger than the memory, but who
+    knows! The user interface will prevent this from happening.
+*/
+
 #include "vpc.h"
 
 /*
     Prints a memory dump to the screen from the offset using the
     memory location.
+    
+    The program will print the ASCII value or a '.' if the character
+    is not human readable (use isprint()).
 */
 void
-dump(char *memory, unsigned int offset, unsigned int length)
+dump_memory(char *memory, unsigned int offset, unsigned int length)
 {
     unsigned int i, j;
     unsigned int row_start;
     
     /* holds the row numbers. */
-    unsigned short row_s = 16;
-    unsigned int row_offset[(TOTAL_MEMORY / row_s)];
-    
-    /* error checking */
-    if(offset > (TOTAL_MEMORY - 1)) {
-        printf("Not in the memory range.\n");
-        return;
-    }
+    unsigned int row_s = 0x10;
+    unsigned int total_rows = (TOTAL_MEMORY / row_s);
+    unsigned int row_offset[total_rows];
     
     /* builds the row numbers, determines where to start */
-    for(i = 0; i < (TOTAL_MEMORY / row_s); i++) {
+    for(i = 0; i < total_rows; i++) {
         row_offset[i] = (row_offset[(i - 1)] * row_s);
         
-        if((row_offset[i] > offset) 
-                && (row_offset[(i - 1)] <= offset))
+        if((offset < row_offset[i])
+                && offset >= (row_offset[(i - 1)]))
             row_start = (i - 1);
     }
     
-    for(i = row_start; i < (TOTAL_MEMORY / row_s); i++) {
+    /* prints the lines */
+    for(i = row_start; i < total_rows; i++) {
         fprintf(stdout, "%o\t", row_offset[i]);
         
         /* first row, get the start */
@@ -42,8 +51,12 @@ dump(char *memory, unsigned int offset, unsigned int length)
         fprintf(stdout, "\n\t");
         
         for(j = offset; j < TOTAL_MEMORY; j++)
-            fprintf(stdout, "%c ", (char) *(memory + j));
+            if(isprint((int) *(memory + j)))
+                fprintf(stdout, "%c ", (char) *(memory + j));
+            else
+                fprintf(stdout, ". ");
         
+        fprintf(stdout, "\n");
         offset += row_s;
     }
 }

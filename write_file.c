@@ -1,3 +1,11 @@
+/*
+    file:   load_file.c
+    author: Dave Smith-Hayes
+    date:   February 13th, 2015
+    
+    this file defines the load_file() function.
+*/
+
 #include "vpc.h"
 
 /*
@@ -12,19 +20,19 @@ write_file(void *memory)
     FILE *f;
 
     /* Get the user to input a new file name. */
-    fprintf(stdout, "name of file: ");
+    fprintf(stdout, "name of file> ");
     fgets(file_name, INPUT_BUFFER, stdin);
     
     file_name[strlen(file_name) - 1] = '\0';
     
     if((f = fopen((const char*) file_name, "w+")) == NULL) {
         fprintf(stdout, "error opening file to write.");
-        exit(1);
+        return;
     }
     
     /* Ask for how many bytes to write. */
-    fprintf(stdout, "Number of bytes to write: ");
-    fscanf(stdin, "%d", &size);    
+    fprintf(stdout, "Number of bytes to write (hex)> ");
+    fscanf(stdin, "%x", &size);
 
     if(size > TOTAL_MEMORY)
         size = TOTAL_MEMORY;
@@ -36,4 +44,5 @@ write_file(void *memory)
         fprintf(stdout, "error writing file.\n");
     
     fclose(f);
+    return;
 }

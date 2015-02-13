@@ -1,15 +1,18 @@
 /*
     vpc is a virtual memory program.
 
+    file:       vpc.h
     author:     Dave Smith-Hayes
+    date:       February 13th, 2015
 */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
-#define TOTAL_MEMORY    16000U  /*  16 kB; 0xe80 */
-#define INPUT_BUFFER    256u    /* 256  B; 0x100 */ 
-#define MENU_INPUT_SIZE 3u      /*   3  B; 0x3 */
+#define TOTAL_MEMORY    0x4000  /* 16kB = (16 * 1024B) */
+#define INPUT_BUFFER    0xFF    /* 255B */
+#define MENU_INPUT_SIZE 0x3     /* 3B input seems to work best. */
 
 
 /* Inline functions */
