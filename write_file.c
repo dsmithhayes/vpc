@@ -3,7 +3,8 @@
 /*
     This routine will write a file to the buffered memory.
 */
-void write_file(void *memory) 
+void 
+write_file(void *memory) 
 { 
     int size;
     unsigned int res;   /* result of fwrite */

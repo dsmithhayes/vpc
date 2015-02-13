@@ -2,7 +2,8 @@
 
 /* Entry point */
 
-int main(int argc, char *argv[])
+int 
+main(int argc, char *argv[])
 {
     char selection;
     static char memory[TOTAL_MEMORY];

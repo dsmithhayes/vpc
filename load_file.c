@@ -9,7 +9,8 @@
         -2:     error finding the size of the file
         -3:     error reading the file into the virtual memory
 */
-int load_file(void *memory, unsigned int max)
+int 
+load_file(void *memory, unsigned int max)
 {
     char file_name[INPUT_BUFFER];       /* user given */
     FILE *f;                            /* the actual file */

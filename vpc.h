@@ -39,7 +39,7 @@ int
 load_file(void *memory, unsigned int max);
 
 void 
-dump_memory(void *memory, unsigned int offset, unsigned int length);
+dump_memory(char *memory, unsigned int offset, unsigned int length);
 
 void 
 modify_memory(void *memory, unsigned int offset);
