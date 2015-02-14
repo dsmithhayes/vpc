@@ -3,14 +3,11 @@
     author: Dave Smith-Hayes
     date:   February 13th, 2015
     
-    this file defines the load_file() function.
+    write_file will write the memory contents to a file.
 */
 
 #include "vpc.h"
 
-/*
-    This routine will write a file to the buffered memory.
-*/
 void 
 write_file(void *memory) 
 { 

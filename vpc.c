@@ -16,6 +16,7 @@ main(int argc, char *argv[])
     char selection;
     static char memory[TOTAL_MEMORY];
     int file_size;   /* result of load_file(); */
+    unsigned int dm_offset, dm_length;  /* for dump_memory */
     
     fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");
     fprintf(stdout, "Type '?' or 'h' for a list of commands.\n");
@@ -35,11 +36,10 @@ main(int argc, char *argv[])
             case 'L':
                 if((file_size = load_file(memory, TOTAL_MEMORY)) > 0)
                     fprintf(stdout, 
-                            "file loaded. %d (0x%x) bytes read.\n", 
+                            "file loaded. 0x%x (%d) bytes read.\n", 
                             file_size, file_size);
                 else
                     perror("load_file: ");
-                
                 break;
             
             case 'w':   /* write the file */
@@ -49,7 +49,18 @@ main(int argc, char *argv[])
             
             case 'd':   /* dump the memory */
             case 'D':
+                fprintf(stdout, "Offset> ");
+                fscanf("%x", &dm_offset);
                 
+                fprintf(stdout, "Length> ");
+                fscanf("%x", &dm_length);
+                
+                /* start from beginning */
+                dm_offset = (dm_offset > TOTAL_MEMORY) ? 0 : dm_offset;
+                dm_length = (dm_length > (TOTAL_MEMORY - dm_offset))
+                        ? 0x10 : dm_length;
+                
+                dump_memory((void) memory, dm_offset, dm_length);
                 break;
             
             case 'm':   /* modify the memory */

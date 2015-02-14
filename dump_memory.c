@@ -6,19 +6,15 @@
     dump_memory() is arbitrarily called with values. Who knows how it
     will act if you supply an offset larger than the memory, but who
     knows! The user interface will prevent this from happening.
+    
+    The value of each memory location is printed on the screen unless
+    its not human readable and then it is represented with a '.'
 */
 
 #include "vpc.h"
 
-/*
-    Prints a memory dump to the screen from the offset using the
-    memory location.
-    
-    The program will print the ASCII value or a '.' if the character
-    is not human readable (use isprint()).
-*/
 void
-dump_memory(char *memory, unsigned int offset, unsigned int length)
+dump_memory(void *memory, unsigned int offset, unsigned int length)
 {
     unsigned int i, j;
     unsigned int row_start;

@@ -2,18 +2,16 @@
     file:   load_file.c
     author: Dave Smith-Hayes
     date:   February 13th, 2015
-    
-    this file defines the load_file() function.
-*/
-    
-#include "vpc.h"
 
-/*
     This routine will load a file into the buffered memory, it will
     return the size of the file loaded.
     
     returns errno of appropriate failure, or the size of he file.
+
 */
+    
+#include "vpc.h"
+
 int 
 load_file(void *memory, unsigned int max)
 {
