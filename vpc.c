@@ -44,9 +44,8 @@ main(int argc, char *argv[])
     
     /* main program loop */
     while(1) {
-        fprintf(stdout, "> ");
-        fgets(&selection, MENU_INPUT_SIZE, stdin);
-        fflush(stdout);
+        fprintf(stdout, "option > ");
+        selection = getchar();
         
         switch(selection) {
             case 'q':
@@ -101,6 +100,9 @@ main(int argc, char *argv[])
                 display_help();
                 break;
         }
+        
+        /* flushes the '\n' in stdin */
+        getchar();
     }
     
     return 0;

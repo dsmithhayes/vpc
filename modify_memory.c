@@ -25,9 +25,7 @@ modify_memory(void *memory, unsigned int offset)
         fprintf(stdout, "%4X> ", offset);
         while(getchar() != '\n');
         
-        if((input = getchar()) == '\n')
-            continue;
-        else if(input == '.')
+        if((input = getchar()) == '.')
             return;
         
         *((char *) memory + offset) = input;
