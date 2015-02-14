@@ -15,10 +15,12 @@
 int 
 load_file(void *memory, unsigned int max)
 {
-    char file_name[INPUT_BUFFER];       /* user given */
-    FILE *f;                            /* the actual file */
-    const char *mode = "r";             /* change this? */
+    char file_name[INPUT_BUFFER];        /* user given */
+    FILE *f;                /* the actual file */
+    const char *mode = "rb"; /* change this? */
     unsigned int size;
+    char buffer;
+    int i = 0;
     
     fprintf(stdout, "file> ");
     fgets(file_name, INPUT_BUFFER, stdin);
@@ -42,12 +44,5 @@ load_file(void *memory, unsigned int max)
     
     rewind(f);
     
-    /* if it didn't read anything for some reason. */
-    if(fgets((char *) memory, size, f) == NULL) {
-        fclose(f);
-        return errno;
-    }
-    
-    fclose(f);
-    return size;
+    return fread(memory, sizeof(char), size, f);
 }

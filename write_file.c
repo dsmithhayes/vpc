@@ -22,7 +22,7 @@ write_file(void *memory)
     
     file_name[strlen(file_name) - 1] = '\0';
     
-    if((f = fopen((const char*) file_name, "w+")) == NULL) {
+    if((f = fopen((const char*) file_name, "wb")) == NULL) {
         fprintf(stdout, "error opening file to write.");
         return;
     }
