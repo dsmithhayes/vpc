@@ -19,14 +19,14 @@ dump_memory(void *memory, unsigned int offset, unsigned int length)
     
     length--;   /* for some reason it needs this? */
     
-    for(i = offset; i < length; i += row_length) {
+    for(i = offset; i < (offset + length); i += row_length) {
         /* the row off set number */
         fprintf(stdout, "%4X\t", i);
         
         /* top row of the display, just the hex value in memory */
         for(j = i; j < (i + row_length); j++) {
             fprintf(stdout, "%2X ", *((char *) memory + j));
-            if(j == length)
+            if(j == (offset + length))
                 break;
         }
         
@@ -39,7 +39,7 @@ dump_memory(void *memory, unsigned int offset, unsigned int length)
             else
                 fprintf(stdout, " . ");
             
-            if(j == length)
+            if(j == (offset + length))
                 break;
         }
         

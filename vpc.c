@@ -44,7 +44,7 @@ main(int argc, char *argv[])
     
     /* main program loop */
     while(1) {
-        fprintf(stdout, "option > ");
+        fprintf(stdout, "option> ");
         selection = getchar();
         
         switch(selection) {
