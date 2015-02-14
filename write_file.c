@@ -11,7 +11,7 @@
 void 
 write_file(void *memory) 
 { 
-    int size;
+    unsigned int size;
     unsigned int res;   /* result of fwrite */
     char file_name[INPUT_BUFFER];
     FILE *f;
@@ -29,14 +29,15 @@ write_file(void *memory)
     
     /* Ask for how many bytes to write. */
     fprintf(stdout, "Number of bytes to write (hex)> ");
-    fscanf(stdin, "%x", &size);
+    fscanf(stdin, "%X", &size);
 
     if(size > TOTAL_MEMORY)
         size = TOTAL_MEMORY;
     
     /* actually write the memory to a file */
     if((res = fwrite(memory, 1, size, f)) > 0)
-        fprintf(stdout, "wrote %d bytes to file successfully.\n", res);
+        fprintf(stdout, "wrote %X (%d) bytes to file successfully.\n", 
+                res, res);
     else
         fprintf(stdout, "error writing file.\n");
     

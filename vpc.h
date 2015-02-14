@@ -10,39 +10,21 @@
 #include <string.h>
 #include <errno.h>
 
-#define TOTAL_MEMORY    0x4000  /* 16kB = (16 * 1024B) */
+#define TOTAL_MEMORY    0x4000  /* 16kB = (16 (0x10) * 1024B (0x400) */
 #define INPUT_BUFFER    0xFF    /* 255B */
 #define MENU_INPUT_SIZE 0x3     /* 3B input seems to work best. */
 
 
-/* Inline functions */
-
-inline void 
-display_help()
-{
-    fprintf(stdout, "d\tdump memory\n");
-    fprintf(stdout, "g\tgo - run the program\n");
-    fprintf(stdout, "l\tload a file into memory\n");
-    fprintf(stdout, "m\tmemory modify\n");
-    fprintf(stdout, "q\tquit\n");
-    fprintf(stdout, "r\tdisplay registers\n");
-    fprintf(stdout, "t\ttrace - execute one instruction\n");
-    fprintf(stdout, "w\twrite file\n");
-    fprintf(stdout, "z\treset all registers to 0\n");
-    fprintf(stdout, "?, h\tdisplay this menu\n\n");
-}
-
-
 /* Function prototypes */
 
-void 
+void
 write_file(void *memory);
 
-int  
+int 
 load_file(void *memory, unsigned int max);
 
-void 
-dump_memory(char *memory, unsigned int offset, unsigned int length);
+void
+dump_memory(void *memory, unsigned int offset, unsigned int length);
 
-void 
+void
 modify_memory(void *memory, unsigned int offset);

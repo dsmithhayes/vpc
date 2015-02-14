@@ -25,11 +25,11 @@ load_file(void *memory, unsigned int max)
     
     file_name[strlen(file_name) - 1] = '\0';
     
-    /* -1 on failure to open the file */
+    /* failure to open, happens when file doesn't exist. */
     if((f = fopen((const char *)file_name, mode)) == NULL)
         return errno;
     
-    /* -2 on failure to seek to the end */
+    /* if for what ever reason seek() fails... */
     if(fseek(f, 0, SEEK_END) == 0)
         size = ftell(f);
     else
@@ -42,8 +42,8 @@ load_file(void *memory, unsigned int max)
     
     rewind(f);
     
-    /* -3 means it didn't read shit. */
-    if(fgets(memory, size, f) == NULL) {
+    /* if it didn't read anything for some reason. */
+    if(fgets((char *) memory, size, f) == NULL) {
         fclose(f);
         return errno;
     }

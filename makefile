@@ -1,3 +1,3 @@
 
 vpc:
-    gcc -o
+    gcc -o vpc *.c
