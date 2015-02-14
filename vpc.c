@@ -37,7 +37,7 @@ main(int argc, char *argv[])
     char selection;
     static char memory[TOTAL_MEMORY];
     int file_size;   /* result of load_file(); */
-    unsigned int dm_offset, dm_length;  /* for dump_memory */
+    unsigned int offset, length;  /* for user input */
     
     fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");
     fprintf(stdout, "Type '?' or 'h' for a list of commands.\n");
@@ -46,7 +46,7 @@ main(int argc, char *argv[])
     while(1) {
         fprintf(stdout, "> ");
         fgets(&selection, MENU_INPUT_SIZE, stdin);
-        fflush(stdin);
+        fflush(stdout);
         
         switch(selection) {
             case 'q':
@@ -61,7 +61,7 @@ main(int argc, char *argv[])
                             "file loaded. 0x%X (%d) bytes read.\n", 
                             file_size, file_size);
                 else
-                    perror("load_file: ");
+                    perror("load_file");
                 break;
             
             case 'w':   /* write the file */
@@ -72,25 +72,28 @@ main(int argc, char *argv[])
             case 'd':   /* dump the memory */
             case 'D':
                 fprintf(stdout, "Offset> ");
-                fscanf(stdin, "%X", &dm_offset);
+                fscanf(stdin, "%X", &offset);
                 
                 fprintf(stdout, "Length> ");
-                fscanf(stdin, "%X", &dm_length);
+                fscanf(stdin, "%X", &length);
                 
-                /* start from beginning if the 
-                   numbers are unreasonable. */
-                dm_offset = (dm_offset > TOTAL_MEMORY) 
-                        ? 0 : dm_offset;
+                /* start from beginning if the numbers are 
+                   unreasonable. */
+                offset = (offset > TOTAL_MEMORY) 
+                        ? 0 : offset;
                 
-                dm_length = (dm_length > (TOTAL_MEMORY - dm_offset))
-                        ? 0x10 : dm_length;
+                length = (length > (TOTAL_MEMORY - offset))
+                        ? 0x10 : length;
                 
-                dump_memory((void *) memory, dm_offset, dm_length);
+                dump_memory((void *) memory, offset, length);
                 break;
             
             case 'm':   /* modify the memory */
             case 'M':
+                fprintf(stdout, "Offset> ");
+                fscanf(stdin, "%X", &offset);
                 
+                modify_memory(memory, offset);
                 break;
             
             case '?':   /* display the help */
