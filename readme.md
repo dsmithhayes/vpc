@@ -14,16 +14,12 @@ impressive yet.
 Testing this on many compilers. The follow is how to compile
 and run `vpc`.
 
-    $ gcc -o vpc vpc.c
+    $ gcc -o vpc *.c
     $ ./vpc
 
 ### bcc
 
-This has also been tested against the Borland 16bit C Compiler and
-works just the same. Also bugs out just the same.
-
-    :\> bcc vpc.c
-    :\> vpc.exe
+This version hasn't been testing against a 16bit compiler yet.
 
 ### Microsoft C++ Compiler
 
