@@ -17,7 +17,7 @@ write_file(void *memory)
     FILE *f;
 
     /* Get the user to input a new file name. */
-    fprintf(stdout, "name of file> ");
+    fprintf(stdout, "filename> ");
     fgets(file_name, INPUT_BUFFER, stdin);
     
     file_name[strlen(file_name) - 1] = '\0';
@@ -28,7 +28,7 @@ write_file(void *memory)
     }
     
     /* Ask for how many bytes to write. */
-    fprintf(stdout, "Number of bytes to write (hex)> ");
+    fprintf(stdout, "bytes to write (hex)> ");
     fscanf(stdin, "%X", &size);
 
     if(size > TOTAL_MEMORY)

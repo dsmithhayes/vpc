@@ -46,6 +46,7 @@ main(int argc, char *argv[])
     while(1) {
         fprintf(stdout, "option > ");
         selection = getchar();
+        while(getchar() != '\n');
         
         switch(selection) {
             case 'q':
@@ -66,18 +67,20 @@ main(int argc, char *argv[])
             case 'w':   /* write the file */
             case 'W':
                 write_file(memory);
+                
+                /* flush the '\n' */
+                getchar();
                 break;
             
             case 'd':   /* dump the memory */
             case 'D':
-                fprintf(stdout, "Offset> ");
+                fprintf(stdout, "offset> ");
                 fscanf(stdin, "%X", &offset);
                 
-                fprintf(stdout, "Length> ");
+                fprintf(stdout, "length> ");
                 fscanf(stdin, "%X", &length);
                 
-                /* start from beginning if the numbers are 
-                   unreasonable. */
+                /* stop unreasonable numbers */
                 offset = (offset > TOTAL_MEMORY) 
                         ? 0 : offset;
                 
@@ -85,24 +88,33 @@ main(int argc, char *argv[])
                         ? 0x10 : length;
                 
                 dump_memory((void *) memory, offset, length);
+                
+                /* flush the '\n' */
+                getchar();
                 break;
             
             case 'm':   /* modify the memory */
             case 'M':
-                fprintf(stdout, "Offset> ");
+                fprintf(stdout, "offset> ");
                 fscanf(stdin, "%X", &offset);
                 
                 modify_memory(memory, offset);
+                
+                /* flush the '\n' */
+                getchar();
                 break;
             
             case '?':   /* display the help */
             case 'h':
                 display_help();
                 break;
+            
+            default:
+                fprintf(stderr, "This feature does not exist.");
+                break;
         }
         
-        /* flushes the '\n' in stdin */
-        getchar();
+        fprintf(stdout, "\n");
     }
     
     return 0;

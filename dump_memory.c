@@ -19,7 +19,7 @@ dump_memory(void *memory, unsigned int offset, unsigned int length)
     
     length--;   /* for some reason it needs this? */
     
-    for(i = offset; i < length; i += row_length) {
+    for(i = offset; i < (offset + length); i += row_length) {
         /* the row off set number */
         fprintf(stdout, "%4X\t", i);
         
@@ -47,6 +47,8 @@ dump_memory(void *memory, unsigned int offset, unsigned int length)
         
         /* stop the routine if its reached the limit. */
         if(j == length)
-            return;
+            break;
     }
+    
+    return;
 }

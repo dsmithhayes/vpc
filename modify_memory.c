@@ -17,20 +17,20 @@ void
 modify_memory(void *memory, unsigned int offset)
 {
     char input;
-    fprintf(stdout, "Modify the memory. Use a '.' to end.\n");
+    fprintf(stdout, "modify the memory. enter '.' to end.\n");
     
-    /* for some reason getchar() is catching my newline characer so
-       I just call it again to flush it. */
     while(1) {
         fprintf(stdout, "%4X> ", offset);
         while(getchar() != '\n');
         
         if((input = getchar()) == '.')
-            return;
+            break;
         
         *((char *) memory + offset) = input;
         
         if(++offset == TOTAL_MEMORY)
-            return;
+            break;
     }
+    
+    return;
 }
