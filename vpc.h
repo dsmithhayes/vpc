@@ -18,13 +18,25 @@
 /* Function prototypes */
 
 void
-write_file(void *memory);
+write_file(
+    void *memory
+);
 
 int 
-load_file(void *memory, unsigned int max);
+load_file(
+    void *memory,
+    unsigned int max
+);
 
 void
-dump_memory(void *memory, unsigned int offset, unsigned int length);
+dump_memory(
+    void *memory,
+    unsigned int offset,
+    unsigned int length
+);
 
 void
-modify_memory(void *memory, unsigned int offset);
+modify_memory(
+    void *memory,
+    unsigned int offset
+);

@@ -15,9 +15,9 @@
 int 
 load_file(void *memory, unsigned int max)
 {
-    char file_name[INPUT_BUFFER];        /* user given */
-    FILE *f;                             /* the actual file */
-    const char *mode = "rb";             /* change this? */
+    char file_name[INPUT_BUFFER];   /* user given */
+    FILE *f;                        /* the actual file */
+    const char *mode = "rb";        /* change this? */
     unsigned int size;
     char buffer;
     int i = 0;

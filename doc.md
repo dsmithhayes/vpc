@@ -1,7 +1,8 @@
 # vpc - documentation
 
 The following is a description of the functions created and their
-algorithms. 
+algorithms. Throughout time this document will expand and remain in the
+order of functionality added.
 
 ## load_file()
 
@@ -16,11 +17,12 @@ the algorithm used to load the file.
 2. If it is a valid file name, open the file into a buffer
 3. Read the size of the file
 4. copy the file into the virtual memory
+5. Return the number of bytes read
 
 This function utlizes the system's implementation of the standard
 library functions `fopen()`, `fread()`, `fseek()`, `ftell()`
  `rewind()`, and  `fgets()`. The appropriate `errno` is returned
-to the main program.
+to the main program on failure of any of those functions. 
 
 ## write_file()
 
@@ -76,23 +78,22 @@ The follow figure is a demonstation of what the output should look like.
 2. Iterate through the memory 
 3. Print the graph above.
 
-**Printing the graph**
+**Printing the table**
 
-Printing the graph was a fun task. The following is the steps and
+Printing the table was a fun task. The following is the steps and
 sizes of iterations used to display the contents of the memory. The
  `offset` variable is where you start in the memory and you keep
 printing until you've printed `length` contents of the memory. The
 table has to be 16 (`0x10`) values long with two rows showing the
 hex value of the memory address, and the ASCII value if there is one.
-The beginning of each row is offsetted by which memory address is the
-first value.
+If there isn't a printable ASCII value, print a period. The beginning
+of each row is offsetted by which memory address is the first value. As
+you can see in the example, the use of 18
 
 1. Print the memory address of the first value
 2. Print the contents of the first address
 3. Print the next 15 (`0xF`) values as hex
-4. Print the same values as ASCII
+4. Print the same values as ASCII on a new line
 5. If the value is not a character, print a `.`
 6. Repeat process at `offset + 16 (0x10)`
 7. If memory adress is equal to `offset + length` end
-
-
