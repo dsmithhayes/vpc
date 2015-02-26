@@ -8,8 +8,6 @@
 
 #include "vpc.h"
 
-void display_help();
-
 /* Entry point */
 
 int 
@@ -17,11 +15,11 @@ main(int argc, char *argv[])
 {
     char selection;
     static char memory[TOTAL_MEMORY];
-    int file_size;   /* result of load_file(); */
-    unsigned int offset, length;  /* for user input */
+    int size;                       /* result of load_file(); */
+    unsigned int offset, length;    /* for user input */
     
     fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");
-    fprintf(stdout, "Type '?' or 'h' for a list of commands.\n");
+    fprintf(stdout, "Type '?', 'H' or 'h' for a list of commands.\n");
     
     /* main program loop */
     while(1) {
@@ -37,17 +35,17 @@ main(int argc, char *argv[])
             
             case 'l':   /* load a file */
             case 'L':
-                if((file_size = load_file(memory, TOTAL_MEMORY)) > 0)
+                if((size = loadf(memory, TOTAL_MEMORY)) > 0)
                     fprintf(stdout, 
                             "file loaded. 0x%X (%d) bytes read.\n", 
-                            file_size, file_size);
+                            size, size);
                 else
                     perror("load_file");
                 break;
             
             case 'w':   /* write the file */
             case 'W':
-                write_file(memory);
+                writef(memory);
                 
                 /* flush the '\n' */
                 getchar();
@@ -62,13 +60,13 @@ main(int argc, char *argv[])
                 fscanf(stdin, "%X", &length);
                 
                 /* stop unreasonable numbers */
-                offset = (offset > TOTAL_MEMORY) 
+                offset = (offset >= TOTAL_MEMORY) 
                         ? 0 : offset;
                 
                 length = (length > (TOTAL_MEMORY - offset))
-                        ? 0x10 : length;
+                        ? (TOTAL_MEMORY - offset) : length;
                 
-                dump_memory((void *) memory, offset, length);
+                dumpmem((void *) memory, offset, length);
                 
                 /* flush the '\n' */
                 getchar();
@@ -79,7 +77,7 @@ main(int argc, char *argv[])
                 fprintf(stdout, "offset> ");
                 fscanf(stdin, "%X", &offset);
                 
-                modify_memory(memory, offset);
+                modmem(memory, offset);
                 
                 /* flush the '\n' */
                 getchar();
@@ -88,7 +86,7 @@ main(int argc, char *argv[])
             case '?':   /* display the help */
             case 'h':
             case 'H':
-                display_help();
+                help();
                 break;
             
             default:
@@ -108,7 +106,7 @@ main(int argc, char *argv[])
 /* Functions and routines */
 
 void
-display_help()
+help()
 {
     
     fprintf(stdout, "All number input should be in UPPER CASE HEX\n");

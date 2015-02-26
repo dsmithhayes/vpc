@@ -12,7 +12,7 @@
 #include "vpc.h"
 
 void
-dump_memory(void *memory, unsigned int offset, unsigned int length)
+dumpmem(void *memory, unsigned int offset, unsigned int length)
 {
     unsigned int i, j;
     unsigned int row_length = 0x10;

@@ -1,5 +1,5 @@
 /*
-    file:   modify_memory.c
+    file:   modmem.c
     author: Dave Smith-Hayes
     date:   February 13th, 2015
     
@@ -14,14 +14,14 @@
 #include "vpc.h"
 
 void 
-modify_memory(void *memory, unsigned int offset)
+modmem(void *memory, unsigned int offset)
 {
     char input;
     fprintf(stdout, "modify the memory. enter '.' to end.\n");
     
     while(1) {
         fprintf(stdout, "%4X> ", offset);
-        while(getchar() != '\n');
+        while(getchar() != '\n');   /* clears a nasty newline */
         
         if((input = getchar()) == '.')
             break;

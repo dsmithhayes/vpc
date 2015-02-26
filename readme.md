@@ -19,7 +19,8 @@ and run `vpc`.
 
 ### bcc
 
-This version hasn't been testing against a 16bit compiler yet.
+This program works the exact same on 16bit DOS and compiles with BCC
+flawlessly.
 
 ### Microsoft C++ Compiler
 

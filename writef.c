@@ -1,5 +1,5 @@
 /*
-    file:   load_file.c
+    file:   loadf.c
     author: Dave Smith-Hayes
     date:   February 13th, 2015
     
@@ -9,7 +9,7 @@
 #include "vpc.h"
 
 void 
-write_file(void *memory) 
+writef(void *memory) 
 { 
     unsigned int size;
     unsigned int res;   /* result of fwrite */

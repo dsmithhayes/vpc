@@ -4,7 +4,7 @@ The following is a description of the functions created and their
 algorithms. Throughout time this document will expand and remain in the
 order of functionality added.
 
-## load_file()
+## loadf()
 
 * `void *memory`
 * `unsigned int max`
@@ -24,7 +24,7 @@ library functions `fopen()`, `fread()`, `fseek()`, `ftell()`
  `rewind()`, and  `fgets()`. The appropriate `errno` is returned
 to the main program on failure of any of those functions. 
 
-## write_file()
+## writef()
 
 * `void *memory`
 
@@ -53,7 +53,7 @@ user enters `.` the writing stops.
 3. place the character into memory
 4. repeat until `.` entered or memory exceeded
 
-## dump_memory()
+## dumpmem()
 
 * `void *memory`
 * `unsigned int offset`

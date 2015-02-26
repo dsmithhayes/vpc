@@ -1,5 +1,5 @@
 /*
-    file:   load_file.c
+    file:   loadf.c
     author: Dave Smith-Hayes
     date:   February 13th, 2015
 
@@ -13,7 +13,7 @@
 #include "vpc.h"
 
 int 
-load_file(void *memory, unsigned int max)
+loadf(void *memory, unsigned int max)
 {
     char file_name[INPUT_BUFFER];   /* user given */
     FILE *f;                        /* the actual file */

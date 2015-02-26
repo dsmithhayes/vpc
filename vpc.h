@@ -13,10 +13,11 @@
 
 #define TOTAL_MEMORY    0x4000  /* 16kB = (16 (0x10) * 1024B (0x400) */
 #define INPUT_BUFFER    0xFF    /* 255B */
-#define MENU_INPUT_SIZE 0x3     /* 3B input seems to work best. */
 
 
 /* Function prototypes */
+
+void help();
 
 void
 write_file(
