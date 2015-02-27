@@ -14,7 +14,6 @@ int
 main(int argc, char *argv[])
 {
     char selection;
-    static char memory[TOTAL_MEMORY];
     int size;                       /* result of load_file(); */
     unsigned int offset, length;    /* for user input */
     
@@ -79,6 +78,9 @@ main(int argc, char *argv[])
                 
                 modmem((void *) memory, offset);
                 break;
+            
+            case 'r':
+            case 'R':
             
             case '?':   /* display the help */
             case 'h':
