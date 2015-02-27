@@ -42,27 +42,10 @@ static bool stop_flag = 0;  /* 1 = stop!, 0 = keep going */
 /* Function prototypes */
 
 void help();
-
-void writef(
-    void *memory
-);
-
-int loadf(
-    void *memory,
-    unsigned int max
-);
-
-void dumpmem(
-    void *memory,
-    unsigned int offset,
-    unsigned int length
-);
-
-void modmem(
-    void *memory,
-    unsigned int offset
-);
-
+void writef(void *memory);
+int  loadf(void *memory, unsigned int max);
+void dumpmem(void *memory, unsigned int offset, unsigned int length);
+void modmem(void *memory, unsigned int offset);
 void zero();
 void dumpreg();
 

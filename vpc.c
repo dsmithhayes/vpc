@@ -17,6 +17,9 @@ main(int argc, char *argv[])
     int size;                       /* result of load_file(); */
     unsigned int offset, length;    /* for user input */
     
+    /* Zero all of the registers */
+    zero();
+    
     fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");
     fprintf(stdout, "Type '?', 'H' or 'h' for a list of commands.\n");
     
