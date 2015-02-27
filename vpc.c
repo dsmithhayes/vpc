@@ -35,7 +35,7 @@ main(int argc, char *argv[])
             
             case 'l':   /* load a file */
             case 'L':
-                if((size = loadf(memory, TOTAL_MEMORY)) > 0)
+                if((size = loadf((void *) memory, TOTAL_MEMORY)) > 0)
                     fprintf(stdout, 
                             "file loaded. 0x%X (%d) bytes read.\n", 
                             size, size);
@@ -45,7 +45,7 @@ main(int argc, char *argv[])
             
             case 'w':   /* write the file */
             case 'W':
-                writef(memory);
+                writef((void *) memory);
                 
                 /* flush the '\n' */
                 getchar();
@@ -77,7 +77,7 @@ main(int argc, char *argv[])
                 fprintf(stdout, "offset> ");
                 fscanf(stdin, "%X", &offset);
                 
-                modmem(memory, offset);
+                modmem((void *) memory, offset);
                 
                 /* flush the '\n' */
                 getchar();

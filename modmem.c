@@ -18,6 +18,10 @@ modmem(void *memory, unsigned int offset)
 {
     char input;
     fprintf(stdout, "modify the memory. enter '.' to end.\n");
+
+    /* Failsafe the memory location to manipulate. */
+    if(offset >= TOTAL_MEMORY)
+        offset = 0;
     
     while(1) {
         fprintf(stdout, "%4X> ", offset);

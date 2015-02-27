@@ -20,7 +20,6 @@ loadf(void *memory, unsigned int max)
     const char *mode = "rb";        /* change this? */
     unsigned int size;
     char buffer;
-    int i = 0;
     
     fprintf(stdout, "file> ");
     fgets(file_name, INPUT_BUFFER, stdin);
