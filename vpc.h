@@ -31,38 +31,38 @@ static unsigned long mbr;                    /* memory buffer register */
 static unsigned long mar;                    /* memory address register */
 static unsigned long ir;                     /* instruction register */
 
-static bool IR_flag = 0;    /* 0 = IR0, 1 = IR1 */
+static bool ir_flag   = 0;  /* 0 = IR0, 1 = IR1 */
 static bool stop_flag = 0;  /* 1 = stop!, 0 = keep going */
 
 /* User Interface */
 
-#define INPUT_BUFFER    0xFF    /* 255B */
-#define HEX_INPUT       0x4
+#define INPUT_BUFFER    0xFF    /* 255B input for strings */
+#define HEX_INPUT       0x4     /* 4B for (hex) string values */
 
 /* Function prototypes */
 
 void help();
 
-void
-write_file(
+void writef(
     void *memory
 );
 
-int 
-load_file(
+int loadf(
     void *memory,
     unsigned int max
 );
 
-void
-dump_memory(
+void dumpmem(
     void *memory,
     unsigned int offset,
     unsigned int length
 );
 
-void
-modify_memory(
+void modmem(
     void *memory,
     unsigned int offset
 );
+
+void zero();
+void dumpreg();
+

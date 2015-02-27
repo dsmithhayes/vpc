@@ -79,8 +79,20 @@ main(int argc, char *argv[])
                 modmem((void *) memory, offset);
                 break;
             
-            case 'r':
+            case 'r':   /* displays registers */
             case 'R':
+                
+                break;
+            
+            case 'z':   /* sets registers to zero */
+            case 'Z':
+                zero();
+                break;
+            
+            case 't':   /* trace the program */
+            case 'T':
+                
+                break;
             
             case '?':   /* display the help */
             case 'h':
