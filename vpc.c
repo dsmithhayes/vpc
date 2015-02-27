@@ -78,9 +78,6 @@ main(int argc, char *argv[])
                 fscanf(stdin, "%X", &offset);
                 
                 modmem((void *) memory, offset);
-                
-                /* flush the '\n' */
-                getchar();
                 break;
             
             case '?':   /* display the help */

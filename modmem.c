@@ -13,28 +13,42 @@
 
 #include "vpc.h"
 
+
 void 
 modmem(void *memory, unsigned int offset)
 {
-    char input;
+    char input[HEX_INPUT];
+    unsigned int buffer;
+    int i;
+
     fprintf(stdout, "modify the memory. enter '.' to end.\n");
 
     /* Failsafe the memory location to manipulate. */
     if(offset >= TOTAL_MEMORY)
         offset = 0;
+
+    while(getchar() != '\n');
     
     while(1) {
         fprintf(stdout, "%4X> ", offset);
-        while(getchar() != '\n');   /* clears a nasty newline */
-        
-        if((input = getchar()) == '.')
-            break;
-        
-        *((char *) memory + offset) = input;
-        
+
+        fgets(input, HEX_INPUT, stdin);
+        input[(strlen(input) - 1)] = '\0';
+
+        if(strcmp(input, ".") == 0)
+            return;
+       
+        for(i = 0; i < strlen(input); i++)
+            if(!isxdigit((int) input[i]))
+                continue;
+
+        sscanf(input, "%2X", &buffer);
+ 
+        *((char *) memory + offset) = (char) buffer;
+
         if(++offset == TOTAL_MEMORY)
-            break;
+            return;
     }
-    
-    return;
+
+    return;    
 }

@@ -7,12 +7,14 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 #include <errno.h>
 #include <ctype.h>
 
 #define TOTAL_MEMORY    0x4000  /* 16kB = (16 (0x10) * 1024B (0x400) */
 #define INPUT_BUFFER    0xFF    /* 255B */
+#define HEX_INPUT       0x4
 
 
 /* Function prototypes */
