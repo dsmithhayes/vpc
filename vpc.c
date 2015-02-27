@@ -89,6 +89,7 @@ main(int argc, char *argv[])
             
             case 'z':   /* sets registers to zero */
             case 'Z':
+                fprintf(stdout, "Setting all registers to 0.\n");
                 zero();
                 break;
             
