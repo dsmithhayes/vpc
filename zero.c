@@ -21,5 +21,8 @@ zero()
     mar = 0;
     ir  = 0;
     
+    ir_flag = 0;
+    stop_flag = 0;
+    
     return;
 }

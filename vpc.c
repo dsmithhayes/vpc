@@ -84,7 +84,7 @@ main(int argc, char *argv[])
             
             case 'r':   /* displays registers */
             case 'R':
-                
+                dumpreg();
                 break;
             
             case 'z':   /* sets registers to zero */
