@@ -45,18 +45,29 @@ static bool stop_flag = 0;  /* 1 = stop!, 0 = keep going */
 
 /* Function prototypes */
 
+/* Display the usage help. */
 void help();
 
+/* Write a file onto the disk. */
 void writef(void *memory);
 
+/* Load a file into the memory. */
 int  loadf(void *memory, unsigned int max);
 
+/* Dumps the memory to screen. */
 void dumpmem(void *memory, unsigned int offset, unsigned int length);
 
+/* Modifies the memory. */
 void modmem(void *memory, unsigned int offset);
 
+/* Sets all registers to zero */
 void zero();
 
+/* Displays all of the registers to the screen. */
 void dumpreg();
 unsigned int ir0(unsigned long in);
 unsigned int ir1(unsigned long in);
+
+void trace();
+void fetch();
+#define INST_SIZE   4   /* Instruction size in bytes */
