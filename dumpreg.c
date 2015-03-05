@@ -28,6 +28,8 @@ dumpreg()
         if(i % 4 == 0)
             fprintf(stdout, "\n");
     }
+
+    ir = 0xff2233ee;
     
     fprintf(stdout, " SP: 0x%08lX ", registers[SP]);
     fprintf(stdout, " LR: 0x%08lX ", registers[LR]);
@@ -45,7 +47,7 @@ dumpreg()
     fprintf(stdout, "MBR: 0x%08lX\n", mbr);
     fprintf(stdout, "MAR: 0x%08lX\n", mar);
     fprintf(stdout, "IR0: 0x%04X\n", ir0(ir));
-    fprintf(stdout, "IR1: 0x%04X\n", ir0(ir1(ir)));
+    fprintf(stdout, "IR1: 0x%04X\n", ir1(ir));
 
     fprintf(stdout, "\n");
     fprintf(stdout, "Stop Flag: %d\n", stop_flag ? 1 : 0);
@@ -55,7 +57,14 @@ dumpreg()
 }
 
 unsigned int
-ir0(unsigned long in) { return in >> 0x10; }
+ir0(unsigned long in)
+{
+    return in >> 0x10;
+}
 
 unsigned int
-ir1(unsigned long in) { return in << 0x10; }
+ir1(unsigned long in)
+{
+    unsigned int tmp = in << 0x10;
+    return tmp >> 0x10;
+}
