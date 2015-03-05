@@ -40,7 +40,7 @@ modmem(void *memory, unsigned int offset)
        
         for(i = 0; i < strlen(input); i++)
             if(!isxdigit((int) input[i]))
-                continue;
+                break;
 
         sscanf(input, "%2X", &buffer);
  

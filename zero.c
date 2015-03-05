@@ -3,7 +3,8 @@
     author: Dave Smith-Hayes
     date:   February 27th, 2015
     
-    this will take all of the registers and assign all their values to zero.
+    this will take all of the registers and assign all their
+    values to zero.
 */
 
 #include "vpc.h"
