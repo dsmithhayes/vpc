@@ -19,8 +19,6 @@ main(int argc, char *argv[])
     
     /* Zero all of the registers */
     zero();
-
-    ir = 0xFFEE22AA;
     
     fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");
     fprintf(stdout, "Type '?', 'H' or 'h' for a list of commands.\n");

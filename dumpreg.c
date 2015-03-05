@@ -12,7 +12,8 @@ void
 dumpreg()
 {
     unsigned short i = 0;
-    
+
+    /* Display the registers in a 4x4 grid */
     while(i < TOTAL_REG) {
         
         fprintf(
@@ -29,8 +30,7 @@ dumpreg()
             fprintf(stdout, "\n");
     }
 
-    ir = 0xff2233ee;
-    
+    /* Special value registers */
     fprintf(stdout, " SP: 0x%08lX ", registers[SP]);
     fprintf(stdout, " LR: 0x%08lX ", registers[LR]);
     fprintf(stdout, " PC: 0x%08lX\n", registers[PC]);
