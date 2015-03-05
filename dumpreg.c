@@ -58,4 +58,4 @@ unsigned int
 ir0(unsigned long in) { return in >> 0x10; }
 
 unsigned int
-ir1(unsigned long in) { return (in << 0x10) >> 0x10; }
+ir1(unsigned long in) { return in << 0x10; }
