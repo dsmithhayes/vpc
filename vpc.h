@@ -18,7 +18,7 @@
 
 /* 16kB = (16 (0x10) * 1024B (0x400)) */
 #define TOTAL_MEMORY    0x4000
-static char memory[TOTAL_MEMORY];
+static unsigned char    memory[TOTAL_MEMORY];
 
 /***************
  *  Registers  *

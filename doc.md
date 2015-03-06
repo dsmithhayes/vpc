@@ -38,7 +38,7 @@ user. The following is how this process is accomplished.
 4. If the given size is unreasonable, make it the whole memory
 5. Write the memory to the file.
 
-## modify_memory()
+## modmem()
 
 * `void *memory`
 * `unsigned int offset`
@@ -97,3 +97,35 @@ you can see in the example, the use of 18
 5. If the value is not a character, print a `.`
 6. Repeat process at `offset + 16 (0x10)`
 7. If memory adress is equal to `offset + length` end
+
+## zero
+
+ `zero()` will set all of the registers in the CPU to `0`.
+
+## dumpreg
+
+Dumping the registers is useful to see what the heck is actually going
+on with the program. When you use the `R` command it will display all
+of the registers in a very neat order.
+
+**The Register Output**
+
+    option> r
+    R 1: 0x00000000 R 2: 0x00000000 R 3: 0x00000000 R 4: 0x00000000 
+    R 5: 0x00000000 R 6: 0x00000000 R 7: 0x00000000 R 8: 0x00000000 
+    R 9: 0x00000000 R10: 0x00000000 R11: 0x00000000 R12: 0x00000000 
+    R13: 0x00000000  SP: 0x00000000  LR: 0x00000000  PC: 0x00000000
+    
+    CCR: 000 (sign, zero, carry)
+    MBR: 0x00000000
+    MAR: 0x00000000
+    IR0: 0x0000
+    IR1: 0x0000
+    
+    Stop Flag: 0
+    Active IR: 0
+
+As you can see, there is nothing in any of the registers. This is
+because the program initializes all the registers to 0 when it starts
+up. Also, the special registers ( `SP` stack pointer, `LR` link
+riger, `PC` program counter) are noted above.
