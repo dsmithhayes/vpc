@@ -102,7 +102,7 @@ you can see in the example, the use of 18
 
  `zero()` will set all of the registers in the CPU to `0`.
 
-## dumpreg
+## dumpreg()
 
 Dumping the registers is useful to see what the heck is actually going
 on with the program. When you use the `R` command it will display all
@@ -128,4 +128,4 @@ of the registers in a very neat order.
 As you can see, there is nothing in any of the registers. This is
 because the program initializes all the registers to 0 when it starts
 up. Also, the special registers ( `SP` stack pointer, `LR` link
-riger, `PC` program counter) are noted above.
+register, `PC` program counter) are noted above.
