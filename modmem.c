@@ -18,8 +18,7 @@ void
 modmem(void *memory, unsigned int offset)
 {
     char input[HEX_INPUT];
-    unsigned int buffer;
-    int i;
+    unsigned long buffer;
 
     fprintf(stdout, "modify the memory. enter '.' to end.\n");
 
@@ -27,28 +26,33 @@ modmem(void *memory, unsigned int offset)
     if(offset >= TOTAL_MEMORY)
         offset = 0;
 
+    /* the program likes having this here? */
     while(getchar() != '\n');
     
     while(1) {
         fprintf(stdout, "%4X> ", offset);
 
-        fgets(input, HEX_INPUT, stdin);
-        input[(strlen(input) - 1)] = '\0';
+        if(fgets(input, HEX_INPUT, stdin) == NULL) {
+            perror("fgets");
+            return;
+        }
+        else
+            input[(strlen(input) - 1)] = '\0';  /* kill the \n */
 
         if(strcmp(input, ".") == 0)
             return;
-       
-        for(i = 0; i < strlen(input); i++)
-            if(!isxdigit((int) input[i]))
-                return; /* not hex? no fun. */
 
-        sscanf(input, "%2X", &buffer);
- 
-        *((char *) memory + offset) = (char) buffer;
+        if((buffer = strtoul(input, NULL, HEX)) == ULONG_MAX) {
+            perror("strtoul");
+            return;
+        }
+        
+        /* change this? */
+        *((char *) memory + offset) = buffer;
 
         if(++offset == TOTAL_MEMORY)
             return;
     }
 
-    return;    
+    return;
 }

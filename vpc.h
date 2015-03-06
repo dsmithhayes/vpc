@@ -12,13 +12,17 @@
 #include <errno.h>
 #include <ctype.h>
 
-/* Memory */
+/************
+ *  Memory  *
+ ************/
 
 /* 16kB = (16 (0x10) * 1024B (0x400)) */
 #define TOTAL_MEMORY    0x4000
 static char memory[TOTAL_MEMORY];
 
-/* Registers */
+/***************
+ *  Registers  *
+ ***************/
 
 #define TOTAL_REG   0x10    /* For the general registers */
 #define SP          0xD     /* Stack Pointer */
@@ -38,12 +42,16 @@ static unsigned long ir;    /* instruction register */
 static bool ir_flag   = 0;  /* 0 = IR0, 1 = IR1 */
 static bool stop_flag = 0;  /* 1 = stop!, 0 = keep going */
 
-/* User Interface */
+/********************
+ *  User Interface  *
+ ********************/
 
 #define INPUT_BUFFER    0xFF    /* 255B input for strings */
-#define HEX_INPUT       0x4     /* 4B for (hex) string values */
+#define HEX_INPUT       4       /* 4B for (hex) string values */
 
-/* Function prototypes */
+/*************************
+ *  Function prototypes  *
+ *************************/
 
 /* Display the usage help. */
 void help();
@@ -71,3 +79,10 @@ unsigned int ir1(unsigned long in);
 void trace();
 void fetch();
 #define INST_SIZE   4   /* Instruction size in bytes */
+
+
+/**********
+ *  Misc  *
+ **********/
+
+#define HEX     0x10
