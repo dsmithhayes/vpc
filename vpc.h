@@ -48,6 +48,7 @@ static bool stop_flag = 0;  /* 1 = stop!, 0 = keep going */
 
 #define INPUT_BUFFER    0xFF    /* 255B input for strings */
 #define HEX_INPUT       4       /* 4B for (hex) string values */
+#define OUTPUT_MASK     0x000000FF
 
 /*************************
  *  Function prototypes  *
@@ -76,6 +77,7 @@ void dumpreg();
 unsigned int ir0(unsigned long in);
 unsigned int ir1(unsigned long in);
 
+/* Trace the memory and commands. */
 void trace();
 void fetch();
 #define INST_SIZE   4   /* Instruction size in bytes */

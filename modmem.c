@@ -42,13 +42,11 @@ modmem(void *memory, unsigned int offset)
         if(strcmp(input, ".") == 0)
             return;
 
-        if((buffer = strtoul(input, NULL, HEX)) == ULONG_MAX) {
-            perror("strtoul");
-            return;
-        }
+        /* stroul() = string to unsigned long */
+        buffer = strtoul(input, NULL, HEX);
         
         /* change this? */
-        *((char *) memory + offset) = buffer;
+        *((char *) memory + offset) = (char) buffer;
 
         if(++offset == TOTAL_MEMORY)
             return;
