@@ -42,7 +42,7 @@ main(int argc, char *argv[])
                             "file loaded. 0x%X (%d) bytes read.\n", 
                             size, size);
                 else
-                    perror("load_file");
+                    perror("loadf");
                 break;
             
             case 'w':   /* write the file */
@@ -95,7 +95,7 @@ main(int argc, char *argv[])
             
             case 't':   /* trace the program */
             case 'T':
-                
+                trace();
                 break;
             
             case '?':   /* display the help */

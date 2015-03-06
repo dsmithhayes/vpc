@@ -129,3 +129,13 @@ As you can see, there is nothing in any of the registers. This is
 because the program initializes all the registers to 0 when it starts
 up. Also, the special registers ( `SP` stack pointer, `LR` link
 register, `PC` program counter) are noted above.
+
+## trace()
+
+Tracing through the program, one by one. This will load the registers
+with the appropriate data from the memory, incrementing accordingly.
+
+## fetch()
+
+Fetching happens when the data is actually requested for the specific
+register.
