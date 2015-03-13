@@ -7,7 +7,8 @@
     values to zero.
 */
 
-#include "vpc.h"
+#include <stdio.h>
+#include "registers.h"
 
 void
 zero()

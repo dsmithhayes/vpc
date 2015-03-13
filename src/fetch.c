@@ -6,7 +6,8 @@
     date:       Mar 12, 2015
 */
 
-#include "vpc.h"
+#include <stdio.h>
+#include "registers.h"
 
 void
 fetch(void *memory)

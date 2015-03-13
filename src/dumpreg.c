@@ -5,7 +5,9 @@
 
     Displays the contents of each register.
 */
-#include "vpc.h"
+
+#include <stdio.h>
+#include "registers.h"
 
 void
 dumpreg()
