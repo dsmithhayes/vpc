@@ -1,13 +1,15 @@
 CC=gcc
+CFLAGS=-Ilib/
 
-INCDIR := -Ilib/
-SRCDIR := src/
-OBJDIR := obj/
+SRCDIR=src
+OBJDIR=obj
+
+OBJS=$(OBJDIR)/%.o
 
 all: vpc
 
-vpc:
-    
+vpc: $(OBJS)
+	$(CC) -c 
 
-clean:
-    rm ($OBJDIR)*.o
+$(OBJS): $(SRCDIR)/%.c
+	$(CC) $(CFLAGS) $< -c $@

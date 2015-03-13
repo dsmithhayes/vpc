@@ -22,7 +22,7 @@ fetch(void *memory)
     registers[PC] += REG_SIZE;
 
     do {
-        mbr += mbr << BITS_PER_BYTE;            /* HA! I used it! */
-        mbr = ((char *) memory + (mar + i++));
+        mbr = mbr << BITS_PER_BYTE;            /* HA! I used it! */
+        mbr += ((char *) memory + (mar + i++));
     } while (i != REG_SIZE);
 }
