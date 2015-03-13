@@ -11,5 +11,12 @@
 void
 fetch()
 {
+<<<<<<< HEAD
     mar = registers[PC];
+=======
+	mra = registers[PC];
+	mbr = memory[mra];
+	
+	
+>>>>>>> ab4d0572defa2e6b9b089761f46dccc22acf5c73
 }
