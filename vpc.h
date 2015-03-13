@@ -14,18 +14,18 @@
 #include <ctype.h>
 
 
-/************
- *  Memory  *
- ************/
+/************/
+/*  Memory  */
+/************/
 
 /* 16kB = (16 (0x10) * 1024B (0x400)) */
 #define TOTAL_MEMORY    0x4000
 static unsigned char    memory[TOTAL_MEMORY];
 
 
-/***************
- *  Registers  *
- ***************/
+/***************/
+/*  Registers  */
+/***************/
 
 #define REG_FILE_S  0x10    /* Size of reg file */
 #define SP          0xD     /* Stack Pointer    */
@@ -52,18 +52,18 @@ static bool ir_flag   = 0;  /* 0 = IR0, 1 = IR1 */
 static bool stop_flag = 0;  /* 1 = stop!, 0 = keep going */
 
 
-/********************
- *  User Interface  *
- ********************/
+/********************/
+/*  User Interface  */
+/********************/
 
 #define INPUT_BUFFER    0xFF    /* 255B input for strings     */
 #define HEX_INPUT       4       /* 4B for (hex) string values */
 #define OUTPUT_MASK     0xFF
 
 
-/*************************
- *  Function prototypes  *
- *************************/
+/*************************/
+/*  Function prototypes  */
+/*************************/
 
 /* Display the usage help. */
 void help();
@@ -92,11 +92,11 @@ unsigned int ir1(unsigned long in); /* returns ir1 from ir  */
 void trace();
 
 /* sets the registers accordingly */
-void fetch();
+void fetch(void *memory);
 
 
-/**********
- *  Misc  *
- **********/
+/**********/
+/*  Misc  */
+/**********/
 
 #define HEX 0x10

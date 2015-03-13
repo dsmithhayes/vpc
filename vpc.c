@@ -8,25 +8,34 @@
 
 #include "vpc.h"
 
+/***************/
 /* Entry point */
+/***************/
 
 int 
 main(int argc, char *argv[])
 {
     char selection;
-    int size;                       /* result of load_file(); */
-    unsigned int offset, length;    /* for user input */
+    int size;                    /* result of load_file(); */
+    unsigned int offset, length; /* for user input */
+
     
     /* Zero all of the registers */
     zero();
 
-    /* check if there is an argument, see if its a file, open it. */
+
+    /*
+     * TODO: check if there is an argument,
+     * see if its a file, open it.
+     */
+
     
     fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");
     fprintf(stdout, "Type '?', 'H' or 'h' for a list of commands.\n");
+
     
     /* main program loop */
-    while(1) {
+    while(1) {          /* bold statement assuming numbers exist! */
         fprintf(stdout, "option> ");
         selection = getchar();
         while(getchar() != '\n');
@@ -36,6 +45,7 @@ main(int argc, char *argv[])
             case 'Q':
                 exit(0);
                 break;
+
             
             case 'l':   /* load a file */
             case 'L':
@@ -46,6 +56,7 @@ main(int argc, char *argv[])
                 else
                     perror("loadf");
                 break;
+
             
             case 'w':   /* write the file */
             case 'W':
@@ -54,6 +65,7 @@ main(int argc, char *argv[])
                 /* flush the '\n' */
                 getchar();
                 break;
+
             
             case 'd':   /* dump the memory */
             case 'D':
@@ -75,6 +87,7 @@ main(int argc, char *argv[])
                 /* flush the '\n' */
                 getchar();
                 break;
+
             
             case 'm':   /* modify the memory */
             case 'M':
@@ -83,28 +96,33 @@ main(int argc, char *argv[])
                 
                 modmem((void *) memory, offset);
                 break;
+
             
             case 'r':   /* displays registers */
             case 'R':
                 dumpreg();
                 break;
+
             
             case 'z':   /* sets registers to zero */
             case 'Z':
                 fprintf(stdout, "Setting all registers to 0.\n");
                 zero();
                 break;
+
             
             case 't':   /* trace the program */
             case 'T':
                 trace();
                 break;
+
             
             case '?':   /* display the help */
             case 'h':
             case 'H':
                 help();
                 break;
+
             
             default:
                 fprintf(
@@ -120,7 +138,10 @@ main(int argc, char *argv[])
     return 0;
 }
 
+
+/**************************/
 /* Functions and routines */
+/**************************/
 
 void
 help()
