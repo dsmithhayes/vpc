@@ -58,12 +58,12 @@ dumpreg()
 unsigned int
 ir0(unsigned long in)
 {
-    return in >> INST_SIZE;
+    return in >> INS_BIT_S;
 }
 
 unsigned int
 ir1(unsigned long in)
 {
-    unsigned int tmp = in << INST_SIZE;
+    unsigned int tmp = in << INS_BIT_S;
     return ir0(tmp);
 }

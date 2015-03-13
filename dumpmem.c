@@ -48,8 +48,6 @@ dumpmem(void *memory, unsigned int offset, unsigned int length)
         
         /* stop the routine if its reached the limit. */
         if(j == length)
-            break;
+            return;
     }
-    
-    return;
 }

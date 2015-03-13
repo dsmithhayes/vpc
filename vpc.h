@@ -1,5 +1,5 @@
 /*
-    vpc is a virtual memory program.
+    vpc is a virtual processor.
 
     file:       vpc.h
     author:     Dave Smith-Hayes
@@ -12,6 +12,7 @@
 #include <errno.h>
 #include <ctype.h>
 
+
 /************
  *  Memory  *
  ************/
@@ -19,6 +20,7 @@
 /* 16kB = (16 (0x10) * 1024B (0x400)) */
 #define TOTAL_MEMORY    0x4000
 static unsigned char    memory[TOTAL_MEMORY];
+
 
 /***************
  *  Registers  *
@@ -35,8 +37,10 @@ static unsigned long registers[REG_FILE_S];   /* general registers */
 #define CARRY   1   /* 001 */
 static unsigned long ccr;   /* Sign, Zero, Carry flags  */
 
-#define REG_SIZE    0x20    /* 32bit registers          */
-#define INSTR_SIZE  0x10    /* 16bit instruction sizes  */
+#define REG_SIZE    4       /* 4Byte registers          */
+#define REG_BIT_S   0x20    /* 32bit registers          */
+#define INSTR_SIZE  2       /* 2Byte instructions       */
+#define INS_BIT_S   0x10    /* 16bit instructions       */
 static unsigned long mbr;   /* memory buffer register   */
 static unsigned long mar;   /* memory address register  */
 static unsigned long ir;    /* instruction register     */
@@ -44,13 +48,15 @@ static unsigned long ir;    /* instruction register     */
 static bool ir_flag   = 0;  /* 0 = IR0, 1 = IR1 */
 static bool stop_flag = 0;  /* 1 = stop!, 0 = keep going */
 
+
 /********************
  *  User Interface  *
  ********************/
 
 #define INPUT_BUFFER    0xFF    /* 255B input for strings     */
 #define HEX_INPUT       4       /* 4B for (hex) string values */
-#define OUTPUT_MASK     0x000000FF
+#define OUTPUT_MASK     0xFF
+
 
 /*************************
  *  Function prototypes  *
@@ -63,7 +69,7 @@ void help();
 void writef(void *memory);
 
 /* Load a file into the memory. */
-int  loadf(void *memory, unsigned int max);
+int loadf(void *memory, unsigned int max);
 
 /* Dumps the memory to screen. */
 void dumpmem(void *memory, unsigned int offset, unsigned int length);
@@ -76,8 +82,8 @@ void zero();
 
 /* Displays all of the registers to the screen. */
 void dumpreg();
-unsigned int ir0(unsigned long in); /* formats the `ir` register */
-unsigned int ir1(unsigned long in); /* for either ir0 or ir1     */
+unsigned int ir0(unsigned long in); /* returns ir0 from ir  */
+unsigned int ir1(unsigned long in); /* returns ir1 from ir  */
 
 /* single steps through the program */
 void trace();

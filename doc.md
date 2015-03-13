@@ -62,7 +62,8 @@ user enters `.` the writing stops.
 Dumping the memory to the screen is necessary to allow the user to
 visually see what's being manipulated in the memory.
 
-The follow figure is a demonstation of what the output should look like.
+The follow figure is a demonstation of what the output should look
+like.
 
     offset> 18
     length> 40
@@ -82,7 +83,7 @@ The follow figure is a demonstation of what the output should look like.
 
 Printing the table was a fun task. The following is the steps and
 sizes of iterations used to display the contents of the memory. The
- `offset` variable is where you start in the memory and you keep
+`offset` variable is where you start in the memory and you keep
 printing until you've printed `length` contents of the memory. The
 table has to be 16 (`0x10`) values long with two rows showing the
 hex value of the memory address, and the ASCII value if there is one.
@@ -100,7 +101,7 @@ you can see in the example, the use of 18
 
 ## zero
 
- `zero()` will set all of the registers in the CPU to `0`.
+`zero()` will set all of the registers in the CPU to `0`.
 
 ## dumpreg()
 
@@ -127,7 +128,7 @@ of the registers in a very neat order.
 
 As you can see, there is nothing in any of the registers. This is
 because the program initializes all the registers to 0 when it starts
-up. Also, the special registers ( `SP` stack pointer, `LR` link
+up. Also, the special registers (`SP` stack pointer, `LR` link
 register, `PC` program counter) are noted above.
 
 ## trace()
@@ -138,4 +139,35 @@ with the appropriate data from the memory, incrementing accordingly.
 ## fetch()
 
 Fetching happens when the data is actually requested for the specific
-register.
+register. Memory will be retrieved in 32bit (`0x20`) chunks as per the
+size of the registers. Note that memory is stored in a single byte
+(8bit) array. The order of this operation is operation is as follows:
+
+1. Move the value of the `registers[PC]` into `mar`
+2. Move the next four (4) values of `memory[mar]` into `mbr`
+3. Move the value of `mbr` into `ir`
+4. Adjust `registers[PC]` by 4 - per each byte of the array
+
+`registers[PC]` is the Program Counter register. This register keeps
+track of where in memory the program is grabbing the next pieces of
+data.
+
+`mar` and `mbr` are the Memory Address Register, and Memory Buffer
+Register. These registers control the I/O of the processor. Because
+the memory is stored as a series of single bytes, there needs to be
+four requests to memory to load the Memory Buffer Register. The
+operation would look something like
+
+    mbr = memory[mar] << 0x18;
+    mbr += memory[mar + 1] << 0x10;
+    mbr += memory[mar + 2] << 8;
+    mbr += memory[mar + 3];
+
+From there we will add `mar + 4` to the Program Counter to point to the
+next piece of memory.
+
+`ir` is the Instruction Register. This is a 32bit (`0x20`) register
+that holds two 16bit (`0x10`) instructions. These pseudo registers are
+referred to as `ir0` and `ir1`. Functions supplied for getting the
+proper instruction from the `ir` register are `ir0(unsigned int)` and
+`ir1(unsigned int)` respectively.

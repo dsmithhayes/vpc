@@ -10,8 +10,10 @@
 
 void
 trace()
-{    
-    fprintf(stdout, "MRA:\t0x%08lX\n", mra);
+{
+    fetch();
+    
+    fprintf(stdout, "MRA:\t0x%08lX\n", mar);
     fprintf(stdout, "MBR:\t0x%08lX\n", mbr);
     fprintf(stdout, "PC:\t0x%08lX\n", registers[PC]);
     fprintf(stdout, "IR0:\t0x%04X\n", ir0(ir));

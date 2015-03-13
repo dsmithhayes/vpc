@@ -19,6 +19,8 @@ main(int argc, char *argv[])
     
     /* Zero all of the registers */
     zero();
+
+    /* check if there is an argument, see if its a file, open it. */
     
     fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");
     fprintf(stdout, "Type '?', 'H' or 'h' for a list of commands.\n");
@@ -123,10 +125,9 @@ main(int argc, char *argv[])
 void
 help()
 {
-    
     fprintf(stdout, "All number input should be in UPPER CASE HEX\n");
     fprintf(stdout, "Using lowercase will yield unfavourable results");
-    
+
     fprintf(stdout, "d\tdump memory\n");
     fprintf(stdout, "g\tgo - run the program\n");
     fprintf(stdout, "l\tload a file into memory\n");
