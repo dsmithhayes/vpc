@@ -138,6 +138,8 @@ with the appropriate data from the memory, incrementing accordingly.
 
 ## fetch()
 
+* `void *memory`
+
 Fetching happens when the data is actually requested for the specific
 register. Memory will be retrieved in 32bit (`0x20`) chunks as per the
 size of the registers. Note that memory is stored in a single byte

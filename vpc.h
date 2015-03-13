@@ -1,5 +1,6 @@
 /*
-    vpc is a virtual processor.
+    vpc is a virtual processor. It had 32bit registers and uses 16bit
+    instructions.
 
     file:       vpc.h
     author:     Dave Smith-Hayes
@@ -30,20 +31,22 @@ static unsigned char    memory[TOTAL_MEMORY];
 #define SP          0xD     /* Stack Pointer    */
 #define LR          0xE     /* Link Register    */
 #define PC          0xF     /* Porgram Counter  */
-static unsigned long registers[REG_FILE_S];   /* general registers */
+
+/* register file */
+static unsigned long registers[REG_FILE_S] = { 0 };
 
 #define SIGN    4   /* 100 */
 #define ZERO    2   /* 010 */
 #define CARRY   1   /* 001 */
-static unsigned long ccr;   /* Sign, Zero, Carry flags  */
+static unsigned long ccr = 0;   /* Sign, Zero, Carry flags  */
 
-#define REG_SIZE    4       /* 4Byte registers          */
-#define REG_BIT_S   0x20    /* 32bit registers          */
-#define INSTR_SIZE  2       /* 2Byte instructions       */
-#define INS_BIT_S   0x10    /* 16bit instructions       */
-static unsigned long mbr;   /* memory buffer register   */
-static unsigned long mar;   /* memory address register  */
-static unsigned long ir;    /* instruction register     */
+#define REG_SIZE    4           /* 4Byte registers          */
+#define REG_BIT_S   0x20        /* 32bit registers          */
+#define INSTR_SIZE  2           /* 2Byte instructions       */
+#define INS_BIT_S   0x10        /* 16bit instructions       */
+static unsigned long mbr = 0;   /* memory buffer register   */
+static unsigned long mar = 0;   /* memory address register  */
+static unsigned long ir  = 0;   /* instruction register     */
 
 static bool ir_flag   = 0;  /* 0 = IR0, 1 = IR1 */
 static bool stop_flag = 0;  /* 1 = stop!, 0 = keep going */

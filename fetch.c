@@ -9,7 +9,7 @@
 #include "vpc.h"
 
 void
-fetch()
+fetch(void *memory)
 {
 
 }
