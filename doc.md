@@ -158,9 +158,9 @@ data.
 Register. These registers control the I/O of the processor. Because
 the memory is stored as a series of single bytes, there needs to be
 four requests to memory to load the Memory Buffer Register. The
-operation would look something like
+operation would look something like this:
 
-    mbr = memory[mar] << 0x18;
+    mbr  = memory[mar] << 0x18;
     mbr += memory[mar + 1] << 0x10;
     mbr += memory[mar + 2] << 8;
     mbr += memory[mar + 3];

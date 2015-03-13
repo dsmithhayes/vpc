@@ -16,10 +16,10 @@ int
 main(int argc, char *argv[])
 {
     char selection;
-    int size;                    /* result of load_file(); */
-    unsigned int offset, length; /* for user input */
+    int file_size;               /* result of load_file();   */
+    unsigned int offset, length; /* for user input           */
+    char *file_name;             /* in case file name passed */
 
-    
     /* Zero all of the registers */
     zero();
 
@@ -28,6 +28,13 @@ main(int argc, char *argv[])
      * TODO: check if there is an argument,
      * see if its a file, open it.
      */
+    if(argc > 1) {
+        strcpy(file_name, *argv[1]);
+
+        /* load the file */
+
+        /* announce success or failure on loading */
+    }
 
     
     fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");

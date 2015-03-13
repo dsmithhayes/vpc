@@ -1,32 +1,17 @@
 /*
-    vpc is a virtual processor. It had 32bit registers and uses 16bit
-    instructions.
+    Definitions and variables that represent the registers to the
+    virtual processor.
 
-    file:       vpc.h
+    file:       registers.h
     author:     Dave Smith-Hayes
-    date:       February 13th, 2015
+    date:       March 13th, 2015
 */
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <string.h>
-#include <errno.h>
-#include <ctype.h>
-
-
-/************/
-/*  Memory  */
-/************/
-
-/* 16kB = (16 (0x10) * 1024B (0x400)) */
-#define TOTAL_MEMORY    0x4000
-static unsigned char    memory[TOTAL_MEMORY];
-
 
 /***************/
-/*  Registers  */
+/* Definitions */
 /***************/
 
+/* register file array */
 #define REG_FILE_S  0x10    /* Size of reg file */
 #define SP          0xD     /* Stack Pointer    */
 #define LR          0xE     /* Link Register    */
@@ -52,33 +37,9 @@ static bool ir_flag   = 0;  /* 0 = IR0, 1 = IR1 */
 static bool stop_flag = 0;  /* 1 = stop!, 0 = keep going */
 
 
-/********************/
-/*  User Interface  */
-/********************/
-
-#define INPUT_BUFFER    0xFF    /* 255B input for strings     */
-#define HEX_INPUT       4       /* 4B for (hex) string values */
-#define OUTPUT_MASK     0xFF
-
-
-/*************************/
-/*  Function prototypes  */
-/*************************/
-
-/* Display the usage help. */
-void help();
-
-/* Write a file onto the disk. */
-void writef(void *memory);
-
-/* Load a file into the memory. */
-int loadf(void *memory, unsigned int max);
-
-/* Dumps the memory to screen. */
-void dumpmem(void *memory, unsigned int offset, unsigned int length);
-
-/* Modifies the memory. */
-void modmem(void *memory, unsigned int offset);
+/**************/
+/* Prototypes */
+/**************/
 
 /* Sets all registers to zero */
 void zero();
@@ -93,10 +54,3 @@ void trace();
 
 /* sets the registers accordingly */
 void fetch(void *memory);
-
-
-/**********/
-/*  Misc  */
-/**********/
-
-#define HEX 0x10

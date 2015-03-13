@@ -1,3 +1,13 @@
+CC=gcc
+
+INCDIR := -Ilib/
+SRCDIR := src/
+OBJDIR := obj/
+
+all: vpc
 
 vpc:
-    gcc -o vpc *.c
+    
+
+clean:
+    rm ($OBJDIR)*.o

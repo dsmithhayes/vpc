@@ -11,5 +11,5 @@
 void
 fetch(void *memory)
 {
-
+    mar = registers[PC];
 }
