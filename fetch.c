@@ -11,6 +11,8 @@
 void
 fetch()
 {
-
-
+	mra = registers[PC];
+	mbr = memory[mra];
+	
+	
 }
