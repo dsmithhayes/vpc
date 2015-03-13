@@ -7,6 +7,7 @@
 */
 
 #include <stdio.h>
+#include "vpc.h"
 #include "registers.h"
 
 void
