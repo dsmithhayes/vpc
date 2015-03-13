@@ -14,7 +14,7 @@ zero()
 {
     unsigned int i;
     
-    for(i = 0; i < TOTAL_REG; i++)
+    for(i = 0; i < REG_FILE_S; i++)
         registers[i] = 0;
     
     ccr = 0;

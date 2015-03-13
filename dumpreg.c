@@ -7,14 +7,13 @@
 */
 #include "vpc.h"
 
-
 void
 dumpreg()
 {
     unsigned short i = 0;
 
     /* Display the registers in a 4x4 grid */
-    while(i < TOTAL_REG) {
+    while(i < REG_FILE_S) {
         
         fprintf(
             stdout,
@@ -59,12 +58,12 @@ dumpreg()
 unsigned int
 ir0(unsigned long in)
 {
-    return in >> 0x10;
+    return in >> INST_SIZE;
 }
 
 unsigned int
 ir1(unsigned long in)
 {
-    unsigned int tmp = in << 0x10;
-    return tmp >> 0x10;
+    unsigned int tmp = in << INST_SIZE;
+    return ir0(tmp);
 }

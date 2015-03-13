@@ -24,20 +24,22 @@ static unsigned char    memory[TOTAL_MEMORY];
  *  Registers  *
  ***************/
 
-#define TOTAL_REG   0x10    /* For the general registers */
-#define SP          0xD     /* Stack Pointer */
-#define LR          0xE     /* Link Register */
-#define PC          0xF     /* Porgram Counter */
-static unsigned long registers[TOTAL_REG];   /* general registers */
+#define REG_FILE_S  0x10    /* Size of reg file */
+#define SP          0xD     /* Stack Pointer    */
+#define LR          0xE     /* Link Register    */
+#define PC          0xF     /* Porgram Counter  */
+static unsigned long registers[REG_FILE_S];   /* general registers */
 
-static unsigned long ccr;   /* Sign, Zero, Carry flags */
 #define SIGN    4   /* 100 */
 #define ZERO    2   /* 010 */
 #define CARRY   1   /* 001 */
+static unsigned long ccr;   /* Sign, Zero, Carry flags  */
 
-static unsigned long mbr;   /* memory buffer register */
-static unsigned long mar;   /* memory address register */
-static unsigned long ir;    /* instruction register */
+#define REG_SIZE    0x20    /* 32bit registers          */
+#define INSTR_SIZE  0x10    /* 16bit instruction sizes  */
+static unsigned long mbr;   /* memory buffer register   */
+static unsigned long mar;   /* memory address register  */
+static unsigned long ir;    /* instruction register     */
 
 static bool ir_flag   = 0;  /* 0 = IR0, 1 = IR1 */
 static bool stop_flag = 0;  /* 1 = stop!, 0 = keep going */
@@ -46,7 +48,7 @@ static bool stop_flag = 0;  /* 1 = stop!, 0 = keep going */
  *  User Interface  *
  ********************/
 
-#define INPUT_BUFFER    0xFF    /* 255B input for strings */
+#define INPUT_BUFFER    0xFF    /* 255B input for strings     */
 #define HEX_INPUT       4       /* 4B for (hex) string values */
 #define OUTPUT_MASK     0x000000FF
 
@@ -74,17 +76,18 @@ void zero();
 
 /* Displays all of the registers to the screen. */
 void dumpreg();
-unsigned int ir0(unsigned long in);
-unsigned int ir1(unsigned long in);
+unsigned int ir0(unsigned long in); /* formats the `ir` register */
+unsigned int ir1(unsigned long in); /* for either ir0 or ir1     */
 
-/* Trace the memory and commands. */
+/* single steps through the program */
 void trace();
+
+/* sets the registers accordingly */
 void fetch();
-#define INST_SIZE   4   /* Instruction size in bytes */
 
 
 /**********
  *  Misc  *
  **********/
 
-#define HEX     0x10
+#define HEX 0x10

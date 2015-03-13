@@ -25,8 +25,7 @@ dumpmem(void *memory, unsigned int offset, unsigned int length)
         
         /* top row of the display, just the hex value in memory */
         for(j = i; j < (i + row_length); j++) {
-            fprintf(stdout, "%2X ", *((char *) memory + j)
-                    & OUTPUT_MASK);
+            fprintf(stdout, "%2X ", *((unsigned char *) memory + j));
 
             if(j == (offset + length))
                 break;
