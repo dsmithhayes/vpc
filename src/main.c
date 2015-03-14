@@ -77,9 +77,11 @@ main(int argc, char *argv[])
             
             case 'l':   /* load a file */
             case 'L':
-                if((file_size = loadf((void *) memory, TOTAL_MEMORY)) > 0)
+                file_size = loadf((void *) memory, TOTAL_MEMORY);
+                
+                if(file_size > 0)
                     fprintf(stdout,
-                            "file loaded. 0x%X (%d) bytes read.\n", 
+                            "File loaded. 0x%04X (%d) bytes read.\n", 
                             file_size, file_size);
                 else
                     perror("loadf");
