@@ -9,7 +9,7 @@
 
 /* 16kB = (16 (0x10) * 1024B (0x400)) */
 #define TOTAL_MEMORY    0x4000
-unsigned char           memory[TOTAL_MEMORY];
+extern unsigned char memory[TOTAL_MEMORY];
 
 
 /*************************/

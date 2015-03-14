@@ -18,23 +18,23 @@
 #define PC          0xF     /* Porgram Counter  */
 
 /* register file */
-unsigned long registers[REG_FILE_S] = { 0 };
+extern unsigned long registers[REG_FILE_S];
 
 #define SIGN    4   /* 100 */
 #define ZERO    2   /* 010 */
 #define CARRY   1   /* 001 */
-unsigned long ccr = 0;   /* Sign, Zero, Carry flags  */
+extern unsigned long ccr;   /* Sign, Zero, Carry flags  */
 
-#define REG_SIZE    4           /* 4Byte registers          */
-#define REG_BIT_S   0x20        /* 32bit registers          */
-#define INSTR_SIZE  2           /* 2Byte instructions       */
-#define INS_BIT_S   0x10        /* 16bit instructions       */
-unsigned long mbr = 0;   /* memory buffer register   */
-unsigned long mar = 0;   /* memory address register  */
-unsigned long ir  = 0;   /* instruction register     */
+#define REG_SIZE    4       /* 4Byte registers          */
+#define REG_BIT_S   0x20    /* 32bit registers          */
+#define INSTR_SIZE  2       /* 2Byte instructions       */
+#define INS_BIT_S   0x10    /* 16bit instructions       */
+extern unsigned long mbr;   /* memory buffer register   */
+extern unsigned long mar;   /* memory address register  */
+extern unsigned long ir;    /* instruction register     */
 
-unsigned short ir_flag   = 0;  /* 0 = IR0, 1 = IR1 */
-unsigned short stop_flag = 0;  /* 1 = stop!, 0 = keep going */
+unsigned short ir_flag;     /* 0 = IR0, 1 = IR1         */
+unsigned short stop_flag;   /* 1 = stop!, 0 = continue  */
 
 
 /**************/

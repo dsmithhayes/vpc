@@ -10,6 +10,27 @@
 #include <stdlib.h>
 #include <string.h>
 #include "vpc.h"
+#include "registers.h"
+#include "interface.h"
+
+
+/********************/
+/* Global variables */
+/********************/
+
+/* 'vpc.h' */
+unsigned char memory[TOTAL_MEMORY] = { (char) 0 };
+
+/* 'registers.h' */
+unsigned long registers[REG_FILE_S] = { 0 };
+unsigned long ccr = 0;          /* Sign, Zero, Carry flags  */
+unsigned long mbr = 0;          /* memory buffer register   */
+unsigned long mar = 0;          /* memory address register  */
+unsigned long ir  = 0;          /* instruction register     */
+unsigned short ir_flag = 0;     /* 0 = IR0, 1 = IR1         */
+unsigned short stop_flag = 0;   /* 1 = stop!, 0 = continue  */
+
+/* 'interface.h' */
 
 /***************/
 /* Entry point */
@@ -144,4 +165,3 @@ main(int argc, char *argv[])
     
     return 0;
 }
-
