@@ -20,6 +20,7 @@ There will be a binary in your base directory called `vpc`, run it.
 * Modifies memory with hexadecimal input
 * Dumps the contents of memory to screen per given offset and length
 * Dump registers to the screen
+* Compiles from makefile
 
 ## What It Needs to Do
 
@@ -27,5 +28,4 @@ There will be a binary in your base directory called `vpc`, run it.
 * Step through each chunk of memory
 * Analyze instrustion
 * Perform operations
-* Compile from makefile
 * Compile from dev-cpp project
