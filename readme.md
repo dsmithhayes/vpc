@@ -4,6 +4,14 @@ vpc
 **vpc** is a 16kB virtual processor. It has 32bit registers and uses
 16bit instructions.
 
+## Compile
+
+To compile on Linux just make sure you have GCC and Make and then just:
+
+    $ make
+
+There will be a binary in your base directory called `vpc`, run it.
+
 ## What It Does
 
 * Interactive menu that doesn't suck
