@@ -9,7 +9,10 @@
     its not human readable and then it is represented with a '.'
 */
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "vpc.h"
+
 
 void
 dumpmem(void *memory, unsigned int offset, unsigned int length)

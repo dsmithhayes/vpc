@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
+#include <string.h>
 #include "vpc.h"
 
 /***************/
@@ -26,14 +26,11 @@ main(int argc, char *argv[])
     /* Zero all of the registers */
     zero();
 
-
     /*
      * TODO: check if there is an argument,
      * see if its a file, open it.
      */
     if(argc > 1) {
-        strcpy(file_name, *argv[1]);
-
         /* load the file */
 
         /* announce success or failure on loading */
@@ -59,10 +56,10 @@ main(int argc, char *argv[])
             
             case 'l':   /* load a file */
             case 'L':
-                if((size = loadf((void *) memory, TOTAL_MEMORY)) > 0)
-                    fprintf(stdout, 
+                if((file_size = loadf((void *) memory, TOTAL_MEMORY)) > 0)
+                    fprintf(stdout,
                             "file loaded. 0x%X (%d) bytes read.\n", 
-                            size, size);
+                            file_size, file_size);
                 else
                     perror("loadf");
                 break;

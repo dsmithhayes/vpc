@@ -6,7 +6,11 @@
     write_file will write the memory contents to a file.
 */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "vpc.h"
+#include "interface.h"
 
 void 
 writef(void *memory) 

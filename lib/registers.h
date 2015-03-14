@@ -33,8 +33,8 @@ static unsigned long mbr = 0;   /* memory buffer register   */
 static unsigned long mar = 0;   /* memory address register  */
 static unsigned long ir  = 0;   /* instruction register     */
 
-static bool ir_flag   = 0;  /* 0 = IR0, 1 = IR1 */
-static bool stop_flag = 0;  /* 1 = stop!, 0 = keep going */
+static unsigned short ir_flag   = 0;  /* 0 = IR0, 1 = IR1 */
+static unsigned short stop_flag = 0;  /* 1 = stop!, 0 = keep going */
 
 
 /**************/

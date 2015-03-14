@@ -1,15 +1,17 @@
 CC=gcc
-CFLAGS=-Ilib/
+CFLAGS=-Wall
+INC=-Ilib/
 
-SRCDIR=src
-OBJDIR=obj
+TARGET=vpc
 
-OBJS=$(OBJDIR)/%.o
+SOURCES=$(wildcard src/*.c)
+OBJECTS=$(addprefix obj/,$(notdir $(SOURCES:.c=.o)))
 
 all: vpc
 
-vpc: $(OBJS)
-	$(CC) -c 
+vpc: $(OBJECTS)
+	$(CC) $(CFLAGS) $(OBJECTS)
 
-$(OBJS): $(SRCDIR)/%.c
-	$(CC) $(CFLAGS) $< -c $@
+obj/%.o: src/%.c
+	$(CC) $(CLFAGS) $(INC) -c -o $@ $<
+

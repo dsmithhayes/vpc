@@ -9,8 +9,14 @@
     returns errno of appropriate failure, or the size of he file.
 
 */
-    
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+#include <ctype.h>    
 #include "vpc.h"
+#include "interface.h"
 
 int 
 loadf(void *memory, unsigned int max)
