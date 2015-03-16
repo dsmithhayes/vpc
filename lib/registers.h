@@ -68,10 +68,10 @@ struct registers {
 /**************/
 
 /* Sets all registers to zero */
-void zero();
+void zero(struct registers *reg);
 
 /* Displays all of the registers to the screen. */
-void dumpreg();
+void dumpreg(struct registers reg);
 unsigned int ir0(unsigned long in); /* returns ir0 from ir  */
 unsigned int ir1(unsigned long in); /* returns ir1 from ir  */
 

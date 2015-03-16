@@ -14,12 +14,12 @@
 #include "interface.h"
 
 
-/***************/
-/* The memory! */
-/***************/
+/******************************/
+/* The memory! The registers! */
+/******************************/
 
 unsigned char memory[TOTAL_MEMORY] = { (char) 0 };
-
+struct registers reg;
 
 /***************/
 /* Entry point */
