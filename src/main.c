@@ -34,7 +34,7 @@ main(int argc, char *argv[])
     char *file_name;             /* in case file name passed */
 
     /* Zero all of the registers */
-    zero();
+    zero(&reg);
 
     /*
      * TODO: check if there is an argument,
@@ -132,7 +132,7 @@ main(int argc, char *argv[])
             
             case 't':   /* trace the program */
             case 'T':
-                trace();
+                trace(&reg);
                 break;
 
             

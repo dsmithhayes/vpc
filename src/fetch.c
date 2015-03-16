@@ -15,20 +15,8 @@
 
 
 void
-fetch(void *memory)
+fetch(void *memory, struct registers *reg)
 {
-    int i = 0;
-    unsigned long buffer;
-    
-    mar = registers[PC];
-    registers[PC] += REG_SIZE;
 
-    do {
-        mbr << BITS_PER_BYTE;
-        buffer = *((char *) memory + (mar + (i++)));
-
-        mbr += buffer;
-    } while (i != REG_SIZE);
-
-    ir = mbr;
+    return;
 }

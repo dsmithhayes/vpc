@@ -10,7 +10,7 @@
 #include "registers.h"
 
 void
-dumpreg()
+dumpreg(struct registers reg)
 {
     unsigned short i = 0;
 
