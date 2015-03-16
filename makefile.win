@@ -1,19 +1,55 @@
-CC=gcc
-CFLAGS=-Wall
-INC=-Ilib/
+# Project: vpc
+# Makefile created by Dev-C++ 5.9.2
 
-TARGET=vpc.exe
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = obj/zero.o obj/dumpmem.o obj/dumpreg.o obj/fetch.o obj/help.o obj/loadf.o obj/main.o obj/modmem.o obj/trace.o obj/writef.o
+LINKOBJ  = obj/zero.o obj/dumpmem.o obj/dumpreg.o obj/fetch.o obj/help.o obj/loadf.o obj/main.o obj/modmem.o obj/trace.o obj/writef.o
+LIBS     = -L"C:/Program Files/Dev-Cpp/MinGW64/lib32" -L"C:/Program Files/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc -m32
+INCS     = -I"C:/Program Files/Dev-Cpp/MinGW64/include" -I"C:/Program Files/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include" -I"E:/c/ceng606/vpc/lib"
+CXXINCS  = -I"C:/Program Files/Dev-Cpp/MinGW64/include" -I"C:/Program Files/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include" -I"C:/Program Files/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include/c++" -I"E:/c/ceng606/vpc/lib"
+BIN      = bin/vpc.exe
+CXXFLAGS = $(CXXINCS) -m32
+CFLAGS   = $(INCS) -m32
+RM       = rm.exe -f
 
-SOURCES=$(wildcard src/*.c)
-OBJECTS=$(addprefix obj/,$(notdir $(SOURCES:.c=.o)))
+.PHONY: all all-before all-after clean clean-custom
 
-all: vpc
+all: all-before $(BIN) all-after
 
-vpc: $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) -o $(TARGET)
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
 
-obj/%.o: src/%.c
-	$(CC) $(CLFAGS) $(INC) -c -o $@ $<
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-clean:
-	rm $(OBJECTS)
+obj/zero.o: src/zero.c
+	$(CC) -c src/zero.c -o obj/zero.o $(CFLAGS)
+
+obj/dumpmem.o: src/dumpmem.c
+	$(CC) -c src/dumpmem.c -o obj/dumpmem.o $(CFLAGS)
+
+obj/dumpreg.o: src/dumpreg.c
+	$(CC) -c src/dumpreg.c -o obj/dumpreg.o $(CFLAGS)
+
+obj/fetch.o: src/fetch.c
+	$(CC) -c src/fetch.c -o obj/fetch.o $(CFLAGS)
+
+obj/help.o: src/help.c
+	$(CC) -c src/help.c -o obj/help.o $(CFLAGS)
+
+obj/loadf.o: src/loadf.c
+	$(CC) -c src/loadf.c -o obj/loadf.o $(CFLAGS)
+
+obj/main.o: src/main.c
+	$(CC) -c src/main.c -o obj/main.o $(CFLAGS)
+
+obj/modmem.o: src/modmem.c
+	$(CC) -c src/modmem.c -o obj/modmem.o $(CFLAGS)
+
+obj/trace.o: src/trace.c
+	$(CC) -c src/trace.c -o obj/trace.o $(CFLAGS)
+
+obj/writef.o: src/writef.c
+	$(CC) -c src/writef.c -o obj/writef.o $(CFLAGS)

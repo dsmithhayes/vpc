@@ -90,8 +90,9 @@ main(int argc, char *argv[])
                 offset = (offset >= TOTAL_MEMORY) 
                         ? 0 : offset;
                 
-                length = (length > (TOTAL_MEMORY - offset))
-                        ? (TOTAL_MEMORY - offset) : length;
+                length = (((length > (TOTAL_MEMORY - offset))
+                        ? (TOTAL_MEMORY - offset) : length) == 0)
+						? 0x10 : length;
                 
                 dumpmem((void *) memory, offset, length);
                 
