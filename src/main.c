@@ -33,19 +33,10 @@ main(int argc, char *argv[])
     unsigned int offset, length; /* for user input           */
     char *file_name;             /* in case file name passed */
 
+
     /* Zero all of the registers */
     zero(&reg);
-
-    /*
-     * TODO: check if there is an argument,
-     * see if its a file, open it.
-     */
-    if(argc > 1) {
-        /* load the file */
-
-        /* announce success or failure on loading */
-    }
-
+    
     
     fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");
     fprintf(stdout, "Type '?', 'H' or 'h' for a list of commands.\n");
