@@ -11,18 +11,19 @@
 #include "registers.h"
 
 void
-trace(struct registers *reg)
+trace(void *memory, struct registers *reg)
 {
     char in;
 
     fprintf(stdout, "Any button to trace, period to exit.\n");
 
-    fprintf(stdout, "0x%08lX> ", registers[PC]);
+    fprintf(stdout, "0x%08lX> ", reg->file[PC]);
     while((in = getchar()) != '.') {
         /* Basically just single step through the program */
-        fetch((void *) memory);
+        fetch(memory, reg);
 
-        fprintf(stdout, "0x%08lX> ", registers[PC]);
+        dumpreg(*reg);
+        fprintf(stdout, "0x%08lX> ", reg->file[PC]);
     }
 
     return;

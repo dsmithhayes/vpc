@@ -10,7 +10,7 @@ OBJECTS=$(addprefix obj/,$(notdir $(SOURCES:.c=.o)))
 all: vpc
 
 vpc: $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS)
+	$(CC) $(CFLAGS) $(OBJECTS) -o $(TARGET)
 
 obj/%.o: src/%.c
 	$(CC) $(CLFAGS) $(INC) -c -o $@ $<

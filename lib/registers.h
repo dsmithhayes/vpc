@@ -76,7 +76,7 @@ unsigned int ir0(unsigned long in); /* returns ir0 from ir  */
 unsigned int ir1(unsigned long in); /* returns ir1 from ir  */
 
 /* single steps through the program */
-void trace(struct registers *reg);
+void trace(void *memory, struct registers *reg);
 
 /* sets the registers accordingly */
 void fetch(void *memory, struct registers *reg);

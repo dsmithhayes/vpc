@@ -119,20 +119,20 @@ main(int argc, char *argv[])
             
             case 'r':   /* displays registers */
             case 'R':
-                dumpreg();
+                dumpreg(reg);
                 break;
 
             
             case 'z':   /* sets registers to zero */
             case 'Z':
                 fprintf(stdout, "Setting all registers to 0.\n");
-                zero();
+                zero(&reg);
                 break;
 
             
             case 't':   /* trace the program */
             case 'T':
-                trace(&reg);
+                trace((void *) memory, &reg);
                 break;
 
             

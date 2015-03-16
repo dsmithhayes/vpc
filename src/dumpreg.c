@@ -21,7 +21,7 @@ dumpreg(struct registers reg)
             stdout,
             "R%2d: 0x%08lX ",
             i,
-            registers[i++]
+            reg.file[i++]
         );
 
         if(i == SP)
@@ -32,27 +32,27 @@ dumpreg(struct registers reg)
     }
 
     /* Special value registers */
-    fprintf(stdout, " SP: 0x%08lX ",  registers[SP]);
-    fprintf(stdout, " LR: 0x%08lX ",  registers[LR]);
-    fprintf(stdout, " PC: 0x%08lX\n", registers[PC]);
+    fprintf(stdout, " SP: 0x%08lX ",  reg.file[SP]);
+    fprintf(stdout, " LR: 0x%08lX ",  reg.file[LR]);
+    fprintf(stdout, " PC: 0x%08lX\n", reg.file[PC]);
     
     fprintf(stdout, "\n");
     
     /* check the CCR */
     fprintf(stdout, "CCR: %d%d%d (sign, zero, carry)\n",
-        (ccr & SIGN)  ? 1 : 0,
-        (ccr & ZERO)  ? 1 : 0,
-        (ccr & CARRY) ? 1 : 0
+        (reg.ccr & SIGN)  ? 1 : 0,
+        (reg.ccr & ZERO)  ? 1 : 0,
+        (reg.ccr & CARRY) ? 1 : 0
     );
 
-    fprintf(stdout, "MBR: 0x%08lX\n", mbr);
-    fprintf(stdout, "MAR: 0x%08lX\n", mar);
-    fprintf(stdout, "IR0: 0x%04X\n",  ir0(ir));
-    fprintf(stdout, "IR1: 0x%04X\n",  ir1(ir));
+    fprintf(stdout, "MBR: 0x%08lX\n", reg.mbr);
+    fprintf(stdout, "MAR: 0x%08lX\n", reg.mar);
+    fprintf(stdout, "IR0: 0x%04X\n",  ir0(reg.ir));
+    fprintf(stdout, "IR1: 0x%04X\n",  ir1(reg.ir));
 
     fprintf(stdout, "\n");
-    fprintf(stdout, "Stop Flag: %d\n", stop_flag ? 1 : 0);
-    fprintf(stdout, "Active IR: %d\n",   ir_flag ? 1 : 0);
+    fprintf(stdout, "Stop Flag: %d\n", reg.stp_flg ? 1 : 0);
+    fprintf(stdout, "Active IR: %d\n",   reg.ir_flg ? 1 : 0);
     
     return;
 }
