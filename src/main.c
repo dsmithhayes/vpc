@@ -21,6 +21,7 @@
 unsigned char memory[TOTAL_MEMORY] = { (char) 0 };
 struct registers reg;
 
+
 /***************/
 /* Entry point */
 /***************/
