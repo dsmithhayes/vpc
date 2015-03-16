@@ -21,7 +21,7 @@ trace(void *memory, struct registers *reg)
     while((in = getchar()) != '.') {
         fetch(memory, reg);
         dumpreg(*reg);
-        fprintf(stdout, "0x%08lX> ", reg->file[PC]);
+        fprintf(stdout, "\n0x%08lX> ", reg->file[PC]);
     }
 
     return;

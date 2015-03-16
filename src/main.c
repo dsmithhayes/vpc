@@ -90,9 +90,10 @@ main(int argc, char *argv[])
                 offset = (offset >= TOTAL_MEMORY) 
                         ? 0 : offset;
                 
+                /* Windows does weird things if its 0, so 0 defaults to one line. */
                 length = (((length > (TOTAL_MEMORY - offset))
                         ? (TOTAL_MEMORY - offset) : length) == 0)
-						? 0x10 : length;
+                        ? ROW_LENGTH : length;
                 
                 dumpmem((void *) memory, offset, length);
                 

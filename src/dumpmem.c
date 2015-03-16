@@ -11,23 +11,24 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "vpc.h"
+#include "interface.h"
 
 
 void
 dumpmem(void *memory, unsigned int offset, unsigned int length)
 {
     unsigned int i, j;
-    unsigned int row_length = 0x10;
     
     length--;   /* for some reason it needs this? */
     
-    for(i = offset; i < (offset + length); i += row_length) {
+    for(i = offset; i < (offset + length); i += ROW_LENGTH) {
         /* the row off set number */
         fprintf(stdout, "%4X\t", i);
         
         /* top row of the display, just the hex value in memory */
-        for(j = i; j < (i + row_length); j++) {
+        for(j = i; j < (i + ROW_LENGTH); j++) {
             fprintf(stdout, "%2X ", *((unsigned char *) memory + j));
 
             if(j == (offset + length))
@@ -37,7 +38,7 @@ dumpmem(void *memory, unsigned int offset, unsigned int length)
         fprintf(stdout, "\n\t");
         
         /* the contents of the memory */
-        for(j = i; j < (i + row_length); j++) {
+        for(j = i; j < (i + ROW_LENGTH); j++) {
             if(isprint((int) *((char *) memory + j)))
                 fprintf(stdout, " %c ", *((char *) memory + j));
             else
@@ -53,4 +54,6 @@ dumpmem(void *memory, unsigned int offset, unsigned int length)
         if(j == length)
             return;
     }
+
+    return;
 }

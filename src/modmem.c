@@ -27,8 +27,7 @@ modmem(void *memory, unsigned int offset)
     fprintf(stdout, "modify the memory. enter '.' to end.\n");
 
     /* Failsafe the memory location to manipulate. */
-    if(offset >= TOTAL_MEMORY)
-        offset = 0;
+    offset = (offset >= TOTAL_MEMORY) ? 0 : offset;
 
     /* the program likes having this here? */
     while(getchar() != '\n');
@@ -41,10 +40,12 @@ modmem(void *memory, unsigned int offset)
             return;
         }
         else
-            input[(strlen(input) - 1)] = '\0';  /* kill the \n */
+            input[(strlen(input) - 1)] = '\0';
 
         if(strcmp(input, ".") == 0)
             return;
+
+        fflush(stdout);
 
         /* stroul() = string to unsigned long */
         buffer = strtoul(input, NULL, HEX);

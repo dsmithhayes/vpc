@@ -54,6 +54,8 @@ dumpreg(struct registers reg)
     fprintf(stdout, "Stop Flag: %d\n", reg.stp_flg ? 1 : 0);
     fprintf(stdout, "Active IR: %d\n",   reg.ir_flg ? 1 : 0);
     
+    fprintf(stdout, "\n");
+
     return;
 }
 
