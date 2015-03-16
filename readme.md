@@ -21,11 +21,10 @@ There will be a binary in your base directory called `vpc`, run it.
 * Dumps the contents of memory to screen per given offset and length
 * Dump registers to the screen
 * Compiles from makefile
+* Loads data into appropriate registers
+* Single steps though the program counter
 
 ## What It Needs to Do
 
-* Load memory into registers
-* Step through each chunk of memory
 * Analyze instrustion
 * Perform operations
-* Compile from dev-cpp project
