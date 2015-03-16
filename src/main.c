@@ -133,6 +133,8 @@ main(int argc, char *argv[])
             case 't':   /* trace the program */
             case 'T':
                 trace((void *) memory, &reg);
+
+                getchar();
                 break;
 
             

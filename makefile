@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-Wall
 INC=-Ilib/
 
-TARGET=vpc
+TARGET=vpc.exe
 
 SOURCES=$(wildcard src/*.c)
 OBJECTS=$(addprefix obj/,$(notdir $(SOURCES:.c=.o)))
