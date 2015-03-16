@@ -10,6 +10,7 @@
 #include "vpc.h"
 #include "registers.h"
 
+/* HA! I used it! */
 #define BITS_PER_BYTE   8;
 
 
@@ -17,12 +18,17 @@ void
 fetch(void *memory)
 {
     int i = 0;
+    unsigned long buffer;
     
     mar = registers[PC];
     registers[PC] += REG_SIZE;
 
     do {
-        mbr = mbr << BITS_PER_BYTE;            /* HA! I used it! */
-        mbr += ((char *) memory + (mar + i++));
+        mbr << BITS_PER_BYTE;
+        buffer = *((char *) memory + (mar + (i++)));
+
+        mbr += buffer;
     } while (i != REG_SIZE);
+
+    ir = mbr;
 }

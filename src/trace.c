@@ -13,8 +13,17 @@
 void
 trace()
 {
-    /* Basically just single step through the program */
-    fetch((void *) memory);
+    char in;
+
+    fprintf(stdout, "Any button to trace, period to exit.\n");
+
+    fprintf(stdout, "0x%08lX> ", registers[PC]);
+    while((in = getchar()) != '.') {
+        /* Basically just single step through the program */
+        fetch((void *) memory);
+
+        fprintf(stdout, "0x%08lX> ", registers[PC]);
+    }
 
     return;
 }

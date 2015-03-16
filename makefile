@@ -15,3 +15,5 @@ vpc: $(OBJECTS)
 obj/%.o: src/%.c
 	$(CC) $(CLFAGS) $(INC) -c -o $@ $<
 
+clean:
+	rm $(OBJECTS)
