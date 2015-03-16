@@ -22,13 +22,15 @@ fetch(void *memory, struct registers *reg)
     reg->mbr = 0;
 
     reg->mar = reg->file[PC];
-    reg->file[PC] += INSTR_SIZE;
+    reg->file[PC] += REG_SIZE;
 
     /* grab the next 4 bytes of memory into the mbr */
-    for(i = 0; i < INSTR_SIZE; i++) {
-        reg->mbr += (unsigned int) *((char *) memory + (reg->mar + i));
+    for(i = 0; i < REG_SIZE; i++) {
+        reg->mbr +=
+                (unsigned long) *((char *) memory + (reg->mar + i));
 
-        reg->mbr << BITS_PER_BYTE;
+        if(i != (REG_SIZE - 1))
+            reg->mbr = reg->mbr << BITS_PER_BYTE;
     }
 
     reg->ir = reg->mbr;
