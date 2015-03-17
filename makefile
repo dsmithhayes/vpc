@@ -4,6 +4,8 @@ INC=-Ilib/
 
 TARGET=vpc
 
+OBJDIR=obj
+
 SOURCES=$(wildcard src/*.c)
 OBJECTS=$(addprefix obj/,$(notdir $(SOURCES:.c=.o)))
 
@@ -14,6 +16,9 @@ vpc: $(OBJECTS)
 
 obj/%.o: src/%.c
 	$(CC) $(CLFAGS) $(INC) -c -o $@ $<
+
+init:
+	mkdir -p $(OBJDIR)
 
 clean:
 	rm $(OBJECTS)
