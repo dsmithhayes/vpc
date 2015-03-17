@@ -82,3 +82,6 @@ void fetch(void *memory, registers *reg);
 
 /* Makes the program run */
 void go(void *memory, registers *reg);
+
+/* Executes the given instruction */
+void execute(unsigned int inst, registers *reg);

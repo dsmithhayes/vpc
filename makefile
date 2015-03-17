@@ -21,4 +21,4 @@ init:
 	mkdir -p $(OBJDIR)
 
 clean:
-	rm $(OBJECTS)
+	rm $(OBJECTS) $(TARGET)

@@ -218,13 +218,13 @@ operation would look something like this:
     mbr += memory[mar + 2] << 8;
     mbr += memory[mar + 3];
 
-From there we will add `mar + 4` to the Program Counter to point to the
-next piece of memory.
+From there we will add `mar + 4` to the Program Counter to point to 
+the next piece of memory.
 
 `ir` is the Instruction Register. This is a 32bit (`0x20`) register
 that holds two 16bit (`0x10`) instructions. These pseudo registers are
 referred to as `ir0` and `ir1`. Functions supplied for getting the
-proper instruction from the `ir` register are `ir0(unsigned int)` and
-`ir1(unsigned int)` respectively.
+proper instruction from the `ir` register are `ir0(unsigned int)` 
+and `ir1(unsigned int)` respectively.
 
 ### execute()

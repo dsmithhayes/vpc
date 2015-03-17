@@ -7,7 +7,6 @@
     date:       March 17, 2015
 */
 
-
 /*************************/
 /* Types of Instructions */
 /*************************/
@@ -25,3 +24,9 @@
 /***********************/
 /* Function Prototypes */
 /***********************/
+
+/* Sets the instruction register flag */
+void set_ir_flg(unsigned short flag);
+
+/* sets the stop flag */
+void set_stp_flg(unsigned short flag);
