@@ -62,6 +62,7 @@ struct registers {
     unsigned short stp_flg;
 };
 
+extern struct registers reg;
 
 /**************/
 /* Prototypes */

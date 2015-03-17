@@ -1,7 +1,7 @@
 /*
-    file:   load_file.c
+    file:   main.c
     author: Dave Smith-Hayes
-    date:   February 13th, 2015
+    date:   March 16, 2015
     
     this is the entry point of the program.
 */
