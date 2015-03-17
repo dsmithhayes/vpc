@@ -16,7 +16,40 @@ the software will decode 2byte chunks of memory into operations.
 5. Execute the instruction
 6. Write the operand somewhere
 
-## loadf()
+## Data Structures and Variables
+
+### Registers
+
+The `registers` struct is extremely important. It holds all the
+registers that are going to be used while emulating the CPU. There are
+16 registers in the file, along with two memory, a code control and
+instruction register. All of these registers are **32bits** long. The
+following is the definition of the structure.
+
+    typedef struct Registers {
+        unsigned long file[REG_FILE_S];
+        unsigned long ccr;
+        unsigned long mbr;
+        unsigned long mar;
+        unsigned long ir;
+        unsigned short ir_flg;
+        unsigned short stp_flg;
+    } registers;
+
+### Memory
+
+There is 16kB of data. This is represented as an unsigned char within
+the software. 16kB is actually 16384 bytes, or `0x4000` as it is
+defined in the `vpc.h` header file.
+
+    unsigned char memory[TOTAL_MEMORY] = { (char) 0 };
+
+Note that each value of the array is set to all 0's, they are also only
+one byte long.
+
+## Functions
+
+### loadf()
 
 * `void *memory`
 * `unsigned int max`
@@ -36,7 +69,7 @@ library functions `fopen()`, `fread()`, `fseek()`, `ftell()`
  `rewind()`, and  `fgets()`. The appropriate `errno` is returned
 to the main program on failure of any of those functions. 
 
-## writef()
+### writef()
 
 * `void *memory`
 
@@ -50,7 +83,7 @@ user. The following is how this process is accomplished.
 4. If the given size is unreasonable, make it the whole memory
 5. Write the memory to the file.
 
-## modmem()
+### modmem()
 
 * `void *memory`
 * `unsigned int offset`
@@ -65,7 +98,7 @@ user enters `.` the writing stops.
 3. place the character into memory
 4. repeat until `.` entered or memory exceeded
 
-## dumpmem()
+### dumpmem()
 
 * `void *memory`
 * `unsigned int offset`
@@ -111,11 +144,15 @@ you can see in the example, the use of 18
 6. Repeat process at `offset + 16 (0x10)`
 7. If memory adress is equal to `offset + length` end
 
-## zero
+### zero()
+
+* `registers *reg`
 
 `zero()` will set all of the registers in the CPU to `0`.
 
-## dumpreg()
+### dumpreg()
+
+* `registers reg`
 
 Dumping the registers is useful to see what the heck is actually going
 on with the program. When you use the `R` command it will display all
@@ -143,14 +180,18 @@ because the program initializes all the registers to 0 when it starts
 up. Also, the special registers (`SP` stack pointer, `LR` link
 register, `PC` program counter) are noted above.
 
-## trace()
+### trace()
+
+* `void *memory`
+* `registers *reg`
 
 Tracing through the program, one by one. This will load the registers
 with the appropriate data from the memory, incrementing accordingly.
 
-## fetch()
+### fetch()
 
 * `void *memory`
+* `registers *reg`
 
 Fetching happens when the data is actually requested for the specific
 register. Memory will be retrieved in 32bit (`0x20`) chunks as per the
@@ -185,3 +226,5 @@ that holds two 16bit (`0x10`) instructions. These pseudo registers are
 referred to as `ir0` and `ir1`. Functions supplied for getting the
 proper instruction from the `ir` register are `ir0(unsigned int)` and
 `ir1(unsigned int)` respectively.
+
+### execute()
