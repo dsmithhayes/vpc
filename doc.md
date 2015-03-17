@@ -4,6 +4,18 @@ The following is a description of the functions created and their
 algorithms. Throughout time this document will expand and remain in the
 order of functionality added.
 
+The instructions are a crucial part of the CPU, as they will control
+the data and perform operations. There is an optimal, six-operation
+pipeline method that will be used for this CPU. This basic idea is how
+the software will decode 2byte chunks of memory into operations.
+
+1. Fetch instruction
+2. Decode instruction
+3. Calculate operand address
+4. Fetch the operand
+5. Execute the instruction
+6. Write the operand somewhere
+
 ## loadf()
 
 * `void *memory`

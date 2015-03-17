@@ -11,6 +11,7 @@
 #include <string.h>
 #include "vpc.h"
 #include "registers.h"
+#include "operations.h"
 #include "interface.h"
 
 
