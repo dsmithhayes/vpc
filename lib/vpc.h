@@ -27,9 +27,6 @@ void dumpmem(void *memory, unsigned int offset, unsigned int length);
 /* Modifies the memory. */
 void modmem(void *memory, unsigned int offset);
 
-/* Makes the program run */
-void go(void *memory, struct registers *reg);
-
 
 /**********/
 /*  Misc  */

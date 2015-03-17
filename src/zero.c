@@ -11,8 +11,20 @@
 #include "registers.h"
 
 void
-zero(struct registers *reg)
+zero(registers *reg)
 {
+    int i;
+    
+    for(i = 0; i < REG_FILE_S; i++)
+        reg->file[i] = 0;
+    
+    reg->ccr     = 0;
+    reg->mbr     = 0;
+    reg->mar     = 0;
+    reg->ir      = 0;
+    
+    reg->stp_flg = 0;
+    reg->ir_flg  = 0;
     
     return;
 }

@@ -52,7 +52,7 @@
  * stp_flg  tells the program to stop its execution.
  * 
  */
-struct registers {
+typedef struct Registers {
     unsigned long file[REG_FILE_S];
     unsigned long ccr;
     unsigned long mbr;
@@ -60,24 +60,25 @@ struct registers {
     unsigned long ir;
     unsigned short ir_flg;
     unsigned short stp_flg;
-};
-
-extern struct registers reg;
+} registers;
 
 /**************/
 /* Prototypes */
 /**************/
 
 /* Sets all registers to zero */
-void zero(struct registers *reg);
+void zero(registers *reg);
 
 /* Displays all of the registers to the screen. */
-void dumpreg(struct registers reg);
+void dumpreg(registers reg);
 unsigned int ir0(unsigned long in); /* returns ir0 from ir  */
 unsigned int ir1(unsigned long in); /* returns ir1 from ir  */
 
 /* single steps through the program */
-void trace(void *memory, struct registers *reg);
+void trace(void *memory, registers *reg);
 
 /* sets the registers accordingly */
-void fetch(void *memory, struct registers *reg);
+void fetch(void *memory, registers *reg);
+
+/* Makes the program run */
+void go(void *memory, registers *reg);

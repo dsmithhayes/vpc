@@ -15,7 +15,7 @@
 
 
 void
-fetch(void *memory, struct registers *reg)
+fetch(void *memory, registers *reg)
 {
     int i;
 

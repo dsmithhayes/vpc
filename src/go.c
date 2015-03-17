@@ -7,10 +7,11 @@
 */
 
 #include <stdio.h>
+#include "vpc.h"
 #include "registers.h"
 
 void
-go(void *memory, struct registers *reg)
+go(void *memory, registers *reg)
 {
 
     return;

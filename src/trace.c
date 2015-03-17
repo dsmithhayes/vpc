@@ -11,7 +11,7 @@
 #include "registers.h"
 
 void
-trace(void *memory, struct registers *reg)
+trace(void *memory, registers *reg)
 {
     char in;
 
