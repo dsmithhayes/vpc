@@ -1,3 +1,6 @@
+#ifndef OPERATIONS_H
+#define OPERATIONS_H
+
 /*
     Defines all of the macros and prototypes used for analyzing
     instructions for the CPU.
@@ -6,6 +9,8 @@
     author:     Dave Smith-Hayes
     date:       March 17, 2015
 */
+
+#include "registers.h"
 
 /*********************/
 /* Instruction Masks */
@@ -72,4 +77,6 @@ void set_flg(unsigned short *flag);
 unsigned int get_rd(unsigned int val);
 unsigned int get_rn(unsigned int val);
 
+void execute(unsigned int inst, registers *reg);
 
+#endif /* OPERATIONS_H */

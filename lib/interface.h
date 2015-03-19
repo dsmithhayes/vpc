@@ -1,3 +1,6 @@
+#ifndef INTERFACE_H
+#define INTERFACE_H
+
 /*
     Definitions and prototypes for the user interface.
 
@@ -13,3 +16,5 @@
 
 /* Display the usage help. */
 void help();
+
+#endif

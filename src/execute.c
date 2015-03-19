@@ -12,9 +12,6 @@
 void
 execute(unsigned int inst, registers *reg)
 {
-    if(inst & MOV_IMM) {
-        
-    }
         
     return;
 }

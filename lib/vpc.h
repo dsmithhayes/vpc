@@ -1,3 +1,6 @@
+#ifndef VPC_H
+#define VPC_H
+
 /*
     vpc is a virtual processor. It had 32bit registers and uses 16bit
     instructions.
@@ -33,3 +36,5 @@ void modmem(void *memory, unsigned int offset);
 /**********/
 
 #define HEX 0x10
+
+#endif
