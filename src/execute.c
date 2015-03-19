@@ -31,7 +31,7 @@ execute(unsigned int inst, registers *reg)
 
     /* Add immediate value into Rd */
     if(is_inst(ADD_IMM, inst)) {
-        immediate(ADD_MM, inst, reg);
+        immediate(ADD_IMM, inst, reg);
         return;
     }
 
@@ -40,6 +40,12 @@ execute(unsigned int inst, registers *reg)
         immediate(SUB_IMM, inst, reg);
         return;
     }
+
+
+    /*********************/
+    /* Data Instructions */
+    /*********************/
+
     
     return;
 }
@@ -54,5 +60,5 @@ get_rd(unsigned int val)
 unsigned int
 get_rn(unsigned int val)
 {
-    return val & RN_MASK;
+    return (val & RN_MASK) / IMM_SHIFT;
 }

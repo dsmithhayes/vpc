@@ -74,18 +74,22 @@
 /* Function Prototypes */
 /***********************/
 
-/* Sets any flag passed to it. */
+/* Sets flags! */
 void set_flg(unsigned short *flag);
+void set_ccr(unsigned int mask, unsigned long *cntrl_reg);
+void clear_ccr(unsigned int mask, unsigned long *cntrl_reg);
+
+/* Executes the proper instruction */
+void execute(unsigned int inst, registers *reg);
 
 /* Gets the Rd and Rn for the register file index */
 unsigned int get_rd(unsigned int val);
 unsigned int get_rn(unsigned int val);
 
-/* Executes the proper instruction */
-void execute(unsigned int inst, registers *reg);
 
 /* Returns true if a valid instruction */
 unsigned short is_inst(unsigned int mask, unsigned int inst);
+
 
 /* Performs an immediate instruction */
 void immediate(

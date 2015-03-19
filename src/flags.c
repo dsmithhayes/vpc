@@ -14,3 +14,23 @@ set_flg(unsigned short *flag)
 {
     *flag = !*flag;
 }
+
+void
+set_ccr(unsigned int mask, unsigned long *cntrl_reg)
+{
+    switch(mask) {
+        case ZERO:
+            *cntrl_reg &= ZERO;
+            break;
+        case CARRY:
+            *cntrl_reg &= CARRY;
+            break;
+        case SIGN:
+            *cntrl_reg &= SIGN;
+            break;
+        default:
+            return;
+    }
+
+    return;
+}

@@ -7,6 +7,9 @@
     date:       March 18, 2015
 */
 
+#include "registers.h"
+#include "operations.h"
+
 void
 immediate(
         unsigned int mask,
@@ -18,12 +21,12 @@ immediate(
     
     switch(mask) {
         case MOV_IMM:
-            reg->file[rd] = imm;
+            reg->file[rd] = (unsigned long) imm;
             break;
 
         case CMP_IMM:
             if((reg->file[rd] - imm) == 0) {
-                *reg->ccr &= ZERO;
+                set_ccr(ZERO, &(reg->ccr));
                 return;
             }
             break;
