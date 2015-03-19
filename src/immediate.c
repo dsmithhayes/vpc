@@ -14,14 +14,15 @@ immediate(
         registers *reg)
 {
     unsigned int rd = get_rd(inst);
+    unsigned int imm = get_imm(inst);
     
     switch(mask) {
         case MOV_IMM:
-            reg->file[rd] = inst & IMM_VAL;
+            reg->file[rd] = imm;
             break;
 
         case CMP_IMM:
-            if((reg->file[rd] - get_imm(inst)) == 0) {
+            if((reg->file[rd] - imm) == 0) {
                 *reg->ccr &= ZERO;
                 return;
             }
@@ -45,5 +46,5 @@ immediate(
 unsigned int
 get_imm(unsigned int inst)
 {
-    return (inst & IMM_VAL) / 0x10;
+    return (inst & IMM_VAL) / IMM_SHIFT;
 }
