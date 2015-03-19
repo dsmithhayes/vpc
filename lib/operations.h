@@ -65,7 +65,6 @@
 
 #define IMM_STEP    0x1000
 
-
 /* Stop */
 #define STOP        0xE000
 
@@ -74,10 +73,15 @@
 /* Function Prototypes */
 /***********************/
 
+/* Returns true if a valid instruction */
+unsigned short is_inst(unsigned int mask, unsigned int inst);
+
+
 /* Sets flags! */
 void set_flg(unsigned short *flag);
 void set_ccr(unsigned int mask, unsigned long *cntrl_reg);
 void clear_ccr(unsigned int mask, unsigned long *cntrl_reg);
+
 
 /* Executes the proper instruction */
 void execute(unsigned int inst, registers *reg);
@@ -85,10 +89,6 @@ void execute(unsigned int inst, registers *reg);
 /* Gets the Rd and Rn for the register file index */
 unsigned int get_rd(unsigned int val);
 unsigned int get_rn(unsigned int val);
-
-
-/* Returns true if a valid instruction */
-unsigned short is_inst(unsigned int mask, unsigned int inst);
 
 
 /* Performs an immediate instruction */
