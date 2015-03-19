@@ -21,7 +21,10 @@ immediate(
             break;
 
         case CMP_IMM:
-
+            if((reg->file[rd] - get_imm(inst)) == 0) {
+                *reg->ccr &= ZERO;
+                return;
+            }
             break;
 
         case ADD_IMM:
@@ -37,4 +40,10 @@ immediate(
     }
 
     return;
+}
+
+unsigned int
+get_imm(unsigned int inst)
+{
+    return (inst & IMM_VAL) / 0x10;
 }

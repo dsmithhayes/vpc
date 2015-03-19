@@ -91,5 +91,7 @@ void immediate(
         unsigned int inst,
         registers *reg);
 
+/* Get the immediate value in the instruction */
+unsigned int get_imm(unsigned int inst);
 
 #endif /* OPERATIONS_H */
