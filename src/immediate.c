@@ -22,25 +22,32 @@ immediate(
     switch(mask) {
         case MOV_IMM:
             reg->file[rd] = (unsigned long) imm;
+
             break;
+
 
         case CMP_IMM:
-            if((reg->file[rd] - imm) == 0) {
+            if((reg->file[rd] - imm) == 0)
                 set_ccr(ZERO, &(reg->ccr));
-                return;
-            }
+
+            if((reg->file[rd] - imm) < 0)
+                set_ccr(SIGN, &(reg->ccr));
+
             break;
+
 
         case ADD_IMM:
-            
+            reg->file[rd] += imm;
             break;
+
 
         case SUB_IMM:
+            reg->file[rd] -= imm;
 
+            if(reg->file[rd] < 0)
+                set_ccr(SIGN, &(reg->ccr));
+            
             break;
-
-        default:
-            return;
     }
 
     return;
