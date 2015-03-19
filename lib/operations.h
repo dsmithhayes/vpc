@@ -62,6 +62,8 @@
 
 #define IMM_VAL 0x0FF0
 
+#define IMM_STEP    0x1000
+
 /* Stop */
 #define STOP    0xE000
 
@@ -77,6 +79,17 @@ void set_flg(unsigned short *flag);
 unsigned int get_rd(unsigned int val);
 unsigned int get_rn(unsigned int val);
 
+/* Executes the proper instruction */
 void execute(unsigned int inst, registers *reg);
+
+/* Returns true if a valid instruction */
+unsigned short is_inst(unsigned int mask, unsigned int inst);
+
+/* Performs an immediate instruction */
+void immediate(
+        unsigned int mask,
+        unsigned int inst,
+        registers *reg);
+
 
 #endif /* OPERATIONS_H */

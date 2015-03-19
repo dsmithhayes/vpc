@@ -9,3 +9,8 @@
 #include "operations.h"
 #include "registers.h"
 
+unsigned short
+is_inst(unsigned int mask, unsigned int inst)
+{
+    return (mask & inst) ? 1 : 0;
+}

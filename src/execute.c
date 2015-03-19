@@ -9,10 +9,38 @@
 #include "registers.h"
 #include "operations.h"
 
+
 void
 execute(unsigned int inst, registers *reg)
 {
-        
+    /**************************/
+    /* Immediate Instructions */
+    /**************************/
+
+    /* Move immediate value into Rd */
+    if(is_inst(MOV_IMM, inst)) {
+        immediate(MOV_IMM, inst, reg);
+        return;
+    }
+
+    /* Compare immediate value to Rd */
+    if(is_inst(CMP_IMM, inst)) {
+        immediate(CMP_IMM, inst, reg);
+        return;
+    }
+
+    /* Add immediate value into Rd */
+    if(is_inst(ADD_IMM, inst)) {
+        immediate(ADD_MM, inst, reg);
+        return;
+    }
+
+    /* Subtract immediate value from Rd */
+    if(is_inst(SUB_IMM, inst)) {
+        immediate(SUB_IMM, inst, reg);
+        return;
+    }
+    
     return;
 }
 
