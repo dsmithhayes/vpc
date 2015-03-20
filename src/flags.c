@@ -7,8 +7,26 @@
     date:       March 18, 2015
 */
 
+#include "registers.h"
 #include "operations.h"
 
+
+/* Returns non-zero if valid CCR mask */
+inline short
+is_ccr_mask(unsigned int mask) {
+    if(mask == ZERO)
+        return ZERO;
+
+    if(mask == CARRY)
+        return CARRY;
+
+    if(mask == SIGN)
+        return SIGN;
+
+    return 0;
+}
+
+/* toggles the stop or instruction flags */
 void
 set_flg(unsigned short *flag)
 {
@@ -16,20 +34,32 @@ set_flg(unsigned short *flag)
     return;
 }
 
+/* Only toggles valid CCR masks passed. */
 void
-set_ccr(unsigned int mask, unsigned long *cntrl_reg)
+toggle_ccr(unsigned int mask, unsigned long *ctrl_reg)
 {
-    switch(mask) {
-        case ZERO:
-            *cntrl_reg |= ZERO;
-            break;
-        case CARRY:
-            *cntrl_reg |= CARRY;
-            break;
-        case SIGN:
-            *cntrl_reg |= SIGN;
-            break;
-    }
+    if(is_ccr_mask(mask))
+        *ctrl_reg = (*ctrl_reg & mask)
+                ? (*ctrl_reg - mask)        /* remove the flag  */
+                : (*ctrl_reg | mask);       /* add the flag     */
+    
+    return;
+}
+
+void
+set_ccr(unsigned int mask, unsigned long *ctrl_reg)
+{
+    if(is_ccr_mask(mask))
+        *ctrl_reg |= mask;
+
+    return;
+}
+
+void
+clear_ccr(unsigned int mask, unsigned long *ctrl_reg)
+{
+    if(is_ccr_mask(mask))
+        *ctrl_reg -= mask;
 
     return;
 }

@@ -79,9 +79,9 @@ unsigned short is_inst(unsigned int mask, unsigned int inst);
 
 /* Sets flags! */
 void set_flg(unsigned short *flag);
-void set_ccr(unsigned int mask, unsigned long *cntrl_reg);
-void clear_ccr(unsigned int mask, unsigned long *cntrl_reg);
-
+void toggle_ccr(unsigned int mask, unsigned long *ctrl_reg);
+void set_ccr(unsigned int mask, unsigned long *ctrl_reg);
+void clear_ccr(unsigned int mask, unsigned long *ctrl_reg);
 
 /* Executes the proper instruction */
 void execute(unsigned int inst, registers *reg);

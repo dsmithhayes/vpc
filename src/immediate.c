@@ -28,16 +28,17 @@ immediate(
 
         case CMP_IMM:
             if((reg->file[rd] - imm) == 0)
-                set_ccr(ZERO, &(reg->ccr));
+                toggle_ccr(ZERO, &(reg->ccr));
 
             if((reg->file[rd] - imm) < 0)
-                set_ccr(SIGN, &(reg->ccr));
+                toggle_ccr(SIGN, &(reg->ccr));
 
             break;
 
 
         case ADD_IMM:
             reg->file[rd] += imm;
+            
             break;
 
 
