@@ -12,5 +12,5 @@
 unsigned short
 is_inst(unsigned int mask, unsigned int inst)
 {
-    return (mask & inst) ? 1 : 0;
+    return ((mask & inst) == mask) ? 1 : 0;
 }

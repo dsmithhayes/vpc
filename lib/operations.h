@@ -35,14 +35,14 @@
  * third nibble:    Rn
  * fourth nibble:   Rd
  */
-#define DAT_AND     0x00FF
-#define DAT_EOR     0x01FF
-#define DAT_ORR     0x0CFF
-#define DAT_SUB     0x02FF
-#define DAT_ADD     0x04FF
-#define DAT_LSR     0x06FF
-#define DAT_LSL     0x07FF
-#define DAT_MOV     0x0EFF
+#define DAT_AND     0x0000
+#define DAT_EOR     0x0100
+#define DAT_ORR     0x0C00
+#define DAT_SUB     0x0200
+#define DAT_ADD     0x0400
+#define DAT_LSR     0x0600
+#define DAT_LSL     0x0700
+#define DAT_MOV     0x0E00
 
 /*
  * Immediate Instructions
@@ -55,13 +55,15 @@
  * Next byte:       8bit value
  * Last nibble:     Rd
  */
-#define MOV_IMM     0x4FFF
-#define CMP_IMM     0x5FFF
-#define ADD_IMM     0x6FFF
-#define SUB_IMM     0x7FFF
+#define MOV_IMM     0x4000
+#define CMP_IMM     0x5000
+#define ADD_IMM     0x6000
+#define SUB_IMM     0x7000
 
 #define IMM_VAL     0x0FF0
-#define IMM_SHIFT   0x10
+
+#define IMM_VAL_SHIFT   4       /* 4bit shift for this little guy.  */
+#define IMM_INS_SHIFT   0xC     /* 12bit shifts up in here          */
 
 #define IMM_STEP    0x1000
 
