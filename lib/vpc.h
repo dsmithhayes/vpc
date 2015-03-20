@@ -10,7 +10,7 @@
     date:       February 13th, 2015
 */
 
-#include <stdint.h>
+#include <inttypes.h>
 
 /* 16kB = (16 (0x10) * 1024B (0x400)) */
 #define TOTAL_MEMORY    0x4000

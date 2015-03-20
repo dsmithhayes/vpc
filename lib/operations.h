@@ -10,8 +10,9 @@
     date:       March 17, 2015
 */
 
-#include <stdint.h>
+#include <inttypes.h>
 #include "registers.h"
+
 
 /*********************/
 /* Instruction Masks */
@@ -78,31 +79,43 @@
 /* Function Prototypes */
 /***********************/
 
-/* Returns true if a valid instruction */
-uint8_t is_inst(unsigned int mask, unsigned int inst);
+/*
+ * Returns true if a valid instruction
+ */
+uint8_t is_inst(uint16_t mask, uint16_t inst);
 
 
-/* flags! flags! flags! */
+/*
+ * flags! flags! flags!
+ */
 uint8_t is_mask(uint16_t mask);
 void toggle_flg(uint16_t mask, uint32_t *ctrl_reg);
 void set_flg(uint16_t mask, uint32_t *ctrl_reg);
 void clear_flg(uint16_t mask, uint32_t *ctrl_reg);
 
-/* Executes the proper instruction */
+/*
+ * Executes the proper instruction
+ */
 void execute(uint16_t inst, registers *reg);
 
-/* Gets the Rd and Rn for the register file index */
+/*
+ * Gets the Rd and Rn for the register file index
+ */
 uint8_t get_rd(uint16_t val);
 uint8_t get_rn(uint16_t val);
 
 
-/* Performs an immediate instruction */
+/*
+ * Performs an immediate instruction
+ */
 void immediate(
         uint16_t mask,
         uint16_t inst,
         registers *reg);
 
-/* Get the immediate value in the instruction, right bitshift of 4 */
-uint8_t get_imm(unsigned int inst);
+/*
+ * Get the immediate value in the instruction
+ */
+uint8_t get_imm(uint16_t inst);
 
 #endif /* OPERATIONS_H */

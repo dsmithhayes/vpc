@@ -11,7 +11,7 @@
 
 
 void
-execute(unsigned int inst, registers *reg)
+execute(uint16_t inst, registers *reg)
 {
     /**************************/
     /* Immediate Instructions */
@@ -52,20 +52,7 @@ execute(unsigned int inst, registers *reg)
     /**************/
 
     if(is_inst(STOP_INST, inst))
-        toggle_flg(STOP, (unsigned long *) &(reg->stp_flg));
+        toggle_flg(STOP, (uint32_t *) &(reg->stp_flg));
     
     return;
-}
-
-
-unsigned int
-get_rd(unsigned int val)
-{
-    return (val & RD_MASK);
-}
-
-unsigned int
-get_rn(unsigned int val)
-{
-    return (val & RN_MASK) >> RN_SHIFT;
 }

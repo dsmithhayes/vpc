@@ -31,7 +31,7 @@ int
 main(int argc, char *argv[])
 {
     char selection;
-    int file_size;              /* result of load_file();   */
+    unsigned int file_size;     /* result of load_file();   */
     uint16_t offset, length;    /* for user input           */
     char *file_name;            /* in case file name passed */
 
@@ -82,19 +82,20 @@ main(int argc, char *argv[])
             case 'd':   /* dump the memory */
             case 'D':
                 fprintf(stdout, "offset> ");
-                fscanf(stdin, "%X", &offset);
+                fscanf(stdin, "%X", (unsigned int *) &offset);
                 
                 fprintf(stdout, "length> ");
-                fscanf(stdin, "%X", &length);
+                fscanf(stdin, "%X", (unsigned int *) &length);
+
+                offset &= (TOTAL_MEMORY - 1);
                 
-                /* stop unreasonable numbers */
-                offset = (offset >= TOTAL_MEMORY) 
-                        ? 0 : offset;
-                
-                /* Windows does weird things if its 0, so 0 defaults to one line. */
+                /*
+                 * Windows does weird things if its 0 so 0 defaults
+                 * to one line.
+                 */
                 length = (((length > (TOTAL_MEMORY - offset))
                         ? (TOTAL_MEMORY - offset) : length) == 0)
-                        ? ROW_LENGTH : length;
+                                ? ROW_LENGTH : length;
                 
                 dumpmem((void *) memory, offset, length);
                 
@@ -106,7 +107,7 @@ main(int argc, char *argv[])
             case 'm':   /* modify the memory */
             case 'M':
                 fprintf(stdout, "offset> ");
-                fscanf(stdin, "%X", &offset);
+                fscanf(stdin, "%X", (unsigned int *) &offset);
                 
                 modmem((void *) memory, offset);
                 break;

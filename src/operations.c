@@ -9,8 +9,20 @@
 #include "operations.h"
 #include "registers.h"
 
-unsigned short
-is_inst(unsigned int mask, unsigned int inst)
+uint8_t
+is_inst(uint16_t mask, uint16_t inst)
 {
     return ((mask & inst) == mask) ? 1 : 0;
+}
+
+uint8_t
+get_rd(uint16_t val)
+{
+    return (val & RD_MASK);
+}
+
+uint8_t
+get_rn(uint16_t val)
+{
+    return (val & RN_MASK) >> RN_SHIFT;
 }

@@ -38,10 +38,11 @@ immediate(
          * set the flag accordingly.
          */
         case CMP_IMM:
-            if((reg->file[rd] - imm) == 0)
+            if((reg->file[rd] & (~imm + 1)) == 0)
                 set_flg(ZERO, &(reg->ccr));
 
-            if((reg->file[rd] - imm) < 0)
+            if(((reg->file[rd] & (~imm + 1)) & SIGN_MASK)
+                    == SIGN_MASK)
                 set_flg(SIGN, &(reg->ccr));
         break;
 
@@ -60,9 +61,9 @@ immediate(
          * register.
          */
         case SUB_IMM:
-            reg->file[rd] -= imm;
+            reg->file[rd] &= ~imm++;
 
-            if(reg->file[rd] < 0)
+            if((reg->file[rd] & SIGN_MASK) == SIGN_MASK)
                 set_flg(SIGN, &(reg->ccr));
 
             if(reg->file[rd] == 0)
@@ -82,7 +83,7 @@ immediate(
  * Snags the immediate value out of the 2byte representing an
  * immediate operation.
  */
-unsigned int
+uint8_t
 get_imm(uint16_t inst)
 {
     return (inst & IMM_VAL) >> IMM_VAL_SHIFT;

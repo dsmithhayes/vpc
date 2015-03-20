@@ -14,8 +14,8 @@
 /*
  * Returns non-zero if valid CCR mask
  */
-unsigned short
-is_mask(unsigned int mask) {
+uint8_t
+is_mask(uint16_t mask) {
     if(mask == SIGN)
         return SIGN;
 
@@ -33,11 +33,11 @@ is_mask(unsigned int mask) {
  * Only toggles valid flag mask passed.
  */
 void
-toggle_flg(unsigned int mask, unsigned long *ctrl_reg)
+toggle_flg(uint16_t mask, uint32_t *ctrl_reg)
 {
     if(is_mask(mask))
         *ctrl_reg = (*ctrl_reg & mask)
-                ? (*ctrl_reg - mask)        /* remove the flag  */
+                ? (*ctrl_reg & ~mask)       /* remove the flag  */
                 : (*ctrl_reg | mask);       /* add the flag     */
     
     return;
@@ -47,7 +47,7 @@ toggle_flg(unsigned int mask, unsigned long *ctrl_reg)
  * Always sets the flag given.
  */
 void
-set_flg(unsigned int mask, unsigned long *ctrl_reg)
+set_flg(uint16_t mask, uint32_t *ctrl_reg)
 {
     if(is_mask(mask))
         *ctrl_reg |= mask;
@@ -61,7 +61,7 @@ set_flg(unsigned int mask, unsigned long *ctrl_reg)
  * it off, or just keep it off.
  */
 void
-clear_flg(unsigned int mask, unsigned long *ctrl_reg)
+clear_flg(uint16_t mask, uint32_t *ctrl_reg)
 {
     if(is_mask(mask))
         *ctrl_reg = (*ctrl_reg & mask)

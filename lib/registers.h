@@ -13,7 +13,8 @@
 /*******************/
 /* System Includes */
 /*******************/
-#include <stdint.h>
+#include <inttypes.h>
+
 
 /***************/
 /* Definitions */
@@ -34,6 +35,7 @@
 #define STOP    1
 #define INST    1
 
+#define SIGN_MASK   0x80000000
 
 /* Registers & Instructions */
 #define REG_SIZE    4       /* 4Byte registers      */
@@ -72,6 +74,7 @@
 
 typedef struct Registers {
     uint32_t file[REG_FILE_S];
+    
     uint32_t ccr;
     uint32_t mbr;
     uint32_t mar;
