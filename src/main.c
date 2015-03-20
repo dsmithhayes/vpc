@@ -19,7 +19,7 @@
 /* The memory! The registers! */
 /******************************/
 
-unsigned char memory[TOTAL_MEMORY] = { (char) 0 };
+uint8_t memory[TOTAL_MEMORY] = { 0 };
 registers reg;
 
 
@@ -31,9 +31,9 @@ int
 main(int argc, char *argv[])
 {
     char selection;
-    int file_size;               /* result of load_file();   */
-    unsigned int offset, length; /* for user input           */
-    char *file_name;             /* in case file name passed */
+    int file_size;              /* result of load_file();   */
+    uint16_t offset, length;    /* for user input           */
+    char *file_name;            /* in case file name passed */
 
 
     /* Zero all of the registers */
@@ -141,10 +141,8 @@ main(int argc, char *argv[])
 
             
             default:
-                fprintf(
-                    stderr,
-                    "This feature has not been implemented yet."
-                );
+                fprintf(stderr,
+                        "This feature has not been implemented yet.");
                 break;
         }
         

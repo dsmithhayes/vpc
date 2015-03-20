@@ -10,6 +10,7 @@
     date:       March 17, 2015
 */
 
+#include <stdint.h>
 #include "registers.h"
 
 /*********************/
@@ -18,6 +19,8 @@
 
 #define RD_MASK     0x000F
 #define RN_MASK     0x00F0
+
+#define RN_SHIFT    4
 
 /*
  * Data Processing Instructions
@@ -76,30 +79,30 @@
 /***********************/
 
 /* Returns true if a valid instruction */
-unsigned short is_inst(unsigned int mask, unsigned int inst);
+uint8_t is_inst(unsigned int mask, unsigned int inst);
 
 
 /* flags! flags! flags! */
-unsigned short is_mask(unsigned int mask);
-void toggle_flg(unsigned int mask, unsigned long *ctrl_reg);
-void set_flg(unsigned int mask, unsigned long *ctrl_reg);
-void clear_flg(unsigned int mask, unsigned long *ctrl_reg);
+uint8_t is_mask(uint16_t mask);
+void toggle_flg(uint16_t mask, uint32_t *ctrl_reg);
+void set_flg(uint16_t mask, uint32_t *ctrl_reg);
+void clear_flg(uint16_t mask, uint32_t *ctrl_reg);
 
 /* Executes the proper instruction */
-void execute(unsigned int inst, registers *reg);
+void execute(uint16_t inst, registers *reg);
 
 /* Gets the Rd and Rn for the register file index */
-unsigned int get_rd(unsigned int val);
-unsigned int get_rn(unsigned int val);
+uint8_t get_rd(uint16_t val);
+uint8_t get_rn(uint16_t val);
 
 
 /* Performs an immediate instruction */
 void immediate(
-        unsigned int mask,
-        unsigned int inst,
+        uint16_t mask,
+        uint16_t inst,
         registers *reg);
 
 /* Get the immediate value in the instruction, right bitshift of 4 */
-unsigned int get_imm(unsigned int inst);
+uint8_t get_imm(unsigned int inst);
 
 #endif /* OPERATIONS_H */

@@ -19,13 +19,12 @@
 #include "interface.h"
 
 int 
-loadf(void *memory, unsigned int max)
+loadf(void *memory, uint16_t max)
 {
     char file_name[INPUT_BUFFER];   /* user given */
     FILE *f;                        /* the actual file */
-    const char *mode = "rb";        /* change this? */
-    unsigned int size;
-    char buffer;
+    const char *mode = "rb";
+    uint16_t size;
     
     fprintf(stdout, "file> ");
     fgets(file_name, INPUT_BUFFER, stdin);
@@ -49,5 +48,5 @@ loadf(void *memory, unsigned int max)
     
     rewind(f);
     
-    return fread(memory, sizeof(char), size, f);
+    return fread(memory, sizeof(uint8_t), size, f);
 }

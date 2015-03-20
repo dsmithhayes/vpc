@@ -61,11 +61,11 @@ execute(unsigned int inst, registers *reg)
 unsigned int
 get_rd(unsigned int val)
 {
-    return val & RD_MASK;
+    return (val & RD_MASK);
 }
 
 unsigned int
 get_rn(unsigned int val)
 {
-    return (val & RN_MASK) / IMM_SHIFT;
+    return (val & RN_MASK) >> RN_SHIFT;
 }

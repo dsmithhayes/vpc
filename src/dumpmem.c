@@ -17,9 +17,9 @@
 
 
 void
-dumpmem(void *memory, unsigned int offset, unsigned int length)
+dumpmem(void *memory, uint16_t offset, uint16_t length)
 {
-    unsigned int i, j;
+    int i, j;
     
     length--;   /* for some reason it needs this? */
     
@@ -29,7 +29,7 @@ dumpmem(void *memory, unsigned int offset, unsigned int length)
         
         /* top row of the display, just the hex value in memory */
         for(j = i; j < (i + ROW_LENGTH); j++) {
-            fprintf(stdout, "%2X ", *((unsigned char *) memory + j));
+            fprintf(stdout, "%2X ", *((uint8_t *) memory + j));
 
             if(j == (offset + length))
                 break;
@@ -39,8 +39,8 @@ dumpmem(void *memory, unsigned int offset, unsigned int length)
         
         /* the contents of the memory */
         for(j = i; j < (i + ROW_LENGTH); j++) {
-            if(isprint((int) *((char *) memory + j)))
-                fprintf(stdout, " %c ", *((char *) memory + j));
+            if(isprint((int) *((uint8_t *) memory + j)))
+                fprintf(stdout, " %c ", *((uint8_t *) memory + j));
             else
                 fprintf(stdout, " . ");
             

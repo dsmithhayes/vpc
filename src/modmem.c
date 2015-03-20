@@ -19,10 +19,10 @@
 #include "interface.h"
 
 void 
-modmem(void *memory, unsigned int offset)
+modmem(void *memory, uint16_t offset)
 {
     char input[HEX_INPUT];
-    unsigned long buffer;
+    uint8_t buffer;
 
     fprintf(stdout, "modify the memory. enter '.' to end.\n");
 
@@ -48,10 +48,10 @@ modmem(void *memory, unsigned int offset)
         fflush(stdout);
 
         /* stroul() = string to unsigned long */
-        buffer = strtoul(input, NULL, HEX);
+        buffer = (uint8_t) strtoul(input, NULL, HEX);
         
-        /* change this? */
-        *((char *) memory + offset) = (char) buffer;
+        /* changed this! */
+        *((uint8_t *) memory + offset) = buffer;
 
         if(++offset == TOTAL_MEMORY)
             return;

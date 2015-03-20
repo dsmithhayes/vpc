@@ -14,7 +14,7 @@
 /*
  * Returns non-zero if valid CCR mask
  */
-short
+unsigned short
 is_mask(unsigned int mask) {
     if(mask == SIGN)
         return SIGN;

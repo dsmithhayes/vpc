@@ -22,6 +22,7 @@ zero(registers *reg)
     reg->mbr     = 0;
     reg->mar     = 0;
     reg->ir      = 0;
+    reg->alu     = 0;
     
     reg->stp_flg = 0;
     reg->ir_flg  = 0;

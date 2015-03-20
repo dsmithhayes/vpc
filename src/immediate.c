@@ -12,15 +12,15 @@
 
 void
 immediate(
-        unsigned int mask,
-        unsigned int inst,
+        uint16_t mask,
+        uint16_t inst,
         registers *reg)
 {
     /*
      * Obvious variable declarations, just read it.
      */
-    unsigned int rd  = get_rd(inst);
-    unsigned int imm = get_imm(inst);
+    uint8_t rd  = get_rd(inst);
+    uint8_t imm = get_imm(inst);
 
     /*
      * Begin!
@@ -30,7 +30,7 @@ immediate(
          * Move immediate value into the register.
          */
         case MOV_IMM:
-            reg->file[rd] = (unsigned long) imm;
+            reg->file[rd] = (uint32_t) imm;
         break;
 
         /*
@@ -73,7 +73,7 @@ immediate(
     /*
      * toggle the instruction register flag
      */
-    toggle_flg(INST, (unsigned long *) &(reg->ir_flg));
+    toggle_flg(INST, (uint32_t *) &(reg->ir_flg));
 
     return;
 }
@@ -83,7 +83,7 @@ immediate(
  * immediate operation.
  */
 unsigned int
-get_imm(unsigned int inst)
+get_imm(uint16_t inst)
 {
-    return (inst & IMM_VAL) / IMM_SHIFT;
+    return (inst & IMM_VAL) >> IMM_VAL_SHIFT;
 }

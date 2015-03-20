@@ -10,6 +10,11 @@
     date:       March 13th, 2015
 */
 
+/*******************/
+/* System Includes */
+/*******************/
+#include <stdint.h>
+
 /***************/
 /* Definitions */
 /***************/
@@ -66,13 +71,15 @@
  */
 
 typedef struct Registers {
-    unsigned long file[REG_FILE_S];
-    unsigned long ccr;
-    unsigned long mbr;
-    unsigned long mar;
-    unsigned long ir;
-    unsigned short ir_flg;
-    unsigned short stp_flg;
+    uint32_t file[REG_FILE_S];
+    uint32_t ccr;
+    uint32_t mbr;
+    uint32_t mar;
+    uint32_t ir;
+    uint32_t alu;
+    
+    uint8_t ir_flg;
+    uint8_t stp_flg;
 } registers;
 
 
@@ -85,8 +92,8 @@ void zero(registers *reg);
 
 /* Displays all of the registers to the screen. */
 void dumpreg(registers reg);
-unsigned int ir0(unsigned long in); /* returns ir0 from ir  */
-unsigned int ir1(unsigned long in); /* returns ir1 from ir  */
+uint16_t ir0(uint32_t in); /* returns ir0 from ir  */
+uint16_t ir1(uint32_t in); /* returns ir1 from ir  */
 
 /* single steps through the program */
 void trace(void *memory, registers *reg);
