@@ -14,19 +14,28 @@
 /* Definitions */
 /***************/
 
+/* Special Registers & Register File */
 #define REG_FILE_S  0x10    /* Size of reg file */
 #define SP          0xD     /* Stack Pointer    */
 #define LR          0xE     /* Link Register    */
 #define PC          0xF     /* Porgram Counter  */
 
+
+/* Flags */
 #define SIGN    4   /* 100 */
 #define ZERO    2   /* 010 */
 #define CARRY   1   /* 001 */
 
+#define STOP    1
+#define INST    1
+
+
+/* Registers & Instructions */
 #define REG_SIZE    4       /* 4Byte registers      */
 #define REG_BIT_S   0x20    /* 32bit registers      */
 #define INSTR_SIZE  2       /* 2Byte instructions   */
 #define INS_BIT_S   0x10    /* 16bit instructions   */
+
 
 /*
  * The registers struct is just an easy way to move and use the
@@ -55,6 +64,7 @@
  * stp_flg  tells the program to stop its execution.
  * 
  */
+
 typedef struct Registers {
     unsigned long file[REG_FILE_S];
     unsigned long ccr;

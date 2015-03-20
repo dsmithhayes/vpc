@@ -27,10 +27,10 @@ immediate(
 
         case CMP_IMM:
             if((reg->file[rd] - imm) == 0)
-                set_ccr(ZERO, &(reg->ccr));
+                set_flg(ZERO, &(reg->ccr));
 
             if((reg->file[rd] - imm) < 0)
-                set_ccr(SIGN, &(reg->ccr));
+                set_flg(SIGN, &(reg->ccr));
             break;
 
 
@@ -43,9 +43,11 @@ immediate(
             reg->file[rd] -= imm;
 
             if(reg->file[rd] < 0)
-                set_ccr(SIGN, &(reg->ccr));
+                set_flg(SIGN, &(reg->ccr));
             break;
     }
+
+    toggle_flg(INST, &(reg->ir_flg));
 
     return;
 }

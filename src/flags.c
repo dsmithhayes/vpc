@@ -23,20 +23,19 @@ is_ccr_mask(unsigned int mask) {
     if(mask == SIGN)
         return SIGN;
 
+    if(mask == STOP)
+        return STOP;
+
+    if(mask == INST)
+        return INST;
+
     return 0;
 }
 
-/* toggles the stop or instruction flags */
-void
-set_flg(unsigned short *flag)
-{
-    *flag = !*flag;
-    return;
-}
 
 /* Only toggles valid CCR masks passed. */
 void
-toggle_ccr(unsigned int mask, unsigned long *ctrl_reg)
+toggle_flg(unsigned int mask, unsigned long *ctrl_reg)
 {
     if(is_ccr_mask(mask))
         *ctrl_reg = (*ctrl_reg & mask)
@@ -48,7 +47,7 @@ toggle_ccr(unsigned int mask, unsigned long *ctrl_reg)
 
 
 void
-set_ccr(unsigned int mask, unsigned long *ctrl_reg)
+set_flg(unsigned int mask, unsigned long *ctrl_reg)
 {
     if(is_ccr_mask(mask))
         *ctrl_reg |= mask;
@@ -57,7 +56,7 @@ set_ccr(unsigned int mask, unsigned long *ctrl_reg)
 }
 
 void
-clear_ccr(unsigned int mask, unsigned long *ctrl_reg)
+clear_flg(unsigned int mask, unsigned long *ctrl_reg)
 {
     if(is_ccr_mask(mask))
         *ctrl_reg = (*ctrl_reg & mask)

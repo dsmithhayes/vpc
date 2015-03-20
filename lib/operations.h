@@ -66,7 +66,7 @@
 #define IMM_STEP    0x1000
 
 /* Stop */
-#define STOP        0xE000
+#define STOP_INST   0xE000
 
 
 /***********************/
@@ -77,11 +77,10 @@
 unsigned short is_inst(unsigned int mask, unsigned int inst);
 
 
-/* Sets flags! */
-void set_flg(unsigned short *flag);
-void toggle_ccr(unsigned int mask, unsigned long *ctrl_reg);
-void set_ccr(unsigned int mask, unsigned long *ctrl_reg);
-void clear_ccr(unsigned int mask, unsigned long *ctrl_reg);
+/* flags! flags! flags! */
+void toggle_flg(unsigned int mask, unsigned long *ctrl_reg);
+void set_flg(unsigned int mask, unsigned long *ctrl_reg);
+void clear_flg(unsigned int mask, unsigned long *ctrl_reg);
 
 /* Executes the proper instruction */
 void execute(unsigned int inst, registers *reg);
