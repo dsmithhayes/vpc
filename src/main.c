@@ -39,10 +39,10 @@ main(int argc, char *argv[])
     /* Zero all of the registers */
     zero(&reg);
     
-    
+    /* Introduction, I WROTE THIS PROGRAM MYSELF */
     fprintf(stdout, "vpc, by: Dave Smith-Hayes\n");
     fprintf(stdout, "Type '?', 'H' or 'h' for a list of commands.\n");
-
+    
     
     /* main program loop */
     while(1) {          /* bold statement assuming numbers exist! */

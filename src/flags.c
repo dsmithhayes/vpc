@@ -60,7 +60,7 @@ void
 clear_ccr(unsigned int mask, unsigned long *ctrl_reg)
 {
     if(is_ccr_mask(mask))
-        *ctrl_reg = (*cntl_reg & mask)
+        *ctrl_reg = (*ctrl_reg & mask)
                 ? (*ctrl_reg - mask) : *ctrl_reg;
 
     return;
