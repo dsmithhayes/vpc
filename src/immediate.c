@@ -51,7 +51,7 @@ immediate(
     }
 
     /* toggle the instruction register flag */
-    toggle_flg(INST, &(reg->ir_flg));
+    toggle_flg(INST, (unsigned long *) &(reg->ir_flg));
 
     return;
 }

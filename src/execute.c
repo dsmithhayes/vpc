@@ -52,7 +52,7 @@ execute(unsigned int inst, registers *reg)
     /**************/
 
     if(is_inst(STOP_INST, inst))
-        toggle_flg(STOP, &(reg->stp_flg));
+        toggle_flg(STOP, (unsigned long *) &(reg->stp_flg));
     
     return;
 }
