@@ -15,18 +15,15 @@
  * Returns non-zero if valid CCR mask
  */
 short
-is_ccr_mask(unsigned int mask) {
-    if(mask == ZERO)
-        return ZERO;
-
-    if(mask == CARRY)
-        return CARRY;
-
+is_mask(unsigned int mask) {
     if(mask == SIGN)
         return SIGN;
 
-    if(mask == (STOP | INST))
-        return (STOP | INST);
+    if(mask == ZERO)
+        return ZERO;
+
+    if(mask == ((STOP | INST) | CARRY))
+        return ((STOP | INST) | CARRY);
 
     return 0;
 }
@@ -38,7 +35,7 @@ is_ccr_mask(unsigned int mask) {
 void
 toggle_flg(unsigned int mask, unsigned long *ctrl_reg)
 {
-    if(is_ccr_mask(mask))
+    if(is_mask(mask))
         *ctrl_reg = (*ctrl_reg & mask)
                 ? (*ctrl_reg - mask)        /* remove the flag  */
                 : (*ctrl_reg | mask);       /* add the flag     */
@@ -52,7 +49,7 @@ toggle_flg(unsigned int mask, unsigned long *ctrl_reg)
 void
 set_flg(unsigned int mask, unsigned long *ctrl_reg)
 {
-    if(is_ccr_mask(mask))
+    if(is_mask(mask))
         *ctrl_reg |= mask;
 
     return;
@@ -66,7 +63,7 @@ set_flg(unsigned int mask, unsigned long *ctrl_reg)
 void
 clear_flg(unsigned int mask, unsigned long *ctrl_reg)
 {
-    if(is_ccr_mask(mask))
+    if(is_mask(mask))
         *ctrl_reg = (*ctrl_reg & mask)
                 ? (*ctrl_reg - mask) : *ctrl_reg;
 
