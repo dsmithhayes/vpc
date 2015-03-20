@@ -22,23 +22,20 @@ immediate(
     switch(mask) {
         case MOV_IMM:
             reg->file[rd] = (unsigned long) imm;
-
             break;
 
 
         case CMP_IMM:
             if((reg->file[rd] - imm) == 0)
-                toggle_ccr(ZERO, &(reg->ccr));
+                set_ccr(ZERO, &(reg->ccr));
 
             if((reg->file[rd] - imm) < 0)
-                toggle_ccr(SIGN, &(reg->ccr));
-
+                set_ccr(SIGN, &(reg->ccr));
             break;
 
 
         case ADD_IMM:
             reg->file[rd] += imm;
-            
             break;
 
 
@@ -47,13 +44,16 @@ immediate(
 
             if(reg->file[rd] < 0)
                 set_ccr(SIGN, &(reg->ccr));
-            
             break;
     }
 
     return;
 }
 
+/*
+ * Snags the immediate value out of the 2byte representing an
+ * immediate operation.
+ */
 unsigned int
 get_imm(unsigned int inst)
 {
