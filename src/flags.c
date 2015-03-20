@@ -36,7 +36,7 @@ void
 toggle_flg(uint16_t mask, uint32_t *ctrl_reg)
 {
     if(is_mask(mask))
-        *ctrl_reg = (*ctrl_reg & mask)
+        *ctrl_reg = ((*ctrl_reg & mask) == mask)
                 ? (*ctrl_reg & ~mask)       /* remove the flag  */
                 : (*ctrl_reg | mask);       /* add the flag     */
     

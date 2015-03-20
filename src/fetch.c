@@ -24,15 +24,24 @@ fetch(void *memory, registers *reg)
     reg->mar = reg->file[PC];
     reg->file[PC] += REG_SIZE;
 
-    /* grab the next 4 bytes of memory into the mbr */
-    for(i = 0; i < REG_SIZE; i++) {
-        reg->mbr +=
-                (unsigned long) *((char *) memory + (reg->mar + i));
+    /*
+     * grab the next 4 bytes of memory into the mbr
+     */
+    reg->mbr += reg->mar++;
+    reg->mbr << BITS_PER_BYTE;
 
-        if(i != (REG_SIZE - 1))
-            reg->mbr = reg->mbr << BITS_PER_BYTE;
-    }
+    reg->mbr += reg->mar++;
+    reg->mbr << BITS_PER_BYTE;
 
+    reg->mbr += reg->mar++;
+    reg->mbr << BITS_PER_BYTE;
+
+    reg->mbr += reg->mar++;
+    reg->mbr << BITS_PER_BYTE;
+    
+    /*
+     * Set the instruction register to the result of MBR
+     */
     reg->ir = reg->mbr;
     
     return;
