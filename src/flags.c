@@ -25,11 +25,8 @@ is_ccr_mask(unsigned int mask) {
     if(mask == SIGN)
         return SIGN;
 
-    if(mask == STOP)
+    if(mask == (STOP | INST))
         return STOP;
-
-    if(mask == INST)
-        return INST;
 
     return 0;
 }
