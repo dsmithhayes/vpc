@@ -37,4 +37,4 @@ void modmem(void *memory, unsigned int offset);
 
 #define HEX 0x10
 
-#endif
+#endif /* VPC_H */

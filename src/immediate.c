@@ -16,14 +16,27 @@ immediate(
         unsigned int inst,
         registers *reg)
 {
-    unsigned int rd = get_rd(inst);
+    /*
+     * Obvious variable declarations, just read it.
+     */
+    unsigned int rd  = get_rd(inst);
     unsigned int imm = get_imm(inst);
-    
+
+    /*
+     * Begin!
+     */
     switch(mask) {
+        /*
+         * Move immediate value into the register.
+         */
         case MOV_IMM:
             reg->file[rd] = (unsigned long) imm;
         break;
 
+        /*
+         * Compare the immediate value to the one in the register,
+         * set the flag accordingly.
+         */
         case CMP_IMM:
             if((reg->file[rd] - imm) == 0)
                 set_flg(ZERO, &(reg->ccr));
@@ -32,6 +45,9 @@ immediate(
                 set_flg(SIGN, &(reg->ccr));
         break;
 
+        /*
+         * Add the immediate value into the register.
+         */
         case ADD_IMM:
             reg->file[rd] += imm;
 
@@ -39,6 +55,10 @@ immediate(
                 set_flg(ZERO, &(reg->ccr));
         break;
 
+        /*
+         * Substract the imemdiate value from the value in the
+         * register.
+         */
         case SUB_IMM:
             reg->file[rd] -= imm;
 
@@ -50,7 +70,9 @@ immediate(
         break;
     }
 
-    /* toggle the instruction register flag */
+    /*
+     * toggle the instruction register flag
+     */
     toggle_flg(INST, (unsigned long *) &(reg->ir_flg));
 
     return;

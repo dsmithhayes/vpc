@@ -11,8 +11,10 @@
 #include "operations.h"
 
 
-/* Returns non-zero if valid CCR mask */
-inline short
+/*
+ * Returns non-zero if valid CCR mask
+ */
+short
 is_ccr_mask(unsigned int mask) {
     if(mask == ZERO)
         return ZERO;
@@ -33,7 +35,9 @@ is_ccr_mask(unsigned int mask) {
 }
 
 
-/* Only toggles valid flag mask passed. */
+/*
+ * Only toggles valid flag mask passed.
+ */
 void
 toggle_flg(unsigned int mask, unsigned long *ctrl_reg)
 {
@@ -45,6 +49,9 @@ toggle_flg(unsigned int mask, unsigned long *ctrl_reg)
     return;
 }
 
+/*
+ * Always sets the flag given.
+ */
 void
 set_flg(unsigned int mask, unsigned long *ctrl_reg)
 {
@@ -54,6 +61,11 @@ set_flg(unsigned int mask, unsigned long *ctrl_reg)
     return;
 }
 
+/*
+ * Always set the flag to zero. To make sure it doesn't become
+ * negative or something weird, just make sure it is on and toggle
+ * it off, or just keep it off.
+ */
 void
 clear_flg(unsigned int mask, unsigned long *ctrl_reg)
 {

@@ -78,6 +78,7 @@ unsigned short is_inst(unsigned int mask, unsigned int inst);
 
 
 /* flags! flags! flags! */
+unsigned short is_ccr_mask(unsigned int mask);
 void toggle_flg(unsigned int mask, unsigned long *ctrl_reg);
 void set_flg(unsigned int mask, unsigned long *ctrl_reg);
 void clear_flg(unsigned int mask, unsigned long *ctrl_reg);

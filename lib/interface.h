@@ -2,7 +2,8 @@
 #define INTERFACE_H
 
 /*
-    Definitions and prototypes for the user interface.
+    Definitions and prototypes for the user interface. Most of
+    these definitions help format the output data.
 
     file:       interface.h
     author:     Dave Smith-Hayes
@@ -17,4 +18,4 @@
 /* Display the usage help. */
 void help();
 
-#endif
+#endif /* INTERFACE_H */

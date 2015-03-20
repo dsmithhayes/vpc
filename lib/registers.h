@@ -97,4 +97,4 @@ void fetch(void *memory, registers *reg);
 /* Makes the program run */
 void go(void *memory, registers *reg);
 
-#endif
+#endif /* REGISTERS_H */
