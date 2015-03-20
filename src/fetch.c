@@ -27,17 +27,16 @@ fetch(void *memory, registers *reg)
     /*
      * grab the next 4 bytes of memory into the mbr
      */
-    reg->mbr += reg->mar++;
+    reg->mbr += *(uint32_t *) (memory + reg->mar++);
     reg->mbr << BITS_PER_BYTE;
 
-    reg->mbr += reg->mar++;
+    reg->mbr += *(uint32_t *) (memory + reg->mar++);
     reg->mbr << BITS_PER_BYTE;
 
-    reg->mbr += reg->mar++;
+    reg->mbr += *(uint32_t *) (memory + reg->mar++);
     reg->mbr << BITS_PER_BYTE;
 
-    reg->mbr += reg->mar++;
-    reg->mbr << BITS_PER_BYTE;
+    reg->mbr += *(uint32_t *) (memory + reg->mar++);
     
     /*
      * Set the instruction register to the result of MBR
