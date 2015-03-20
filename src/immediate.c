@@ -22,8 +22,7 @@ immediate(
     switch(mask) {
         case MOV_IMM:
             reg->file[rd] = (unsigned long) imm;
-            break;
-
+        break;
 
         case CMP_IMM:
             if((reg->file[rd] - imm) == 0)
@@ -31,22 +30,27 @@ immediate(
 
             if((reg->file[rd] - imm) < 0)
                 set_flg(SIGN, &(reg->ccr));
-            break;
-
+        break;
 
         case ADD_IMM:
             reg->file[rd] += imm;
-            break;
 
+            if(reg->file[rd] == 0)
+                set_flg(ZERO, &(reg->ccr));
+        break;
 
         case SUB_IMM:
             reg->file[rd] -= imm;
 
             if(reg->file[rd] < 0)
                 set_flg(SIGN, &(reg->ccr));
-            break;
+
+            if(reg->file[rd] == 0)
+                set_flg(ZERO, &(reg->ccr));
+        break;
     }
 
+    /* toggle the instruction register flag */
     toggle_flg(INST, &(reg->ir_flg));
 
     return;

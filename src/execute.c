@@ -46,6 +46,13 @@ execute(unsigned int inst, registers *reg)
     /* Data Instructions */
     /*********************/
 
+
+    /**************/
+    /* Stop flags */
+    /**************/
+
+    if(is_inst(STOP_INST, inst))
+        toggle_flg(STOP, &(reg->stp_flg));
     
     return;
 }
