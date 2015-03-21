@@ -90,21 +90,31 @@ typedef struct Registers {
 /* Prototypes */
 /**************/
 
-/* Sets all registers to zero */
+/*
+ * Sets all registers to zero
+ */
 void zero(registers *reg);
 
-/* Displays all of the registers to the screen. */
+/*
+ * Displays all of the registers to the screen.
+ */
 void dumpreg(registers reg);
 uint16_t ir0(uint32_t in); /* returns ir0 from ir  */
 uint16_t ir1(uint32_t in); /* returns ir1 from ir  */
 
-/* single steps through the program */
+/*
+ * single steps through the program
+ */
 void trace(void *memory, registers *reg);
 
-/* sets the registers accordingly */
+/*
+ * sets the registers accordingly
+ */
 void fetch(void *memory, registers *reg);
 
-/* Makes the program run */
+/*
+ * Makes the program run
+ */
 void go(void *memory, registers *reg);
 
 #endif /* REGISTERS_H */

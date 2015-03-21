@@ -10,11 +10,12 @@
 #include "registers.h"
 #include "operations.h"
 
+/*
+ * Monolithic function that performs the necessary immediate operation
+ * to the data in register Rd.
+ */
 void
-immediate(
-        uint16_t mask,
-        uint16_t inst,
-        registers *reg)
+immediate(uint16_t mask, uint16_t inst, registers *reg)
 {
     /*
      * Obvious variable declarations, just read it.

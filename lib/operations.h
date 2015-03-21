@@ -108,10 +108,7 @@ uint8_t get_rn(uint16_t val);
 /*
  * Performs an immediate instruction
  */
-void immediate(
-        uint16_t mask,
-        uint16_t inst,
-        registers *reg);
+void immediate(uint16_t mask, uint16_t inst, registers *reg);
 
 /*
  * Get the immediate value in the instruction
