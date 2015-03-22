@@ -1,9 +1,10 @@
 /*
-    file:   main.c
-    author: Dave Smith-Hayes
-    date:   March 16, 2015
-    
-    this is the entry point of the program.
+    The main entry point and where the memory and registers are
+    actually declared.
+
+    file:       main.c
+    author:     Dave Smith-Hayes
+    date:       March 16, 2015
 */
 
 #include <stdio.h>
@@ -44,7 +45,9 @@ main(int argc, char *argv[])
     fprintf(stdout, "Type '?', 'H' or 'h' for a list of commands.\n");
     
     
-    /* main program loop */
+    /*
+     * main program loop
+     */
     while(1) {          /* bold statement assuming numbers exist! */
         fprintf(stdout, "option> ");
         selection = getchar();

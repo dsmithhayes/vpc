@@ -19,7 +19,7 @@
 uint8_t
 is_inst(uint16_t mask, uint16_t inst)
 {
-    return ((mask & inst) == mask) ? 1 : 0;
+    return ((inst & mask) == mask) ? 1 : 0;
 }
 
 /*
