@@ -10,7 +10,12 @@
     date:       March 17, 2015
 */
 
-#include <inttypes.h>
+
+/*******************/
+/* System Includes */
+/*******************/
+
+#include <stdint.h>
 #include "registers.h"
 
 

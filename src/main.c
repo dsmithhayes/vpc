@@ -34,7 +34,6 @@ main(int argc, char *argv[])
     char selection;
     unsigned int file_size;     /* result of load_file();   */
     uint16_t offset, length;    /* for user input           */
-    char *file_name;            /* in case file name passed */
 
 
     /* Zero all of the registers */

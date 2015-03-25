@@ -14,7 +14,7 @@
 /* System Includes */
 /*******************/
 
-#include <inttypes.h>
+#include <stdint.h>
 
 
 /**************************/
