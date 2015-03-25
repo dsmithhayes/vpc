@@ -1,7 +1,8 @@
 # vpc
 
-*Author:* Dave Smith-Hayes
-*Date:* 24 March, 2015
+ *Author:* Dave Smith-Hayes
+
+ *Date:* 24 March, 2015
 
 ## Abstract
 
