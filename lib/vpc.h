@@ -20,16 +20,24 @@
 /*  Function prototypes  */
 /*************************/
 
-/* Write a file onto the disk. */
+/*
+ * Write a file onto the disk.
+ */
 void writef(void *memory);
 
-/* Load a file into the memory. */
+/*
+ * Load a file into the memory.
+ */
 int loadf(void *memory, uint16_t max);
 
-/* Dumps the memory to screen. */
+/*
+ * Dumps the memory to screen.
+ */
 void dumpmem(void *memory, uint16_t offset, uint16_t length);
 
-/* Modifies the memory. */
+/*
+ * Modifies the memory.
+ */
 void modmem(void *memory, uint16_t offset);
 
 

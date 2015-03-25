@@ -42,8 +42,9 @@ named *Stack Pointer*, *Link Register* and *Program Counter* and
 perform their own special operations. The rest of the register file
 is used for generic high speed data computation.
 
-There is a *Memory Buffer Register* along with a *Memory Address
-Register* which control the loading and storing of data to the memory.
+There is a *Memory Buffer Register*, *Memory Address Register* and
+ *Arithmatic Logic Unit* which control the loading and storing of
+data to the memory.
 
 ## Compilation
 
@@ -175,9 +176,61 @@ that would represent the Code Control Register.
 These are byte and bit definitions. `vpc` defines 4byte (32bit)
 registers and 2byte (16bit) instruction sizes.
 
+ *typedef*
+
+    typedef struct Registers {
+        uint32_t file[REG_FILE_S];
+        
+        uint32_t ccr;
+        uint32_t mbr;
+        uint32_t mar;
+        uint32_t ir;
+        uint32_t alu;
+        
+        uint8_t ir_flg;
+        uint8_t stp_flg;
+    } registers;
+
+This struct defines all of the registers, along with two flags. The
+register `alu` is the arithmatic logic unit, where all arithmetic is
+performed. `ir_flg` is the instruction flag, which flip-flops according
+to which instruction register is to be used. Remember the `ir` register
+defined here is split into `ir0` and `ir1`. The `stp_flg` indicates
+when the program should halt.
+
+ *Prototypes*
+
+    void zero(registers* reg);
+
+Given the registers, sets all of the values within it to zero.
+
+    void dumpreg(registers reg);
+
+Displays all of the registers to the standard output.
+
+    uint16_t ir0(uint32_t in);
+    uint16_t ir1(uint32_t in);
+
+Returns values that represent the 16bit pseudo-registers `ir0` and
+ `ir1`
+
+    void trace(void* memory, registers* reg);
+
+Prompts the user to single step through the program counter while
+loading the registers and performing operations accordingly.
+
+    void fetch(void* memory, registers* reg);
+
+This routine represents the fetch step in the CPU instruction cycle of
+ `vpc`.
+
+    void go(void* memory, registers* reg);
+
+Run the program loaded in memory.
+
 #### operations.h
 
-
+#### interface.h
 
 ### Source Files
 
