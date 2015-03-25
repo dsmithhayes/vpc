@@ -242,6 +242,7 @@ The user interface is an important part of `vpc`.
 
 * `stdint.h` for `uintN_t` data types.
 
+
  *Definitions*
 
     #define INPUT_BUFFER 0xFF
