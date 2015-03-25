@@ -84,9 +84,8 @@ loading and writing files from and to the physical disk.
 
 All of the header files for `vpc` are found within the `lib/` directory.
 
- `vpc.h` includes one system header:
-
-* `#include <stdin.h>` for `uintN_t` declarations
+ `vpc.h` includes one system header: `<stdin.h>` for `uintN_t`
+declarations
 
 The use of `uintN_t` type definitions is to assure fixed bit-width
 datatypes. This assures that contents of the registers are actually
@@ -134,9 +133,8 @@ and stops when the user supplies a period.
 A crucial library for this processor, most things defined and
 prototyped here are used for the registers in the CPU.
 
- `registers.h` includes one system header:
-
-* `#include <stdin.h>` used for the `uintN_t` datatypes
+ `registers.h` includes one system header: `<stdin.h>` used for the
+ `uintN_t` datatypes
 
  *Definitions*
 
@@ -169,10 +167,10 @@ representation. Remember 4 in binary is `100`, 2 is `010` and 1 is
 This shows how to apply both the `SIGN` and `CARRY` flag to a variable
 that would represent the Code Control Register.
 
-    #define REG_SIZE    4
-    #define REG_BIT_S   0x20
-    #define INSTR_SIZE  2
-    #define INS_BIT_S   0x10
+    #define REG_SIZE   4
+    #define REG_BIT_S  0x20
+    #define INSTR_SIZE 2
+    #define INS_BIT_S  0x10
 
 These are byte and bit definitions. `vpc` defines 4byte (32bit)
 registers and 2byte (16bit) instruction sizes.
@@ -234,14 +232,20 @@ Run the program loaded in memory.
 The instruction set for this processor is defined here, mostly in
 masks.
 
+ *Prototypes*
+
+    uint8_t is_inst(uint16_t mask, uint16_t inst);
+
+Given the instruction mask defined in this header and the (pseudo)
+Instruction Register (`ir0` or `ir1`), returns non-zero if they
+match.
+
 #### interface.h
 
 The user interface is an important part of `vpc`.
 
- `interface.h` include one system library:
-
-* `stdint.h` for `uintN_t` data types.
-
+ `interface.h` include one system library: `<stdint.h>` for `uintN_t`
+data types.
 
  *Definitions*
 
@@ -256,7 +260,7 @@ routine.
 
     #define ROW_LENGTH 0x10
 
-When dumping the memory to the screen (`dumpmem()`, show 16 bytes per
+When dumping the memory to the screen (`dumpmem()`), show 16 bytes per
 line.
 
  *Prototypes*
