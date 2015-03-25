@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-Wall
 INC=-Ilib/
 
-TARGET=vpc
+TARGET=bin/vpc
 
 OBJDIR=obj
 
@@ -16,9 +16,6 @@ vpc: $(OBJECTS)
 
 obj/%.o: src/%.c
 	$(CC) $(CLFAGS) $(INC) -c -o $@ $<
-
-init:
-	mkdir -p $(OBJDIR)
 
 clean:
 	rm $(OBJECTS) $(TARGET)

@@ -1,230 +1,183 @@
-# vpc - documentation
+# vpc
 
-The following is a description of the functions created and their
-algorithms. Throughout time this document will expand and remain in the
-order of functionality added.
+*Author:* Dave Smith-Hayes
+*Date:* 24 March, 2015
 
-The instructions are a crucial part of the CPU, as they will control
-the data and perform operations. There is an optimal, six-operation
-pipeline method that will be used for this CPU. This basic idea is how
-the software will decode 2byte chunks of memory into operations.
+## Abstract
 
-1. Fetch instruction
-2. Decode instruction
-3. Calculate operand address
-4. Fetch the operand
-5. Execute the instruction
-6. Write the operand somewhere
+ `vpc` is a small virtual processor written in C to target multiple
+platforms. The processor is attached to 16kB (`0x4000`) of memory,
+uses 16bit instructions and has a handful of 32bit registers. The
+instructions used and the program flow control simulate an ARM
+Cortex-3 processor.
 
-## Data Structures and Variables
+The following literature is usage documentation, along with instruction
+documentation and explanation of how several components of the software
+interact with each other.
+
+### Instruction Operation
+
+The processor has a very simple cycle of operation. Firstly, it fetches
+the data from the memory, interprets the instruction, fetches further
+data from meory, performs an operation and finally stores the result
+of the operation in memory.
+
+    1. Fetch an instruction from memory
+    2. Decode an instruction
+    3. Put data in registers
+    4. Perform data operation between registers
+    5. Store result in memory
+
+Despite there being 32bit registers, the one *Instruction Register*
+is actually viewed as a combination 16bit instruction register. The
+first 2bytes of the value in the Instruction Register is the value
+for `ir0` and the last 2bytes is `ir1`.
 
 ### Registers
 
-The `registers` struct is extremely important. It holds all the
-registers that are going to be used while emulating the CPU. There are
-16 registers in the file, along with two memory, a code control and
-instruction register. All of these registers are **32bits** long. The
-following is the definition of the structure.
+When there are more that one register in an array format, this is
+called a register file. The last three indexes of the register file
+for `vpc` have special consideration. They are aliased with the
+named *Stack Pointer*, *Link Register* and *Program Counter* and
+perform their own special operations. The rest of the register file
+is used for generic high speed data computation.
 
-    typedef struct Registers {
-        unsigned long file[REG_FILE_S];
-        unsigned long ccr;
-        unsigned long mbr;
-        unsigned long mar;
-        unsigned long ir;
-        unsigned short ir_flg;
-        unsigned short stp_flg;
-    } registers;
+There is a *Memory Buffer Register* along with a *Memory Address
+Register* which control the loading and storing of data to the memory.
 
-### Memory
+## Compilation
 
-There is 16kB of data. This is represented as an unsigned char within
-the software. 16kB is actually 16384 bytes, or `0x4000` as it is
-defined in the `vpc.h` header file.
+If the desired system is Windows, there is a binary in the `bin/`
+directory called `vpc.exe` . There also includes a Visual Studio C++
+2010 Express project file which should be able to run in all later
+versions of Visual Studio. Along with that there is a Windows
+ `makefile.win` that is used with the Orwell Dev-C++ project file
+(which in turn uses GCC and the glibc) that is included with the
+project. The program will run from these IDEs.
 
-    unsigned char memory[TOTAL_MEMORY] = { (char) 0 };
+### Using make
 
-Note that each value of the array is set to all 0's, they are also only
-one byte long.
+    $ make
 
-## Functions
+This will create a `vpc` binary in the `bin/` directory. This directory
+will also be where all of the other binary files for instructions will
+go as well. More on this topic in the usage.
 
-### loadf()
+## Usage
 
-* `void *memory`
-* `unsigned int max`
+Topics in this section will be how to use the actual `vpc` program.
+This presumes that the program was a successful compile, and is now
+running as a binary on your system. *Which ever system that is.*
 
-Loading file works by passing a full or relative path to the program
-to which is then loaded into the virtual memory. The following list is
-the algorithm used to load the file.
+## Code Documentation
 
-1. Ask the user for a file name
-2. If it is a valid file name, open the file into a buffer
-3. Read the size of the file
-4. copy the file into the virtual memory
-5. Return the number of bytes read
+### Headers
 
-This function utlizes the system's implementation of the standard
-library functions `fopen()`, `fread()`, `fseek()`, `ftell()`
- `rewind()`, and  `fgets()`. The appropriate `errno` is returned
-to the main program on failure of any of those functions. 
+#### vpc.h
 
-### writef()
+This is the main header file that was used in the extremely early
+stages of the development of this program. Defined here are extremely
+important routines that interact with the human input. Routines like
+loading and writing files from and to the physical disk.
 
-* `void *memory`
+All of the header files for `vpc` are found within the `lib/` directory.
 
-Writing a file is taking contents of memory and placing them into a
-file in the current working directory based on a size given by the
-user. The following is how this process is accomplished.
+ `vpc.h` includes one system header:
 
-1. Ask the user for a file name
-2. If the file doesn't exist, create it, overwrite otherwise
-3. Ask for the size of the file to be written
-4. If the given size is unreasonable, make it the whole memory
-5. Write the memory to the file.
+* `#include <stdin.h>` for `uintN_t` declarations
 
-### modmem()
+The use of `uintN_t` type definitions is to assure fixed bit-width
+datatypes. This assures that contents of the registers are actually
+32bits and the content of memory exacty 8bits (one byte) at each
+address.
 
-* `void *memory`
-* `unsigned int offset`
+ *Definitions*
 
-An important part of the program is the ability to edit the values
-that sit in the memory. This is achieved in a brutally tedius way;
-each memory location asks for a value from the keyboard, when the
-user enters `.` the writing stops.
+    #define TOTAL_MEMORY 0x4000
 
-1. ask the user for a memory location to start entering
-2. capture the user input
-3. place the character into memory
-4. repeat until `.` entered or memory exceeded
+There is a total of 16 kilobytes of memory in `vpc`. This is represented
+as `16 * (2^10)` (16384) bytes, or `0x4000` in hexadecimal.
 
-### dumpmem()
+    #define HEX 0x10
 
-* `void *memory`
-* `unsigned int offset`
-* `unsigned int length`
+This definition is used for a function that is in the standard
+library (`strtoul()`) which allows the user to specify which base to
+capture from the string. In this case, it is `HEX`.
 
-Dumping the memory to the screen is necessary to allow the user to
-visually see what's being manipulated in the memory.
+ *Function Prototypes*
 
-The follow figure is a demonstation of what the output should look
-like.
+    void writef(void* memory);
 
-    offset> 18
-    length> 40
-    
-    18  2E 63  A 20 20 20 20 61 75 74 68 6F 72 3A 20 44 
-         .  c  .              a  u  t  h  o  r  :     D 
-    28  61 76 65 20 53 6D 69 74 68 2D 48 61 79 65 73  A 
-         a  v  e     S  m  i  t  h  -  H  a  y  e  s  . 
-    38  20 20 20 20 64 61 74 65 
-                     d  a  t  e
+Writes the contents of the memory to a file. The file name is supplied
+by the user.
 
-1. Ask the user where to start in memory
-2. Iterate through the memory 
-3. Print the graph above.
+    int loadf(void* memory, uint16_t max);
 
-**Printing the table**
+Loads a file to the memory. If the file size is larger than `max` bytes
+then it is truncated.
 
-Printing the table was a fun task. The following is the steps and
-sizes of iterations used to display the contents of the memory. The
-`offset` variable is where you start in the memory and you keep
-printing until you've printed `length` contents of the memory. The
-table has to be 16 (`0x10`) values long with two rows showing the
-hex value of the memory address, and the ASCII value if there is one.
-If there isn't a printable ASCII value, print a period. The beginning
-of each row is offsetted by which memory address is the first value. As
-you can see in the example, the use of 18
+    void dumpmem(void* memory, uint16_t offset, uint16_t length);
 
-1. Print the memory address of the first value
-2. Print the contents of the first address
-3. Print the next 15 (`0xF`) values as hex
-4. Print the same values as ASCII on a new line
-5. If the value is not a character, print a `.`
-6. Repeat process at `offset + 16 (0x10)`
-7. If memory adress is equal to `offset + length` end
+Dumps the contents of memory to the screen, based on the offset in
+memory and the contents of memory.
 
-### zero()
+    void modmem(void* memory, uint16_t offset);
 
-* `registers *reg`
+Allows the user to edit contents of the memory, address per address.
+The user supplies an offset to begin editing the memory (in hexadecimal)
+and stops when the user supplies a period. 
 
-`zero()` will set all of the registers in the CPU to `0`.
+#### registers.h
 
-### dumpreg()
+A crucial library for this processor, most things defined and
+prototyped here are used for the registers in the CPU.
 
-* `registers reg`
+ `registers.h` includes one system header:
 
-Dumping the registers is useful to see what the heck is actually going
-on with the program. When you use the `R` command it will display all
-of the registers in a very neat order.
+    * `#include <stdin.h>` used for the `uintN_t` datatypes
 
-**The Register Output**
+ *Definitions*
 
-    option> r
-    R 1: 0x00000000 R 2: 0x00000000 R 3: 0x00000000 R 4: 0x00000000 
-    R 5: 0x00000000 R 6: 0x00000000 R 7: 0x00000000 R 8: 0x00000000 
-    R 9: 0x00000000 R10: 0x00000000 R11: 0x00000000 R12: 0x00000000 
-    R13: 0x00000000  SP: 0x00000000  LR: 0x00000000  PC: 0x00000000
-    
-    CCR: 000 (sign, zero, carry)
-    MBR: 0x00000000
-    MAR: 0x00000000
-    IR0: 0x0000
-    IR1: 0x0000
-    
-    Stop Flag: 0
-    Active IR: 0
+    #define REG_FILE_S 0x10
 
-As you can see, there is nothing in any of the registers. This is
-because the program initializes all the registers to 0 when it starts
-up. Also, the special registers (`SP` stack pointer, `LR` link
-register, `PC` program counter) are noted above.
+The register file is defines as a 16-32bit register file.
 
-### trace()
+    #define SP 0xD
+    #define LR 0xE
+    #define PC 0xF
 
-* `void *memory`
-* `registers *reg`
+The *Stack Pointer* is defined as the 13th index of the register file.
+The *Link Register* is the 14th index of the register file. Finally,
+the *Program Counter* is the 15th index of the register file.
 
-Tracing through the program, one by one. This will load the registers
-with the appropriate data from the memory, incrementing accordingly.
+    #define SIGN  4
+    #define ZERO  2
+    #define CARRY 1
+    #define STOP  1
+    #define INST  1
 
-### fetch()
+These are flags that have their own registers. `SIGN`, `ZERO` and
+ `CARRY` are all apart of one 32bit register (much too big) called the
+ *Code Control Register*. Each number represents a 3bit logical
+representation. Remember 4 in binary is `100`, 2 is `010` and 1 is
+ `001`.
 
-* `void *memory`
-* `registers *reg`
+    ccr = SIGN | CARRY // 100 | 001 = 101
 
-Fetching happens when the data is actually requested for the specific
-register. Memory will be retrieved in 32bit (`0x20`) chunks as per the
-size of the registers. Note that memory is stored in a single byte
-(8bit) array. The order of this operation is operation is as follows:
+This shows how to apply both the `SIGN` and `CARRY` flag to a variable
+that would represent the Code Control Register.
 
-1. Move the value of the `registers[PC]` into `mar`
-2. Move the next four (4) values of `memory[mar]` into `mbr`
-3. Move the value of `mbr` into `ir`
-4. Adjust `registers[PC]` by 4 - per each byte of the array
+    #define REG_SIZE    4
+    #define REG_BIT_S   0x20
+    #define INSTR_SIZE  2
+    #define INS_BIT_S   0x10
 
-`registers[PC]` is the Program Counter register. This register keeps
-track of where in memory the program is grabbing the next pieces of
-data.
+These are byte and bit definitions. `vpc` defines 4byte (32bit)
+registers and 2byte (16bit) instruction sizes.
 
-`mar` and `mbr` are the Memory Address Register, and Memory Buffer
-Register. These registers control the I/O of the processor. Because
-the memory is stored as a series of single bytes, there needs to be
-four requests to memory to load the Memory Buffer Register. The
-operation would look something like this:
+#### operations.h
 
-    mbr  = memory[mar] << 0x18;
-    mbr += memory[mar + 1] << 0x10;
-    mbr += memory[mar + 2] << 8;
-    mbr += memory[mar + 3];
 
-From there we will add `mar + 4` to the Program Counter to point to 
-the next piece of memory.
 
-`ir` is the Instruction Register. This is a 32bit (`0x20`) register
-that holds two 16bit (`0x10`) instructions. These pseudo registers are
-referred to as `ir0` and `ir1`. Functions supplied for getting the
-proper instruction from the `ir` register are `ir0(unsigned int)` 
-and `ir1(unsigned int)` respectively.
+### Source Files
 
-### execute()
