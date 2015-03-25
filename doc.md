@@ -240,6 +240,34 @@ Given the instruction mask defined in this header and the (pseudo)
 Instruction Register (`ir0` or `ir1`), returns non-zero if they
 match.
 
+    uint8_t is_mask(uint16_t mask);
+    void toggle_flg(uint16_t mask, uint32_t* ctrl_reg);
+    void set_flg(uint16_t mask, uint32_t* ctrl_reg);
+    void clear_flg(uint16_t mask, uint32_t* ctrl_reg);
+
+ `is_mask` is a giant switch that returns the value of the mask if true
+or 0 if it is not a valid mask. The next three functions manipulate the
+bit according. Given the mask and the `ccr` from the `registers`
+struct.
+
+    void execute(uint16_t inst, registers* reg);
+
+Given an instruction and all the registers, it will execute accordingly.
+
+    uint8_t get_rd(uint16_t val);
+    uint8_t get_rn(uint16_t val);
+
+These get the `Rd` and `Rn` out of the instruction respectively.
+
+    void immediate(uint16_t mask, uint16_t inst, registers * reg);
+
+Performs the immediate instruction declared by the `mask` using the
+instruction `inst` with all of the `registers`.
+
+    uint8_t get_imm(uint16_t inst);
+
+Returns the immediate value (only a byte, oh no!) of the instruction.
+
 #### interface.h
 
 The user interface is an important part of `vpc`.
