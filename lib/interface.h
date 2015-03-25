@@ -23,7 +23,6 @@
 
 #define INPUT_BUFFER    0xFF    /* 255B input for strings     */
 #define HEX_INPUT       4       /* 4B for (hex) string values */
-#define OUTPUT_MASK     0xFF
 #define ROW_LENGTH      0x10    /* for the memory dump rows */
 
 

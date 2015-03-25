@@ -23,11 +23,11 @@ the data from the memory, interprets the instruction, fetches further
 data from meory, performs an operation and finally stores the result
 of the operation in memory.
 
-    1. Fetch an instruction from memory
-    2. Decode an instruction
-    3. Put data in registers
-    4. Perform data operation between registers
-    5. Store result in memory
+1. Fetch an instruction from memory
+2. Decode an instruction
+3. Put data in registers
+4. Perform data operation between registers
+5. Store result in memory
 
 Despite there being 32bit registers, the one *Instruction Register*
 is actually viewed as a combination 16bit instruction register. The
@@ -136,7 +136,7 @@ prototyped here are used for the registers in the CPU.
 
  `registers.h` includes one system header:
 
-    * `#include <stdin.h>` used for the `uintN_t` datatypes
+* `#include <stdin.h>` used for the `uintN_t` datatypes
 
  *Definitions*
 
@@ -231,7 +231,39 @@ Run the program loaded in memory.
 
 #### operations.h
 
+The instruction set for this processor is defined here, mostly in
+masks.
+
 #### interface.h
+
+The user interface is an important part of `vpc`.
+
+ `interface.h` include one system library:
+
+* `stdint.h` for `uintN_t` data types.
+
+ *Definitions*
+
+    #define INPUT_BUFFER 0xFF
+    #define HEX_INPUT    4
+
+The `INPUT_BUFFER` is actually used in the `loadf()` and `writef()`
+routines for the `fgets()` function, defining how much to buffer for
+the filenames in bytes. `HEX_INPUT` is just like `INPUT_BUFFER` but
+strictly for hexadecimal numbers. This is used in the `modmem()`
+routine.
+
+    #define ROW_LENGTH 0x10
+
+When dumping the memory to the screen (`dumpmem()`, show 16 bytes per
+line.
+
+ *Prototypes*
+
+    void help();
+
+Displays the help text that shows which characters represent which
+command.
 
 ### Source Files
 

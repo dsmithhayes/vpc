@@ -71,8 +71,8 @@
 
 #define IMM_VAL     0x0FF0
 
-#define IMM_VAL_SHIFT   4       /* 4bit shift for this little guy.  */
-#define IMM_INS_SHIFT   0xC     /* 12bit shifts up in here          */
+#define IMM_VAL_SHIFT   4       /* 4bit shift for this little guy. */
+#define IMM_INS_SHIFT   0xC     /* 12bit shifts up in here         */
 
 #define IMM_STEP    0x1000
 
