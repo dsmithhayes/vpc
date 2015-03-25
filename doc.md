@@ -94,6 +94,8 @@ address.
 
  *Definitions*
 
+* * *
+
     #define TOTAL_MEMORY 0x4000
 
 There is a total of 16 kilobytes of memory in `vpc`. This is represented
@@ -106,6 +108,8 @@ library (`strtoul()`) which allows the user to specify which base to
 capture from the string. In this case, it is `HEX`.
 
  *Function Prototypes*
+
+* * *
 
     void writef(void* memory);
 
@@ -137,6 +141,8 @@ prototyped here are used for the registers in the CPU.
  `uintN_t` datatypes
 
  *Definitions*
+
+* * *
 
     #define REG_FILE_S 0x10
 
@@ -177,6 +183,8 @@ registers and 2byte (16bit) instruction sizes.
 
  *typedef*
 
+* * *
+
     typedef struct Registers {
         uint32_t file[REG_FILE_S];
         
@@ -198,6 +206,8 @@ defined here is split into `ir0` and `ir1`. The `stp_flg` indicates
 when the program should halt.
 
  *Prototypes*
+
+* * *
 
     void zero(registers* reg);
 
@@ -233,6 +243,8 @@ The instruction set for this processor is defined here, mostly in
 masks.
 
  *Prototypes*
+
+* * *
 
     uint8_t is_inst(uint16_t mask, uint16_t inst);
 
@@ -277,6 +289,8 @@ data types.
 
  *Definitions*
 
+* * * 
+
     #define INPUT_BUFFER 0xFF
     #define HEX_INPUT    4
 
@@ -292,6 +306,8 @@ When dumping the memory to the screen (`dumpmem()`), show 16 bytes per
 line.
 
  *Prototypes*
+
+* * * 
 
     void help();
 
