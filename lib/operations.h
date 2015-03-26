@@ -29,6 +29,19 @@
 #define RN_SHIFT    4
 
 /*
+ * Check first byte for instruction type
+ */
+#define DAT_MASK    0
+#define LS_MASK     0x2000
+#define IMM_MASK    0x7000
+#define COND_MASK   0x8000
+#define PP_MASK     0xA000
+#define UBRA_MASK   0xC000
+#define UBRL_MASK   0xD000
+#define STOP_MASK   0xE000
+
+
+/*
  * Data Processing Instructions
  *
  * 0000ppppNNNNDDDD
@@ -48,13 +61,22 @@
  */
 #define AND_DAT     0x0000
 #define EOR_DAT     0x0100
-#define ORR_DAT     0x0C00
 #define SUB_DAT     0x0200
+#define SXB_DAT     0x0300
 #define ADD_DAT     0x0400
+#define ADC_DAT     0x0500
 #define LSR_DAT     0x0600
 #define LSL_DAT     0x0700
-#define MOV_DAT     0x0E00
+#define TST_DAT     0x0800
+#define TEQ_DAT     0x0900
+#define CMP_DAT     0x0A00
+#define ROR_DAT     0x0B00
+#define ORR_DAT     0x0C00
+#define MOV_DAT     0x0D00
+#define BIC_DAT     0x0E00
+#define MVN_DAT     0x0F00
 
+#define DAT_STEP    0x0100
 
 /*
  * Immediate Instructions
@@ -75,53 +97,29 @@
 #define SUB_IMM     0x7000
 
 #define IMM_VAL     0x0FF0
-
 #define IMM_VAL_SHIFT   4       /* 4bit shift for this little guy. */
-
 #define IMM_STEP    0x1000
 
-/*
- * The stop instruction
- */
-#define STOP_INST   0xE000
-
 
 /*
- * This is a handy array of all the instruction masks that
- * may be used to test if an instruction is valid.
+ * Conditional Code Masks used for conditional branches
  */
-uint16_t inst_masks[] = {
-    /*
-     * Data instructions (reg to reg)
-     */
-    ADD_DAT,
-    EOR_DAT,
-    ORR_DAT,
-    SUB_DAT,
-    ADD_DAT,
-    LSR_DAT,
-    LSL_DAT,
-    MOV_DAT,
+#define COND_EQ     0x8000
+#define COND_NE     0x8100
+#define COND_CS     0x8200
+#define COND_CC     0x8300
+#define COND_MI     0x8400
+#define COND_PL     0x8500
+#define COND_HI     0x8800
+#define COND_LS     0x8900
 
-    /*
-     * Immediate instructions
-     */
-    MOV_IMM,
-    CMP_IMM,
-    ADD_IMM,
-    SUB_IMM,
-
-    /*
-     * Stop instruction
-     */
-    STOP_INST
-}
+#defien COND_STEP   0x0100
 
 /*
- * Dynamically allocate how many instructions are listed
+ * Unconditional branches
  */
-#define TOTAL_INST  sizeof(inst_masks) / sizeof(uint16_t)
-
+#define UN_BRA      0xC000
+#define UN_BRL      0xD000
 
 /***********************/
 /* Function Prototypes */

@@ -21,25 +21,6 @@
 void
 execute(uint16_t inst, registers *reg)
 {
-    int i;
-
-    for(i = 0; i < TOTAL_INST; i++) {
-        /*
-         * Determine immediate
-         */
-
-        /*
-         * Determine data
-         */
-
-        /*
-         * Determine branch
-         */
-
-        /*
-         * Determine stop
-         */
-    }
     
     return;
 }
