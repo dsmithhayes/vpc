@@ -120,6 +120,12 @@ uint8_t get_rn(uint16_t val);
 void immediate(uint16_t mask, uint16_t inst, registers *reg);
 
 /*
+ * Performs a register to register operation.
+ */
+void data(uint16_t mask, uint16_t inst, registers *reg);
+
+
+/*
  * Get the immediate value in the instruction
  */
 uint8_t get_imm(uint16_t inst);
