@@ -95,9 +95,9 @@ datatypes. This assures that contents of the registers are actually
 32bits and the content of memory exacty 8bits (one byte) at each
 address.
 
- *Definitions*
-
 * * *
+
+ **Definitions**
 
     #define TOTAL_MEMORY 0x4000
 
@@ -110,9 +110,9 @@ This definition is used for a function that is in the standard
 library (`strtoul()`) which allows the user to specify which base to
 capture from the string. In this case, it is `HEX`.
 
- *Function Prototypes*
-
 * * *
+
+ **Function Prototypes**
 
     void writef(void* memory);
 
@@ -143,9 +143,9 @@ prototyped here are used for the registers in the CPU.
  `registers.h` includes one system header: `<stdin.h>` used for the
  `uintN_t` datatypes
 
- *Definitions*
-
 * * *
+
+ **Definitions**
 
     #define REG_FILE_S 0x10
 
@@ -184,9 +184,9 @@ that would represent the Code Control Register.
 These are byte and bit definitions. `vpc` defines 4byte (32bit)
 registers and 2byte (16bit) instruction sizes.
 
- *typedef*
-
 * * *
+
+ **typedef**
 
     typedef struct Registers {
         uint32_t file[REG_FILE_S];
@@ -208,9 +208,9 @@ to which instruction register is to be used. Remember the `ir` register
 defined here is split into `ir0` and `ir1`. The `stp_flg` indicates
 when the program should halt.
 
- *Prototypes*
-
 * * *
+
+ **Prototypes**
 
     void zero(registers* reg);
 
@@ -245,9 +245,9 @@ Run the program loaded in memory.
 The instruction set for this processor is defined here, mostly in
 masks.
 
- *Prototypes*
-
 * * *
+
+ **Prototypes**
 
     uint8_t is_inst(uint16_t mask, uint16_t inst);
 
@@ -290,9 +290,9 @@ The user interface is an important part of `vpc`.
  `interface.h` include one system library: `<stdint.h>` for `uintN_t`
 data types.
 
- *Definitions*
-
 * * * 
+
+ **Definitions**
 
     #define INPUT_BUFFER 0xFF
     #define HEX_INPUT    4
@@ -308,9 +308,9 @@ routine.
 When dumping the memory to the screen (`dumpmem()`), show 16 bytes per
 line.
 
- *Prototypes*
-
 * * * 
+
+ **Prototypes**
 
     void help();
 
