@@ -1,5 +1,10 @@
 /*
-    Executes the instruction given
+    Executes the instruction given. First it decides which instruction
+    it is, and then proceeds to perform the operation to the according
+    registers within the opcode data.
+
+    there is an `immediate()` and `data()` function that will perform
+    the appropriate operation based on the positive mask match.
     
     file:       execute.c
     author:     Dave Smith-Hayes
