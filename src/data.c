@@ -16,7 +16,7 @@ data(uint16_t mask, uint16_t inst, registers *reg)
     uint8_t rn = get_rn(inst);
 
     switch(mask) {
-
+        
     }
 
     toggle_flg(INST, (uint32_t) &(reg->ir_flag));

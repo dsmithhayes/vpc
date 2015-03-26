@@ -12,6 +12,7 @@
 #include "operations.h"
 #include "registers.h"
 
+
 /*
  * Pass this a mask like MOV_IMM, and the instruction. Returns true
  * if they match.
@@ -22,6 +23,18 @@ is_inst(uint16_t mask, uint16_t inst)
     return ((inst & mask) == mask) ? 1 : 0;
 }
 
+
+/*
+ * Snags the immediate value out of the 2byte representing an
+ * immediate operation.
+ */
+uint8_t
+get_imm(uint16_t inst)
+{
+    return (inst & IMM_VAL) >> IMM_VAL_SHIFT;
+}
+
+
 /*
  * Given the whole 16bit instruction, the Rd of the instruction is
  * always the last 4bits.
@@ -31,6 +44,7 @@ get_rd(uint16_t val)
 {
     return (val & RD_MASK);
 }
+
 
 /*
  * As with in the Rd, the Rn is 4bits within the 16bit instruction,

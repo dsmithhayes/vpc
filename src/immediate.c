@@ -79,13 +79,3 @@ immediate(uint16_t mask, uint16_t inst, registers *reg)
 
     return;
 }
-
-/*
- * Snags the immediate value out of the 2byte representing an
- * immediate operation.
- */
-uint8_t
-get_imm(uint16_t inst)
-{
-    return (inst & IMM_VAL) >> IMM_VAL_SHIFT;
-}

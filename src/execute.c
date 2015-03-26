@@ -14,6 +14,9 @@
 #include "registers.h"
 #include "operations.h"
 
+/*
+ * THERE'S AN EASIER WAY TO DO THIS
+ */
 
 void
 execute(uint16_t inst, registers *reg)
@@ -50,6 +53,21 @@ execute(uint16_t inst, registers *reg)
     /*********************/
     /* Data Instructions */
     /*********************/
+
+    if(is_inst(AND_DAT, inst)) {
+        data(AND_DAT, inst, reg);
+        return;
+    }
+
+    if(is_inst(EOR_DAT, inst)) {
+        data(EOR_DAT, inst, reg);
+        return;
+    }
+
+    if(is_inst(ORR_DAT, inst)) {
+        data(AND_DAT, inst, reg);
+        return;
+    }    
 
 
     /**************/

@@ -46,14 +46,15 @@
  * third nibble:    NNNN = Rn, register source
  * fourth nibble:   DDDD = Rd, register destination
  */
-#define DAT_AND     0x0000
-#define DAT_EOR     0x0100
-#define DAT_ORR     0x0C00
-#define DAT_SUB     0x0200
-#define DAT_ADD     0x0400
-#define DAT_LSR     0x0600
-#define DAT_LSL     0x0700
-#define DAT_MOV     0x0E00
+#define AND_DAT     0x0000
+#define EOR_DAT     0x0100
+#define ORR_DAT     0x0C00
+#define SUB_DAT     0x0200
+#define ADD_DAT     0x0400
+#define LSR_DAT     0x0600
+#define LSL_DAT     0x0700
+#define MOV_DAT     0x0E00
+
 
 /*
  * Immediate Instructions
@@ -76,12 +77,50 @@
 #define IMM_VAL     0x0FF0
 
 #define IMM_VAL_SHIFT   4       /* 4bit shift for this little guy. */
-#define IMM_INS_SHIFT   0xC     /* 12bit shifts up in here         */
 
 #define IMM_STEP    0x1000
 
-/* Stop */
+/*
+ * The stop instruction
+ */
 #define STOP_INST   0xE000
+
+
+/*
+ * This is a handy array of all the instruction masks that
+ * may be used to test if an instruction is valid.
+ */
+uint16_t inst_masks[] = {
+    /*
+     * Data instructions (reg to reg)
+     */
+    ADD_DAT,
+    EOR_DAT,
+    ORR_DAT,
+    SUB_DAT,
+    ADD_DAT,
+    LSR_DAT,
+    LSL_DAT,
+    MOV_DAT,
+
+    /*
+     * Immediate instructions
+     */
+    MOV_IMM,
+    CMP_IMM,
+    ADD_IMM,
+    SUB_IMM,
+
+    /*
+     * Stop instruction
+     */
+    STOP_INST
+}
+
+/*
+ * Dynamically allocate how many instructions are listed
+ */
+#define TOTAL_INST  sizeof(inst_masks) / sizeof(uint16_t)
 
 
 /***********************/
@@ -93,19 +132,10 @@
  */
 uint8_t is_inst(uint16_t mask, uint16_t inst);
 
-
 /*
- * flags! flags! flags!
+ * Get the immediate value in the instruction
  */
-uint8_t is_mask(uint16_t mask);
-void toggle_flg(uint16_t mask, uint32_t *ctrl_reg);
-void set_flg(uint16_t mask, uint32_t *ctrl_reg);
-void clear_flg(uint16_t mask, uint32_t *ctrl_reg);
-
-/*
- * Executes the proper instruction
- */
-void execute(uint16_t inst, registers *reg);
+uint8_t get_imm(uint16_t inst);
 
 /*
  * Gets the Rd and Rn for the register file index
@@ -113,6 +143,24 @@ void execute(uint16_t inst, registers *reg);
 uint8_t get_rd(uint16_t val);
 uint8_t get_rn(uint16_t val);
 
+
+/*
+ * Is it even a mask?
+ */
+uint8_t is_mask(uint16_t mask);
+
+/*
+ * flags! flags! flags!
+ */
+void toggle_flg(uint16_t mask, uint32_t *ctrl_reg);
+void set_flg(uint16_t mask, uint32_t *ctrl_reg);
+void clear_flg(uint16_t mask, uint32_t *ctrl_reg);
+
+
+/*
+ * Executes the proper instruction
+ */
+void execute(uint16_t inst, registers *reg);
 
 /*
  * Performs an immediate instruction
@@ -124,10 +172,5 @@ void immediate(uint16_t mask, uint16_t inst, registers *reg);
  */
 void data(uint16_t mask, uint16_t inst, registers *reg);
 
-
-/*
- * Get the immediate value in the instruction
- */
-uint8_t get_imm(uint16_t inst);
 
 #endif /* OPERATIONS_H */
