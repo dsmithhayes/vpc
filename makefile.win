@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = obj/zero.o obj/dumpmem.o obj/dumpreg.o obj/fetch.o obj/help.o obj/loadf.o obj/main.o obj/modmem.o obj/trace.o obj/writef.o
-LINKOBJ  = obj/zero.o obj/dumpmem.o obj/dumpreg.o obj/fetch.o obj/help.o obj/loadf.o obj/main.o obj/modmem.o obj/trace.o obj/writef.o
+OBJ      = obj/zero.o obj/dumpmem.o obj/dumpreg.o obj/fetch.o obj/help.o obj/loadf.o obj/main.o obj/modmem.o obj/trace.o obj/writef.o obj/execute.o obj/flags.o obj/go.o obj/immediate.o obj/operations.o
+LINKOBJ  = obj/zero.o obj/dumpmem.o obj/dumpreg.o obj/fetch.o obj/help.o obj/loadf.o obj/main.o obj/modmem.o obj/trace.o obj/writef.o obj/execute.o obj/flags.o obj/go.o obj/immediate.o obj/operations.o
 LIBS     = -L"C:/Program Files/Dev-Cpp/MinGW64/lib32" -L"C:/Program Files/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc -m32
 INCS     = -I"C:/Program Files/Dev-Cpp/MinGW64/include" -I"C:/Program Files/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include" -I"E:/c/ceng606/vpc/lib"
 CXXINCS  = -I"C:/Program Files/Dev-Cpp/MinGW64/include" -I"C:/Program Files/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include" -I"C:/Program Files/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include/c++" -I"E:/c/ceng606/vpc/lib"
@@ -53,3 +53,18 @@ obj/trace.o: src/trace.c
 
 obj/writef.o: src/writef.c
 	$(CC) -c src/writef.c -o obj/writef.o $(CFLAGS)
+
+obj/execute.o: src/execute.c
+	$(CC) -c src/execute.c -o obj/execute.o $(CFLAGS)
+
+obj/flags.o: src/flags.c
+	$(CC) -c src/flags.c -o obj/flags.o $(CFLAGS)
+
+obj/go.o: src/go.c
+	$(CC) -c src/go.c -o obj/go.o $(CFLAGS)
+
+obj/immediate.o: src/immediate.c
+	$(CC) -c src/immediate.c -o obj/immediate.o $(CFLAGS)
+
+obj/operations.o: src/operations.c
+	$(CC) -c src/operations.c -o obj/operations.o $(CFLAGS)

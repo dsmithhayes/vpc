@@ -31,8 +31,10 @@
 /*
  * Data Processing Instructions
  *
+ * 0000ppppNNNNDDDD
+ * 
  * first nibble:    0000
- * second nibble:   operation
+ * second nibble:   pppp = opcode
  *      0000 : AND
  *      0001 : EOR
  *      1100 : ORR
@@ -41,8 +43,8 @@
  *      0110 : LSR
  *      0111 : LSL
  *      1110 : MOV
- * third nibble:    Rn
- * fourth nibble:   Rd
+ * third nibble:    NNNN = Rn, register source
+ * fourth nibble:   DDDD = Rd, register destination
  */
 #define DAT_AND     0x0000
 #define DAT_EOR     0x0100
@@ -56,13 +58,15 @@
 /*
  * Immediate Instructions
  *
- * First nibble:    01[OPCODE]
+ * 01ppiiiiiiiiDDDD
+ *
+ * First nibble:    01pp; where nn = opcode
  *      00 : MOV
  *      01 : CMP
  *      10 : ADD
  *      11 : SUB
- * Next byte:       8bit value
- * Last nibble:     Rd
+ * Next byte:       iiiiiiii = 8bit immediate value
+ * Last nibble:     DDDD = Rd, register destination
  */
 #define MOV_IMM     0x4000
 #define CMP_IMM     0x5000

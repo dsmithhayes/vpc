@@ -62,7 +62,7 @@ immediate(uint16_t mask, uint16_t inst, registers *reg)
          * register.
          */
         case SUB_IMM:
-            reg->file[rd] &= ~imm++;
+            reg->file[rd] &= (~imm + 1);
 
             if((reg->file[rd] & SIGN_MASK) == SIGN_MASK)
                 set_flg(SIGN, &(reg->ccr));

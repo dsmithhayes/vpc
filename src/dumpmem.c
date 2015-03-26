@@ -19,7 +19,7 @@
 void
 dumpmem(void *memory, uint16_t offset, uint16_t length)
 {
-    int i, j;
+    uint16_t i, j;
     
     length--;   /* for some reason it needs this? */
     

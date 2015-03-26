@@ -71,6 +71,9 @@ Topics in this section will be how to use the actual `vpc` program.
 This presumes that the program was a successful compile, and is now
 running as a binary on your system. *Which ever system that is.*
 
+Using the characters `?`, `H` or `h` will prompt the help text for
+ `vpc`. 
+
 ## Code Documentation
 
 ### Headers
