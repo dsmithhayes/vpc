@@ -3,7 +3,9 @@
 
 /*
     Defines all of the macros and prototypes used for analyzing
-    instructions for the CPU.
+    instructions for the CPU. This will include masks for defining
+    what type of instruction, and more in depth to decipher which
+    instruction is being used.
     
     file:       operations.h
     author:     Dave Smith-Hayes
@@ -120,6 +122,7 @@
  */
 #define UN_BRA      0xC000
 #define UN_BRL      0xD000
+
 
 /***********************/
 /* Function Prototypes */
