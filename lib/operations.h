@@ -60,7 +60,7 @@
  */
 #define IS_SIGN(x)      ((SIGN_MASK & x) == SIGN_MASK) ? 1 : 0
 #define IS_ZERO(x)      (x == 0) ? 1 : 0
-#define IS_CARRY(x)     (x > UINT32_MAX) ? 1 : 0
+
 
 /*
  * Data Processing Instructions
