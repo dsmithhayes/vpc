@@ -35,9 +35,9 @@ dumpreg(registers reg)
     
     /* check the CCR */
     fprintf(stdout, "CCR: %d%d%d (sign, zero, carry)\n",
-        (reg.ccr & SIGN)  ? 1 : 0,
-        (reg.ccr & ZERO)  ? 1 : 0,
-        (reg.ccr & CARRY) ? 1 : 0
+        (reg.ccr & SIGN_FLAG)  ? 1 : 0,
+        (reg.ccr & ZERO_FLAG)  ? 1 : 0,
+        (reg.ccr & CARRY_FLAG) ? 1 : 0
     );
 
     fprintf(stdout, "MBR: 0x%08X\n", reg.mbr);
@@ -46,8 +46,8 @@ dumpreg(registers reg)
     fprintf(stdout, "IR1: 0x%04X\n", ir1(reg.ir));
 
     fprintf(stdout, "\n");
-    fprintf(stdout, "Stop Flag: %d\n", reg.stp_flg ? 1 : 0);
-    fprintf(stdout, "Active IR: %d\n", reg.ir_flg ? 1 : 0);
+    fprintf(stdout, "Stop Flag: %d\n", reg.stop_flag ? 1 : 0);
+    fprintf(stdout, "Active IR: %d\n", reg.ir_flag ? 1 : 0);
     
     fprintf(stdout, "\n");
 

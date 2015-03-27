@@ -16,14 +16,19 @@
  */
 uint8_t
 is_reg_mask(uint16_t mask) {
-    if(mask == SIGN)
-        return SIGN;
+    if(mask == SIGN_FLAG)
+        return SIGN_FLAG;
 
-    if(mask == ZERO)
-        return ZERO;
+    if(mask == ZERO_FLAG)
+        return ZERO_FLAG;
 
-    if(mask == ((STOP | INST) | CARRY))
-        return ((STOP | INST) | CARRY);
+    /*
+     * This is the most unecessary code I have ever written in my
+     * life and I am ashamed and apalled to even look at it. Each
+     * constant is equal to 1. I shit you not.
+     */
+    if(mask == ((STOP_FLAG | INST_FLAG) | CARRY_FLAG))
+        return ((STOP_FLAG | INST_FLAG) | CARRY_FLAG);
 
     return 0;
 }

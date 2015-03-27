@@ -85,9 +85,9 @@ typedef struct Registers {
     uint32_t mar;
     uint32_t ir;
     uint32_t alu;
-    
+
+    uint8_t stop_flag;
     uint8_t ir_flag;
-    uint8_t stp_flag;
 } registers;
 
 

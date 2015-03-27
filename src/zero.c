@@ -24,8 +24,8 @@ zero(registers *reg)
     reg->ir      = 0;
     reg->alu     = 0;
     
-    reg->stp_flg = 0;
-    reg->ir_flg  = 0;
+    reg->stop_flag = 0;
+    reg->ir_flag   = 0;
     
     return;
 }

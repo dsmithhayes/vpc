@@ -21,8 +21,8 @@
 void
 go(void *memory, registers *reg)
 {
-    while(!reg->stp_flg) {
-        if(reg->ir_flg) {
+    while(!reg->stop_flag) {
+        if(reg->ir_flag) {
             execute(ir1(reg->ir), reg);
             continue;
         }
