@@ -22,9 +22,18 @@
 /*************/
 
 uint8_t
-is_inst(uint16_t mask, uint16_t inst)
+is_inst(uint16_t inst)
 {
-    return ((mask & inst) == mask) ? 1 : 0;
+    if(IS_IMM_INST(inst))
+        return 1;
+
+    if(IS_DAT_INST(inst))
+        return 1;
+
+    if(IS_STOP_INST(inst))
+        return 1;
+
+    return 0;
 }
 
 /*

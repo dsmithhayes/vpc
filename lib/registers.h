@@ -20,24 +20,29 @@
 /* Definitions */
 /***************/
 
-/* Special Registers & Register File */
+/*
+ * Special Registers & Register File
+ */
 #define REG_FILE_S  0x10    /* Size of reg file */
 #define SP          0xD     /* Stack Pointer    */
 #define LR          0xE     /* Link Register    */
 #define PC          0xF     /* Porgram Counter  */
 
+/*
+ * Flags
+ */
+#define SIGN_FLAG   4   /* 100 */
+#define ZERO_FLAG   2   /* 010 */
+#define CARRY_FLAG  1   /* 001 */
 
-/* Flags */
-#define SIGN    4   /* 100 */
-#define ZERO    2   /* 010 */
-#define CARRY   1   /* 001 */
-
-#define STOP    1
-#define INST    1
+#define STOP_FLAG   1
+#define INST_FLAG   1
 
 #define SIGN_MASK   0x80000000
 
-/* Registers & Instructions */
+/*
+ * Registers & Instructions
+ */
 #define REG_SIZE    4       /* 4Byte registers      */
 #define REG_BIT_S   0x20    /* 32bit registers      */
 #define INSTR_SIZE  2       /* 2Byte instructions   */
@@ -66,9 +71,9 @@
  *          and ir0 and ir1 pseudo register. Functions ir0() and ir1()
  *          are used to split the register.
  *
- * ir_flg   determines which instruction register is being used
+ * ir_flag  determines which instruction register is being used
  *
- * stp_flg  tells the program to stop its execution.
+ * stp_flag tells the program to stop its execution.
  * 
  */
 
@@ -81,8 +86,8 @@ typedef struct Registers {
     uint32_t ir;
     uint32_t alu;
     
-    uint8_t ir_flg;
-    uint8_t stp_flg;
+    uint8_t ir_flag;
+    uint8_t stp_flag;
 } registers;
 
 

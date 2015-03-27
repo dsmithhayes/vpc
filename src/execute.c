@@ -21,9 +21,10 @@
 void
 execute(uint16_t inst, registers *reg)
 {
-    if(is_inst(inst)) {
-
-    }
-
+    /*
+     * TEST THE TYPE OF INSTRUCTION IN EXECUTE, PERFORM THE
+     * APPROPRIATE FUNCTION
+     */
+    
     return;
 }

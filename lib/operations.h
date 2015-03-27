@@ -9,7 +9,7 @@
     
     file:       operations.h
     author:     Dave Smith-Hayes
-    date:       March 17, 2015
+    date:       March 26, 2015
 */
 
 
@@ -35,15 +35,25 @@
  */
 #define INST_MASK   0xF000
  
-#define DAT_MASK    0x0000      /* data                 */
+#define DAT_MASK    0x0000      /* data processing      */
 #define LS_MASK     0x2000      /* load/store           */
 #define IMM_MASK    0x4000      /* immediate            */
 #define COND_MASK   0x8000      /* conditional branch   */
 #define PP_MASK     0xA000      /* push/pull            */
 #define UN_MASK     0xC000      /* unconditional branch */
+
 #define STOP_MASK   0xE000      /* stop                 */
 
-#define TOTAL_INST  7
+/*
+ * Macros that return non-zero if correct mask
+ */
+#define IS_DAT_INST(x)  ((~DAT_MASK & ~x) == ~DAT_MASK) ? 1 : 0
+#define IS_LS_INST(x)   ((LS_MASK & x) == LS_MASK)      ? 1 : 0
+#define IS_IMM_INST(x)  ((IMM_MASK & x) == IMM_MASK)    ? 1 : 0
+#define IS_COND_INST(x) ((COND_MASK & x) == COND_MASK)  ? 1 : 0
+#define IS_PP_INST(x)   ((PP_MASK & x) == PP_MASK)      ? 1 : 0
+#define IS_UN_INST(x)   ((UN_MASK & x) == UN_MASK)      ? 1 : 0
+#define IS_STOP_INST(x) ((STOP_MASK & x) == STOP_MASK)  ? 1 : 0
 
 /*
  * Data Processing Instructions
@@ -80,9 +90,7 @@
 #define BIC_DAT     0x0E00
 #define MVN_DAT     0x0F00
 
-#define DAT_STEP    0x0100
-
-#define TOTAL_DATA  0x10
+#define DAT_OPCODE  0x0F00
 
 /*
  * Immediate Instructions
@@ -104,9 +112,8 @@
 
 #define IMM_VAL     0x0FF0
 #define IMM_VAL_SHIFT    4  /* 4bit shift for this little guy. */
-#define IMM_STEP    0x1000
 
-#define TOTAL_IMM   4
+#define IMM_OPCODE  0x7000
 
 /*
  * Conditional Code Masks used for conditional branches
@@ -120,25 +127,29 @@
 #define COND_HI     0x8800
 #define COND_LS     0x8900
 
-#define COND_STEP   0x0100
+#define COND_OPCODE 0x8F00
 
-#define TOTAL_COND  8
+#define COND_ADDR   0x00FF
 
+/*
+ * Push/Pull Operations
+ */
+#define PP_OP_L     0x8000
+#define PP_OP_H     0x4000
+#define PP_OP_R     0x1000
+
+#defin PP_OPCODE    0x0F00
 /*
  * Unconditional branches
  */
 #define UN_BRA      0xC000
 #define UN_BRL      0xD000
 
+#define UN_OFFSET   0x0FFF
 
 /***********************/
 /* Function Prototypes */
 /***********************/
-
-/*
- * Returns true if a valid instruction
- */
-uint8_t is_inst(uint16_t mask, uint16_t inst);
 
 /*
  * Get the immediate value in the instruction
@@ -153,13 +164,10 @@ uint8_t get_rn(uint16_t val);
 
 
 /*
- * Is it even a mask?
- */
-uint8_t is_mask(uint16_t mask);
-
-/*
  * flags! flags! flags!
  */
+uint8_t is_reg_mask(uint16_t mask);
+
 void toggle_flg(uint16_t mask, uint32_t *ctrl_reg);
 void set_flg(uint16_t mask, uint32_t *ctrl_reg);
 void clear_flg(uint16_t mask, uint32_t *ctrl_reg);
@@ -171,14 +179,9 @@ void clear_flg(uint16_t mask, uint32_t *ctrl_reg);
 void execute(uint16_t inst, registers *reg);
 
 /*
- * Performs an immediate instruction
+ * Performs immediate instructions
  */
-void immediate(uint16_t mask, uint16_t inst, registers *reg);
-
-/*
- * Performs a register to register operation.
- */
-void data(uint16_t mask, uint16_t inst, registers *reg);
+void immediate(uint16_t inst, registers *reg);
 
 
 #endif /* OPERATIONS_H */
