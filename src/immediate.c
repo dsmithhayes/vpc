@@ -18,31 +18,42 @@ void
 immediate(uint16_t inst, registers *reg)
 {
     uint16_t buf = (inst & IMM_OPCODE);
-    uint8_t  rd  = get_rd(inst);
+    uint8_t rd   = get_rd(inst);
+    uint8_t imm  = get_imm(inst);
 
     switch(buf) {
         case MOV_IMM:
-            /*
-             * code for move immediate
-             */
+            reg->file[rd] = (uint32_t) imm;
         break;
 
         case CMP_IMM:
-            /*
-             * code for compare immediate
-             */
+            if((reg->file[rd] & (~imm + 1)) == 0)
+                set_flg(ZERO, &(reg->ccr));
+    
+            if(((reg->file[rd] & (~imm + 1)) & SIGN_MASK)
+                    == SIGN_MASK)
+                set_flg(SIGN, &(reg->ccr));
         break;
-
+    
         case ADD_IMM:
-            /*
-             * code for add immediate
-             */
-        break;
+            reg->file[rd] += imm;
+    
+            if(IS_ZERO(reg->file[rd])
+                set_flag(ZERO_FLAG, &(reg->ccr));
 
+            if(IS_CARRY(reg->file[rd]))
+                set_flag(CARRY_FLAG, &(reg->ccr));
+
+        break;
+    
         case SUB_IMM:
-            /*
-             * code for substract immediate
-             */
+            reg->file[rd] &= ~imm++;
+    
+            if((reg->file[rd] & SIGN_MASK) == SIGN_MASK)
+                set_flag(SIGN_FLAG, &(reg->ccr));
+    
+            if(reg->file[rd] == 0)
+                set_flag(ZERO_FLAG, &(reg->ccr));
         break;
     }
 

@@ -38,6 +38,9 @@
 #define STOP_FLAG   1
 #define INST_FLAG   1
 
+/*
+ * MSB in 32bits is set? That's a signed number yo.
+ */
 #define SIGN_MASK   0x80000000
 
 /*
