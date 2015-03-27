@@ -25,6 +25,12 @@ execute(uint16_t inst, registers *reg)
      * TEST THE TYPE OF INSTRUCTION IN EXECUTE, PERFORM THE
      * APPROPRIATE FUNCTION
      */
+
+    if(IS_IMM_INST(inst)) {
+        immediate(inst, reg);
+        return;
+    }
+
     
     return;
 }
