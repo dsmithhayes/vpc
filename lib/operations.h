@@ -35,7 +35,7 @@
  */
 #define INST_MASK   0xF000
  
-#define DAT_MASK    0x0000      /* data processing      */
+#define DAT_MASK    0xF000      /* data processing      */
 #define LS_MASK     0x2000      /* load/store           */
 #define IMM_MASK    0x4000      /* immediate            */
 #define COND_MASK   0x8000      /* conditional branch   */
@@ -47,7 +47,7 @@
 /*
  * Macros that return non-zero if correct mask
  */
-#define IS_DAT_INST(x)  ((~DAT_MASK & ~x) == ~DAT_MASK) ? 1 : 0
+#define IS_DAT_INST(x)  ((DAT_MASK & ~x) == DAT_MASK)   ? 1 : 0
 #define IS_LS_INST(x)   ((LS_MASK & x) == LS_MASK)      ? 1 : 0
 #define IS_IMM_INST(x)  ((IMM_MASK & x) == IMM_MASK)    ? 1 : 0
 #define IS_COND_INST(x) ((COND_MASK & x) == COND_MASK)  ? 1 : 0

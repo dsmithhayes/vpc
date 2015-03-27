@@ -18,11 +18,11 @@ zero(registers *reg)
     for(i = 0; i < REG_FILE_S; i++)
         reg->file[i] = 0;
     
-    reg->ccr     = 0;
-    reg->mbr     = 0;
-    reg->mar     = 0;
-    reg->ir      = 0;
-    reg->alu     = 0;
+    reg->ccr = 0;
+    reg->mbr = 0;
+    reg->mar = 0;
+    reg->ir  = 0;
+    reg->alu = 0;
     
     reg->stop_flag = 0;
     reg->ir_flag   = 0;
