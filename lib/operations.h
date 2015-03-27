@@ -138,7 +138,7 @@
 /*
  * Returns true if a valid instruction
  */
-uint8_t is_inst(uint16_t inst);
+uint8_t is_inst(uint16_t mask, uint16_t inst);
 
 /*
  * Get the immediate value in the instruction
