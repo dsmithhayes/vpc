@@ -176,9 +176,9 @@ uint8_t get_rn(uint16_t val);
  */
 uint8_t is_reg_mask(uint16_t mask);
 
-void toggle_flg(uint16_t mask, uint32_t *ctrl_reg);
-void set_flg(uint16_t mask, uint32_t *ctrl_reg);
-void clear_flg(uint16_t mask, uint32_t *ctrl_reg);
+void toggle_reg_flag(uint16_t mask, uint32_t *ctrl_reg);
+void set_reg_flag(uint16_t mask, uint32_t *ctrl_reg);
+void clear_reg_flag(uint16_t mask, uint32_t *ctrl_reg);
 
 
 /*

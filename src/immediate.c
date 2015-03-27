@@ -28,20 +28,20 @@ immediate(uint16_t inst, registers *reg)
 
         case CMP_IMM:
             if(IS_ZERO(reg->file[rd] & (~imm + 1)))
-                set_reg_flg(ZERO_FLAG, &(reg->ccr));
+                set_reg_flag(ZERO_FLAG, &(reg->ccr));
     
             if(IS_SIGN(reg->file[rd] & (~imm + 1)))
-                set_reg_flg(SIGN_FLAG, &(reg->ccr));
+                set_reg_flag(SIGN_FLAG, &(reg->ccr));
         break;
     
         case ADD_IMM:
             reg->file[rd] += imm;
     
             if(IS_ZERO(reg->file[rd]))
-                set_flag(ZERO_FLAG, &(reg->ccr));
+                set_reg_flag(ZERO_FLAG, &(reg->ccr));
 
             if(IS_CARRY(reg->file[rd]))
-                set_flag(CARRY_FLAG, &(reg->ccr));
+                set_reg_flag(CARRY_FLAG, &(reg->ccr));
 
         break;
     
@@ -49,14 +49,14 @@ immediate(uint16_t inst, registers *reg)
             reg->file[rd] &= ~imm++;
     
             if(IS_SIGN(reg->file[rd]))
-                set_flag(SIGN_FLAG, &(reg->ccr));
+                set_reg_flag(SIGN_FLAG, &(reg->ccr));
     
             if(IS_ZERO(reg->file[rd]))
-                set_flag(ZERO_FLAG, &(reg->ccr));
+                set_reg_flag(ZERO_FLAG, &(reg->ccr));
         break;
     }
 
-    toggle_flg(INST_FLAG, &(reg->ir));
+    toggle_reg_flag(INST_FLAG, &(reg->ir));
 
     return;
 }

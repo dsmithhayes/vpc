@@ -38,7 +38,7 @@ is_reg_mask(uint16_t mask) {
  * Only toggles valid flag mask passed.
  */
 void
-toggle_flg(uint16_t mask, uint32_t *ctrl_reg)
+toggle_reg_flag(uint16_t mask, uint32_t *ctrl_reg)
 {
     if(is_reg_mask(mask))
         *ctrl_reg = ((*ctrl_reg & mask) == mask)
@@ -52,7 +52,7 @@ toggle_flg(uint16_t mask, uint32_t *ctrl_reg)
  * Always sets the flag given.
  */
 void
-set_flg(uint16_t mask, uint32_t *ctrl_reg)
+set_reg_flag(uint16_t mask, uint32_t *ctrl_reg)
 {
     if(is_reg_mask(mask))
         *ctrl_reg |= mask;
@@ -66,7 +66,7 @@ set_flg(uint16_t mask, uint32_t *ctrl_reg)
  * it off, or just keep it off.
  */
 void
-clear_flg(uint16_t mask, uint32_t *ctrl_reg)
+clear_flag(uint16_t mask, uint32_t *ctrl_reg)
 {
     if(is_reg_mask(mask))
         *ctrl_reg = (*ctrl_reg & mask)
