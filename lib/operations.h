@@ -98,6 +98,7 @@
 #define MVN_DAT     0x0F00
 
 #define DAT_OPCODE  0x0F00
+#define DAT_GET_OPCODE(x)   (DAT_OPCODE & x)
 
 /*
  * Immediate Instructions
@@ -121,6 +122,7 @@
 #define IMM_VAL_SHIFT    4  /* 4bit shift for this little guy. */
 
 #define IMM_OPCODE  0x7000
+#define IMM_GET_OPCODE(x)   (IMM_OPCODE & x)
 
 /*
  * Conditional Code Masks used for conditional branches
@@ -134,9 +136,11 @@
 #define COND_HI     0x8800
 #define COND_LS     0x8900
 
-#define COND_OPCODE 0x8F00
+#define COND_OPCODE 0x0F00
+#define COND_GET_OPCODE(x)  (COND_OPCODE & x)
 
 #define COND_ADDR   0x00FF
+#define COND_GET_ADDR(x)    (COND_ADDR & x)
 
 /*
  * Push/Pull Operations
@@ -146,6 +150,8 @@
 #define PP_OP_R     0x1000
 
 #define PP_OPCODE   0x0F00
+#define PP_GET_OPCODE(x)    (PP_OPCODE & x)
+
 /*
  * Unconditional branches
  */
@@ -153,6 +159,7 @@
 #define UN_BRL      0xD000
 
 #define UN_OFFSET   0x0FFF
+#define GET_UN_OFFSET(x)    (UN_OFFSET & x)
 
 
 /***********************/

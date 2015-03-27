@@ -24,7 +24,7 @@ immediate(uint16_t inst, registers *reg)
     switch(buf) {
         case MOV_IMM:
             reg->file[rd] = (uint32_t) imm;
-        break;
+            break;
 
         case CMP_IMM:
             if(IS_ZERO(reg->file[rd] & (~imm + 1)))
@@ -32,7 +32,7 @@ immediate(uint16_t inst, registers *reg)
     
             if(IS_SIGN(reg->file[rd] & (~imm + 1)))
                 set_reg_flag(SIGN_FLAG, &(reg->ccr));
-        break;
+            break;
     
         case ADD_IMM:
             reg->file[rd] += imm;
@@ -42,8 +42,7 @@ immediate(uint16_t inst, registers *reg)
 
             if(IS_CARRY(reg->file[rd]))
                 set_reg_flag(CARRY_FLAG, &(reg->ccr));
-
-        break;
+            break;
     
         case SUB_IMM:
             reg->file[rd] &= ~imm++;
@@ -53,7 +52,7 @@ immediate(uint16_t inst, registers *reg)
     
             if(IS_ZERO(reg->file[rd]))
                 set_reg_flag(ZERO_FLAG, &(reg->ccr));
-        break;
+            break;
     }
 
     toggle_reg_flag(INST_FLAG, &(reg->ir));
