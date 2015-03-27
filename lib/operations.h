@@ -138,7 +138,7 @@
 #define PP_OP_H     0x4000
 #define PP_OP_R     0x1000
 
-#defin PP_OPCODE    0x0F00
+#define PP_OPCODE   0x0F00
 /*
  * Unconditional branches
  */

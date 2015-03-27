@@ -19,7 +19,7 @@ data(uint16_t mask, uint16_t inst, registers *reg)
         
     }
 
-    toggle_flg(INST, (uint32_t) &(reg->ir_flg));
+    toggle_flg(INST_FLAG, (uint32_t) &(reg->ir_flag));
     
     return;
 }
