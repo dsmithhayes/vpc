@@ -1,17 +1,17 @@
 # Project: vpc
 # Makefile created by Dev-C++ 5.9.2
 
-CPP      = g++.exe
-CC       = gcc.exe
-WINDRES  = windres.exe
+CPP      = bcc32.exe
+CC       = bcc32.exe
+WINDRES  = 
 OBJ      = obj/zero.o obj/dumpmem.o obj/dumpreg.o obj/fetch.o obj/help.o obj/loadf.o obj/main.o obj/modmem.o obj/trace.o obj/writef.o obj/execute.o obj/flags.o obj/go.o obj/immediate.o obj/operations.o
 LINKOBJ  = obj/zero.o obj/dumpmem.o obj/dumpreg.o obj/fetch.o obj/help.o obj/loadf.o obj/main.o obj/modmem.o obj/trace.o obj/writef.o obj/execute.o obj/flags.o obj/go.o obj/immediate.o obj/operations.o
-LIBS     = -L"C:/Program Files/Dev-Cpp/MinGW64/lib32" -L"C:/Program Files/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc -m32
-INCS     = -I"C:/Program Files/Dev-Cpp/MinGW64/include" -I"C:/Program Files/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include" -I"E:/c/ceng606/vpc/lib"
-CXXINCS  = -I"C:/Program Files/Dev-Cpp/MinGW64/include" -I"C:/Program Files/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include" -I"C:/Program Files/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include/c++" -I"E:/c/ceng606/vpc/lib"
+LIBS     = -L"C:/BCC55/Lib"
+INCS     = -I"C:/BCC55/Include" -I"E:/c/ceng606/vpc/lib"
+CXXINCS  = -I"C:/BCC55/Include" -I"E:/c/ceng606/vpc/lib"
 BIN      = bin/vpc.exe
-CXXFLAGS = $(CXXINCS) -m32
-CFLAGS   = $(INCS) -m32
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
 RM       = rm.exe -f
 
 .PHONY: all all-before all-after clean clean-custom

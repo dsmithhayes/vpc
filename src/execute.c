@@ -8,7 +8,7 @@
     
     file:       execute.c
     author:     Dave Smith-Hayes
-    date:       March 17, 2015
+    date:       March 26, 2015
 */
 
 #include "registers.h"
@@ -21,6 +21,9 @@
 void
 execute(uint16_t inst, registers *reg)
 {
-    
+    if(is_inst(inst)) {
+
+    }
+
     return;
 }

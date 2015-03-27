@@ -24,6 +24,7 @@ uint8_t memory[TOTAL_MEMORY] = { 0 };
 registers reg;
 
 
+
 /***************/
 /* Entry point */
 /***************/

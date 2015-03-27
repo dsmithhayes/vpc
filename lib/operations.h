@@ -33,15 +33,17 @@
 /*
  * Check first byte for instruction type
  */
-#define DAT_MASK    0
-#define LS_MASK     0x2000
-#define IMM_MASK    0x7000
-#define COND_MASK   0x8000
-#define PP_MASK     0xA000
-#define UBRA_MASK   0xC000
-#define UBRL_MASK   0xD000
-#define STOP_MASK   0xE000
+#define INST_MASK   0xF000
+ 
+#define DAT_MASK    0x0000      /* data                 */
+#define LS_MASK     0x2000      /* load/store           */
+#define IMM_MASK    0x4000      /* immediate            */
+#define COND_MASK   0x8000      /* conditional branch   */
+#define PP_MASK     0xA000      /* push/pull            */
+#define UN_MASK     0xC000      /* unconditional branch */
+#define STOP_MASK   0xE000      /* stop                 */
 
+#define TOTAL_INST  7
 
 /*
  * Data Processing Instructions
@@ -80,6 +82,8 @@
 
 #define DAT_STEP    0x0100
 
+#define TOTAL_DATA  0x10
+
 /*
  * Immediate Instructions
  *
@@ -99,9 +103,10 @@
 #define SUB_IMM     0x7000
 
 #define IMM_VAL     0x0FF0
-#define IMM_VAL_SHIFT   4       /* 4bit shift for this little guy. */
+#define IMM_VAL_SHIFT    4  /* 4bit shift for this little guy. */
 #define IMM_STEP    0x1000
 
+#define TOTAL_IMM   4
 
 /*
  * Conditional Code Masks used for conditional branches
@@ -115,7 +120,9 @@
 #define COND_HI     0x8800
 #define COND_LS     0x8900
 
-#defien COND_STEP   0x0100
+#define COND_STEP   0x0100
+
+#define TOTAL_COND  8
 
 /*
  * Unconditional branches
@@ -131,7 +138,7 @@
 /*
  * Returns true if a valid instruction
  */
-uint8_t is_inst(uint16_t mask, uint16_t inst);
+uint8_t is_inst(uint16_t inst);
 
 /*
  * Get the immediate value in the instruction
