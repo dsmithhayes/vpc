@@ -61,7 +61,6 @@
 #define IS_SIGN(x)      ((SIGN_MASK & x) == SIGN_MASK) ? 1 : 0
 #define IS_ZERO(x)      (x == 0) ? 1 : 0
 
-
 /*
  * Data Processing Instructions
  *
@@ -166,6 +165,8 @@
 /* Function Prototypes */
 /***********************/
 
+uint8_t is_carry(uint32_t op1, uint32_t op2, uint32_t ccr);
+
 /*
  * Get the immediate value in the instruction
  */
@@ -198,5 +199,9 @@ void execute(uint16_t inst, registers *reg);
  */
 void immediate(uint16_t inst, registers *reg);
 
+/*
+ * Performs a register to register operations
+ */
+void data(uint16_t inst, registers *reg);
 
 #endif /* OPERATIONS_H */

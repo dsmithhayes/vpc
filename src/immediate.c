@@ -21,6 +21,9 @@ immediate(uint16_t inst, registers *reg)
     uint8_t rd   = get_rd(inst);
     uint8_t imm  = get_imm(inst);
 
+    /*
+     * Check which immediate instruction is given.
+     */
     switch(buf) {
         case MOV_IMM:
             reg->alu (uint32_t) imm;
@@ -42,13 +45,17 @@ immediate(uint16_t inst, registers *reg)
             break;
     }
     
+    /*
+     * Checks if the ZERO_FLAG should be set
+     */
     if(IS_ZERO(reg->alu))
         set_reg_flag(ZERO_FLAG, &(reg->ccr));
     
+    /*
+     * Checks if the SIGN_FLAG should be set
+     */
     if(IS_SIGN(reg->alu))
         set_reg_flag(SIGN_FLAG, &(reg->ccr));
-    
-    toggle_reg_flag(INST_FLAG, &(reg->ir));
 
     return;
 }

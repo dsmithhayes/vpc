@@ -38,6 +38,10 @@
 #define STOP_FLAG   1
 #define INST_FLAG   1
 
+#define IS_SIGN_SET(x)  (SIGN_FLAG & x) ? 1 : 0
+#define IS_ZERO_SET(x)  (ZERO_FLAG & x) ? 1 : 0
+#define IS_CARRY_SET(x) (CARRY_FLAG & x) ? 1 : 0
+
 /*
  * MSB in 32bits is set? That's a signed number yo.
  */

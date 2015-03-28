@@ -37,6 +37,17 @@ is_inst(uint16_t inst)
 }
 
 /*
+ * Returns non-zero value if the operation is going to cause a carry.
+ */
+uint8_t
+is_carry(uint32_t op1, uint32_t op2, uint32_t ccr)
+{
+    if((op2 == UINT32_MAX) && (IS_CARRY_SET(ccr)))
+        return 1;
+    
+    return (op1 > (UINT32_MAX - op2- IS_CARRY_SET(ccr))) ? 1 : 0;
+
+/*
  * Snags the immediate value out of the 2byte representing an
  * immediate operation.
  */

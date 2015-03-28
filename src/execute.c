@@ -30,7 +30,12 @@ execute(uint16_t inst, registers *reg)
         immediate(inst, reg);
         return;
     }
-
     
+    if(IS_DAT_INST(inst)) {
+        data(inst, reg);
+        return;
+    }
+
+    toggle_reg_flag(INST_FLAG, &(ccr->ir_flag));
     return;
 }
