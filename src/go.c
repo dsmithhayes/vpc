@@ -23,12 +23,12 @@ go(void *memory, registers *reg)
 {
     while(!reg->stop_flag) {
         if(reg->ir_flag) {
-            execute(ir1(reg->ir), reg);
+            execute(IR1(reg->ir), reg);
             continue;
         }
         else {
             fetch(memory, reg);
-            execute(ir0(reg->ir), reg);
+            execute(IR0(reg->ir), reg);
         }
     }
 
