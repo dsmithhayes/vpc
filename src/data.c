@@ -60,19 +60,8 @@ data(uint16_t inst, registers *reg)
             break;
 
         case CMP_DAT:
-            _buf = reg->file[rd] - reg->file[rn];
 
-            if(IS_ZERO(_buf))
-                set_reg_flag(ZERO_FLAG, &(reg->ccr));
 
-            if(IS_SIGN(_buf))
-                set_reg_flag(SIGN_FLAG, &(reg->ccr));
-
-            if(is_carry(
-                    reg->file[rd],
-                    reg->file[rn],
-                    IS_CARRY_SET(reg->ccr)))
-                set_reg_flag(CARRY_FLAG, &(reg->ccr));
             break;
 
         case ROR_DAT:
@@ -96,18 +85,51 @@ data(uint16_t inst, registers *reg)
 
             break;
     }
-
-    /*
-     * Checks if the ZERO_FLAG should be set
-     */
-    if(IS_ZERO(reg->alu))
-        set_reg_flag(ZERO_FLAG, &(reg->ccr));
-    
-    /*
-     * Checks if the SIGN_FLAG should be set
-     */
-    if(IS_SIGN(reg->alu))
-        set_reg_flag(SIGN_FLAG, &(reg->ccr));
     
     return;
+}
+
+/*
+ * Sets all the register flags for everything accordingly.
+ *
+ * sign
+ * zero
+ * carry
+ */
+static inline void
+scz(uint32_t  alu,
+    uint8_t   rd,
+    uint8_t   rn,
+    uint32_t *ccr)
+{
+    if(IS_SIGN(alu))
+        set_reg_flag(SIGN_FLAG, ccr);
+    else
+        clear_reg_flag(SIGN_FLAG, ccr);
+
+    if(is_carry(rd, rn, IS_CARRY_SET(*ccr)))
+        set_reg_flag(CARRY_FLAG, ccr);
+    else
+        clear_reg_flag(CARRY_FLAG, ccr);
+
+    if(IS_ZERO(alu))
+        clear_reg_flag(ZERO_FLAG, ccr);
+    else
+        clear_reg_flag(ZERO_FLAG, ccr);
+
+    return;
+}
+
+static inline void
+sz(uint32_t alu, uint32_t *ccr)
+{
+    if(IS_SIGN(alu))
+        set_reg_flag(SIGN_FLAG, ccr);
+    else
+        clear_reg_flag(SIGN_FLAG, ccr);
+
+    if(IS_ZERO(alu))
+        clear_reg_flag(ZERO_FLAG, ccr);
+    else
+        clear_reg_flag(ZERO_FLAG, ccr);
 }
