@@ -42,8 +42,8 @@ dumpreg(registers reg)
 
     fprintf(stdout, "MBR: 0x%08X\n", reg.mbr);
     fprintf(stdout, "MAR: 0x%08X\n", reg.mar);
-    fprintf(stdout, "IR0: 0x%04X\n", ir0(reg.ir));
-    fprintf(stdout, "IR1: 0x%04X\n", ir1(reg.ir));
+    fprintf(stdout, "IR0: 0x%04X\n", IR0(reg.ir));
+    fprintf(stdout, "IR1: 0x%04X\n", IR1(reg.ir));
 
     fprintf(stdout, "\n");
     fprintf(stdout, "Stop Flag: %d\n", reg.stop_flag ? 1 : 0);
@@ -52,17 +52,4 @@ dumpreg(registers reg)
     fprintf(stdout, "\n");
 
     return;
-}
-
-uint16_t
-ir0(uint32_t in)
-{
-    return in >> INS_BIT_S;
-}
-
-uint16_t
-ir1(uint32_t in)
-{
-    unsigned int tmp = in << INS_BIT_S;
-    return ir0(tmp);
 }

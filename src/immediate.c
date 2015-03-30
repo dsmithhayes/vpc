@@ -18,8 +18,8 @@ void
 immediate(uint16_t inst, registers *reg)
 {
     uint16_t buf = (inst & IMM_OPCODE);
-    uint8_t rd   = get_rd(inst);
-    uint8_t imm  = get_imm(inst);
+    uint8_t rd = get_rd(inst);
+    uint8_t imm = get_imm(inst);
 
     /*
      * Check which immediate instruction is given.

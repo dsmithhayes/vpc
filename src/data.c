@@ -17,11 +17,73 @@ data(uint16_t inst, registers *reg)
     uint8_t opcode = DAT_GET_OPCODE(inst);
     
     switch(opcode) {
-        case ADD_DAT:
-            reg->file[rd] += reg->file[rn];
+        case AND_DAT:
+            reg->alu = reg->file[rd] & reg->file[rn];
             break;
         
+        case EOR_DAT:
+            reg->alu = reg->file[rd] ^ reg->file[rn];
+            break;
+        
+        case SUB_DAT:
+            reg->alu = reg->file[rd] - reg->file[rn];
+            break;
+        
+        case SXB_DAT:
+        
+            break;
+        
+        case ADD_DAT:
+            reg->alu = reg->file[rd] + reg->file[rn];
+            break;
+        
+        case ADC_DAT:
+        
+            break;
+        
+        case LSR_DAT:
+            reg->alu = reg->file[rd] >> reg->file[rn];
+            break;
+        
+        case LSL_DAT:
+            reg->alu = reg->file[rd] << reg->file[rn];
+            break;
+
+        case TST_AT:
+
+            break;
+
+        case TEQ_DAT:
+
+            break;
+
+        case CMP_DAT:
+
+            break;
+
+        case ROR_DAT:
+
+            break;
+
+        case ORR_DAT:
+            reg->alu = reg->file[rd] | reg->file[rn];
+            break;
+
+        case MOV_DAT:
+            
+            break;
+
+        case BIC_DAT:
+
+            break;
+
+        case MVN_DAT:
+
+            break;
     }
+    reg->file[rd] = reg->alu;
+    
+    toggle_reg_flag(INST_FLAG, &(reg->ccr));
     
     return;
 }

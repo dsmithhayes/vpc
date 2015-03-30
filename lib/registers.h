@@ -13,6 +13,7 @@
 /*******************/
 /* System Includes */
 /*******************/
+
 #include <stdint.h>
 
 
@@ -55,15 +56,22 @@
 #define INSTR_SIZE  2       /* 2Byte instructions   */
 #define INS_BIT_S   0x10    /* 16bit instructions   */
 
+/*
+ * Returns the appropriate Instruction Register
+ */
+#define IR0_MASK    0xFF00
+#define IR1_MASK    0x00FF
+#define IR0(x)      (x & IR0_MASK)
+#define IR1(x)      (x & IR1_MASK) >> INS_BIT_S
 
 /*
  * The registers struct is just an easy way to move and use the
  * registers with how the program is designed.
  *
- * file[]   register file, macros SP, LR and PC are used here.
+ * file[]   register file, constants SP, LR and PC are used here.
  *
  * ccr      code control registers, has the sign, zero and carry
- *          flags, where SZC (000) = Sign, Zero Carry. Macros SIGN,
+ *          flags, where SZC (000) = Sign, Zero Carry. Constants SIGN,
  *          ZERO and CARRY represent the bits, use bitwise operators
  *          here to test for flags.
  *
@@ -75,12 +83,12 @@
  *
  * ir       Instruction Register is a 32bit register that holds the
  *          first and second instruction from memory. This creates
- *          and ir0 and ir1 pseudo register. Functions ir0() and ir1()
+ *          and ir0 and ir1 pseudo register. Macros IR0() and IR1()
  *          are used to split the register.
  *
- * ir_flag  determines which instruction register is being used
+ * ir_flag      determines which instruction register is being used
  *
- * stp_flag tells the program to stop its execution.
+ * stop_flag tells the program to stop its execution.
  * 
  */
 
@@ -93,8 +101,8 @@ typedef struct Registers {
     uint32_t ir;
     uint32_t alu;
 
-    uint8_t stop_flag;
     uint8_t ir_flag;
+    uint8_t stop_flag;
 } registers;
 
 
@@ -111,8 +119,6 @@ void zero(registers *reg);
  * Displays all of the registers to the screen.
  */
 void dumpreg(registers reg);
-uint16_t ir0(uint32_t in); /* returns ir0 from ir  */
-uint16_t ir1(uint32_t in); /* returns ir1 from ir  */
 
 /*
  * single steps through the program

@@ -47,19 +47,26 @@
 /*
  * Macros that return non-zero if correct mask
  */
-#define IS_DAT_INST(x)  ((DAT_MASK & ~x) == DAT_MASK)   ? 1 : 0
-#define IS_LS_INST(x)   ((LS_MASK & x) == LS_MASK)      ? 1 : 0
-#define IS_IMM_INST(x)  ((IMM_MASK & x) == IMM_MASK)    ? 1 : 0
-#define IS_COND_INST(x) ((COND_MASK & x) == COND_MASK)  ? 1 : 0
-#define IS_PP_INST(x)   ((PP_MASK & x) == PP_MASK)      ? 1 : 0
-#define IS_UN_INST(x)   ((UN_MASK & x) == UN_MASK)      ? 1 : 0
-#define IS_STOP_INST(x) ((STOP_MASK & x) == STOP_MASK)  ? 1 : 0
+#define IS_DAT_INST(x)  ((DAT_MASK & ~x) == DAT_MASK)  ? 1 : 0
+#define IS_LS_INST(x)   ((LS_MASK & x) == LS_MASK)     ? 1 : 0
+#define IS_IMM_INST(x)  ((IMM_MASK & x) == IMM_MASK)   ? 1 : 0
+#define IS_COND_INST(x) ((COND_MASK & x) == COND_MASK) ? 1 : 0
+#define IS_PP_INST(x)   ((PP_MASK & x) == PP_MASK)     ? 1 : 0
+#define IS_UN_INST(x)   ((UN_MASK & x) == UN_MASK)     ? 1 : 0
+#define IS_STOP_INST(x) ((STOP_MASK & x) == STOP_MASK) ? 1 : 0
 
 /*
  * Macros that return non-zero if register flag set
  */
 #define IS_SIGN(x)      ((SIGN_MASK & x) == SIGN_MASK) ? 1 : 0
 #define IS_ZERO(x)      (x == 0) ? 1 : 0
+
+/*
+ * Macros that return the Rn or Rd from specific instruction types
+ * that use them.
+ */
+#define RN(x)   ((x & RN_MASK) >> RN_SHIFT)
+#define RD(x)   (x & RD_MASK)
 
 /*
  * Data Processing Instructions
@@ -165,6 +172,9 @@
 /* Function Prototypes */
 /***********************/
 
+/*
+ * Returns non-zero if the operation produces a carry
+ */
 uint8_t is_carry(uint32_t op1, uint32_t op2, uint32_t ccr);
 
 /*
@@ -172,15 +182,9 @@ uint8_t is_carry(uint32_t op1, uint32_t op2, uint32_t ccr);
  */
 uint8_t get_imm(uint16_t inst);
 
-/*
- * Gets the Rd and Rn for the register file index
- */
-uint8_t get_rd(uint16_t val);
-uint8_t get_rn(uint16_t val);
-
 
 /*
- * flags! flags! flags!
+ * flags! flags! flags! (for the registers)
  */
 uint8_t is_reg_mask(uint16_t mask);
 

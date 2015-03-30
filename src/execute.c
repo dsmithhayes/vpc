@@ -37,5 +37,6 @@ execute(uint16_t inst, registers *reg)
     }
 
     toggle_reg_flag(INST_FLAG, &(ccr->ir_flag));
+    
     return;
 }

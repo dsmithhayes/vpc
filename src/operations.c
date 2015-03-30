@@ -56,25 +56,3 @@ get_imm(uint16_t inst)
 {
     return (inst & IMM_VAL) >> IMM_VAL_SHIFT;
 }
-
-
-/*
- * Given the whole 16bit instruction, the Rd of the instruction is
- * always the last 4bits.
- */
-uint8_t
-get_rd(uint16_t val)
-{
-    return (val & RD_MASK);
-}
-
-
-/*
- * As with in the Rd, the Rn is 4bits within the 16bit instruction,
- * but rather the 5th to 8th bits.
- */
-uint8_t
-get_rn(uint16_t val)
-{
-    return (val & RN_MASK) >> RN_SHIFT;
-}
