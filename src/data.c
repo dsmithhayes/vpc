@@ -38,7 +38,7 @@ data(uint16_t inst, registers *reg)
             break;
         
         case ADC_DAT:
-        
+            
             break;
         
         case LSR_DAT:
@@ -70,7 +70,7 @@ data(uint16_t inst, registers *reg)
             break;
 
         case MOV_DAT:
-            
+            reg->alu = memory
             break;
 
         case BIC_DAT:
@@ -81,9 +81,18 @@ data(uint16_t inst, registers *reg)
 
             break;
     }
-    reg->file[rd] = reg->alu;
+
+    /*
+     * Checks if the ZERO_FLAG should be set
+     */
+    if(IS_ZERO(reg->alu))
+        set_reg_flag(ZERO_FLAG, &(reg->ccr));
     
-    toggle_reg_flag(INST_FLAG, &(reg->ccr));
+    /*
+     * Checks if the SIGN_FLAG should be set
+     */
+    if(IS_SIGN(reg->alu))
+        set_reg_flag(SIGN_FLAG, &(reg->ccr));
     
     return;
 }
