@@ -103,6 +103,7 @@ typedef struct Registers {
 
     uint8_t ir_flag;
     uint8_t stop_flag;
+
 } registers;
 
 

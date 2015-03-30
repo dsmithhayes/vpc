@@ -14,7 +14,9 @@ data(uint16_t inst, registers *reg)
 {
     uint8_t rd = RD(inst);
     uint8_t rn = RN(inst);
-    uint8_t opcode = DAT_GET_OPCODE(inst);
+    uint16_t opcode = DAT_GET_OPCODE(inst);
+
+    uint32_t _buf;
     
     switch(opcode) {
         case AND_DAT:
@@ -58,7 +60,19 @@ data(uint16_t inst, registers *reg)
             break;
 
         case CMP_DAT:
+            _buf = reg->file[rd] - reg->file[rn];
 
+            if(IS_ZERO(_buf))
+                set_reg_flag(ZERO_FLAG, &(reg->ccr));
+
+            if(IS_SIGN(_buf))
+                set_reg_flag(SIGN_FLAG, &(reg->ccr));
+
+            if(is_carry(
+                    reg->file[rd],
+                    reg->file[rn],
+                    IS_CARRY_SET(reg->ccr)))
+                set_reg_flag(CARRY_FLAG, &(reg->ccr));
             break;
 
         case ROR_DAT:
@@ -70,7 +84,8 @@ data(uint16_t inst, registers *reg)
             break;
 
         case MOV_DAT:
-            reg->alu = memory
+            reg->alu = reg->file[rn];
+            reg->file[rd] = reg->alu;
             break;
 
         case BIC_DAT:
