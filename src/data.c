@@ -12,8 +12,8 @@
 void
 data(uint16_t inst, registers *reg)
 {
-    uint8_t rd = get_rd(inst);
-    uint8_t rn = get_rn(inst);
+    uint8_t rd = RD(inst);
+    uint8_t rn = RN(inst);
     uint8_t opcode = DAT_GET_OPCODE(inst);
     
     switch(opcode) {
@@ -49,7 +49,7 @@ data(uint16_t inst, registers *reg)
             reg->alu = reg->file[rd] << reg->file[rn];
             break;
 
-        case TST_AT:
+        case TST_DAT:
 
             break;
 

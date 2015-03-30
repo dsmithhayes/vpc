@@ -16,6 +16,8 @@
 
 /*
  * THERE'S AN EASIER WAY TO DO THIS
+ *
+ * THERE DOESN'T SEEM TO BE AN EASIER WAY TO DO THIS JEEEEEEZ
  */
 
 void
@@ -36,7 +38,19 @@ execute(uint16_t inst, registers *reg)
         return;
     }
 
-    toggle_reg_flag(INST_FLAG, &(ccr->ir_flag));
+    /*
+     * Checks if the ZERO_FLAG should be set
+     */
+    if(IS_ZERO(reg->alu))
+        set_reg_flag(ZERO_FLAG, &(reg->ccr));
+    
+    /*
+     * Checks if the SIGN_FLAG should be set
+     */
+    if(IS_SIGN(reg->alu))
+        set_reg_flag(SIGN_FLAG, &(reg->ccr));
+
+    toggle_reg_flag(INST_FLAG, &(reg->ir_flag));
     
     return;
 }

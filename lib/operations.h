@@ -63,10 +63,11 @@
 
 /*
  * Macros that return the Rn or Rd from specific instruction types
- * that use them.
+ * that use them, along with the immediate value
  */
-#define RN(x)   ((x & RN_MASK) >> RN_SHIFT)
+#define RN(x)   (x & RN_MASK) >> RN_SHIFT
 #define RD(x)   (x & RD_MASK)
+#define IMM(x)  (x & IMM_VAL) >> IMM_VAL_SHIFT
 
 /*
  * Data Processing Instructions
@@ -86,25 +87,26 @@
  * third nibble:    NNNN = Rn, register source
  * fourth nibble:   DDDD = Rd, register destination
  */
-#define AND_DAT     0x0000
-#define EOR_DAT     0x0100
-#define SUB_DAT     0x0200
-#define SXB_DAT     0x0300
-#define ADD_DAT     0x0400
-#define ADC_DAT     0x0500
-#define LSR_DAT     0x0600
-#define LSL_DAT     0x0700
-#define TST_DAT     0x0800
-#define TEQ_DAT     0x0900
-#define CMP_DAT     0x0A00
-#define ROR_DAT     0x0B00
-#define ORR_DAT     0x0C00
-#define MOV_DAT     0x0D00
-#define BIC_DAT     0x0E00
-#define MVN_DAT     0x0F00
+#define AND_DAT     0x00
+#define EOR_DAT     0x01
+#define SUB_DAT     0x02
+#define SXB_DAT     0x03
+#define ADD_DAT     0x04
+#define ADC_DAT     0x05
+#define LSR_DAT     0x06
+#define LSL_DAT     0x07
+#define TST_DAT     0x08
+#define TEQ_DAT     0x09
+#define CMP_DAT     0x0A
+#define ROR_DAT     0x0B
+#define ORR_DAT     0x0C
+#define MOV_DAT     0x0D
+#define BIC_DAT     0x0E
+#define MVN_DAT     0x0F
 
 #define DAT_OPCODE  0x0F00
-#define DAT_GET_OPCODE(x)   (DAT_OPCODE & x)
+#define DAT_OPCODE_SHIFT    0xC
+#define DAT_GET_OPCODE(x)   ((DAT_OPCODE & x) >> DAT_OPCODE_SHIFT)
 
 /*
  * Immediate Instructions
