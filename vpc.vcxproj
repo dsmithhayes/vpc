@@ -71,9 +71,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\data.c" />
     <ClCompile Include="src\dumpmem.c" />
     <ClCompile Include="src\dumpreg.c" />
-    <ClCompile Include="src\execute.c" />
+    <ClCompile Include="src\execute.c">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:\c\ceng606\vpc\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
     <ClCompile Include="src\fetch.c" />
     <ClCompile Include="src\flags.c" />
     <ClCompile Include="src\go.c" />

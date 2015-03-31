@@ -28,17 +28,16 @@ execute(uint16_t inst, registers *reg)
      * APPROPRIATE FUNCTION
      */
 
-    if(IS_IMM_INST(inst)) {
+    if(IS_IMM_INST(inst))
         immediate(inst, reg);
-        return;
-    }
     
-    if(IS_DAT_INST(inst)) {
+    if(IS_DAT_INST(inst))
         data(inst, reg);
-        return;
-    }
 
-    toggle_reg_flag(INST_FLAG, &(reg->ir_flag));
+    if(IS_STOP_INST(inst))
+        set_reg_flag(STOP_FLAG, (uint32_t *) &(reg->stop_flag));
+
+    toggle_reg_flag(INST_FLAG, (uint32_t *) &(reg->ir_flag));
     
     return;
 }

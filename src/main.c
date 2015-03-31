@@ -135,6 +135,10 @@ main(int argc, char *argv[])
                 getchar();
                 break;
 
+            case 'g':
+            case 'G':
+                go(memory, &reg);
+                break;
             
             case '?':   /* display the help */
             case 'h':

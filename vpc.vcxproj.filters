@@ -60,6 +60,9 @@
     <ClCompile Include="src\operations.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\data.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\registers.h">

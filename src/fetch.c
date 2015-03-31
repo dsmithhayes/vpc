@@ -11,7 +11,7 @@
 #include "registers.h"
 
 /* HA! I used it! */
-#define BITS_PER_BYTE   8;
+#define BITS_PER_BYTE   8
 
 
 void
@@ -25,21 +25,20 @@ fetch(void *memory, registers *reg)
     /*
      * grab the next 4 bytes of memory into the mbr
      */
-    reg->mbr += *((uint32_t *) memory + (reg->mar++));
-    reg->mbr = reg->mbr << BITS_PER_BYTE;
+    reg->mbr += *((uint8_t *) memory + (reg->mar++));
+    reg->mbr = (reg->mbr << BITS_PER_BYTE);
 
-    reg->mbr += *((uint32_t *) memory + (reg->mar++));
-    reg->mbr = reg->mbr << BITS_PER_BYTE;
+    reg->mbr += *((uint8_t *) memory + (reg->mar++));
+    reg->mbr = (reg->mbr << BITS_PER_BYTE);
 
-    reg->mbr += *((uint32_t *) memory + (reg->mar++));
-    reg->mbr = reg->mbr << BITS_PER_BYTE;
+    reg->mbr += *((uint8_t *) memory + (reg->mar++));
+    reg->mbr = (reg->mbr << BITS_PER_BYTE);
 
-    reg->mbr += *((uint32_t *) memory + (reg->mar++));
+    reg->mbr += *((uint8_t *) memory + (reg->mar++));
     
     /*
      * Set the instruction register to the result of MBR
      */
     reg->ir = reg->mbr;
-    
     return;
 }

@@ -66,7 +66,7 @@ set_reg_flag(uint16_t mask, uint32_t *ctrl_reg)
  * it off, or just keep it off.
  */
 void
-clear_flag(uint16_t mask, uint32_t *ctrl_reg)
+clear_reg_flag(uint16_t mask, uint32_t *ctrl_reg)
 {
     if(is_reg_mask(mask))
         *ctrl_reg = (*ctrl_reg & mask)

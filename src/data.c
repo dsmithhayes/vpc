@@ -96,7 +96,7 @@ data(uint16_t inst, registers *reg)
  * zero
  * carry
  */
-static inline void
+static void
 scz(uint32_t  alu,
     uint8_t   rd,
     uint8_t   rn,
@@ -120,7 +120,7 @@ scz(uint32_t  alu,
     return;
 }
 
-static inline void
+static void
 sz(uint32_t alu, uint32_t *ccr)
 {
     if(IS_SIGN(alu))

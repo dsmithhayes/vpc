@@ -18,15 +18,13 @@ trace(void *memory, registers *reg)
 
     fprintf(stdout, "Any button to trace, period to exit.\n");
 
-    fprintf(stdout, "0x%08X> ",
-            (unsigned int) reg->file[PC]);
+    fprintf(stdout, "0x%08X> ", reg->file[PC]);
 
     while((in = getchar()) != '.') {
         fetch(memory, reg);
         dumpreg(*reg);
 
-        fprintf(stdout, "\n0x%08X> ",
-                (unsigned int) reg->file[PC]);
+        fprintf(stdout, "\n0x%08X> ", reg->file[PC]);
     }
 
     return;

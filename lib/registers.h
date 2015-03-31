@@ -43,6 +43,9 @@
 #define IS_ZERO_SET(x)  (ZERO_FLAG & x) ? 1 : 0
 #define IS_CARRY_SET(x) (CARRY_FLAG & x) ? 1 : 0
 
+#define IS_STOP_SET(x)  (STOP_FLAG & x) ? 1 : 0
+#define WHICH_IR(x)     (INST_FLAG & x) ? 1 : 0
+
 /*
  * MSB in 32bits is set? That's a signed number yo.
  */
@@ -59,10 +62,10 @@
 /*
  * Returns the appropriate Instruction Register
  */
-#define IR0_MASK    0xFF00
-#define IR1_MASK    0x00FF
-#define IR0(x)      (x & IR0_MASK)
-#define IR1(x)      (x & IR1_MASK) >> INS_BIT_S
+#define IR0_MASK    0xFFFF0000
+#define IR1_MASK    0x0000FFFF
+#define IR0(x)      (x & IR0_MASK) >> INS_BIT_S
+#define IR1(x)      (x & IR1_MASK)
 
 /*
  * The registers struct is just an easy way to move and use the

@@ -12,12 +12,14 @@
 void
 dumpreg(registers reg)
 {
-    unsigned short i = 0;
+    uint8_t i = 0;
 
-    /* Display the registers in a 4x4 grid */
+    /*
+     * Display the registers in a 4x4 grid
+     */
     while(i < REG_FILE_S) {
         
-        fprintf(stdout, "R%2d: 0x%08X ", i, reg.file[i++]);
+        fprintf(stdout, "R%02d: 0x%08X ", i, reg.file[i++]);
 
         if(i == SP)
             break;
@@ -35,9 +37,9 @@ dumpreg(registers reg)
     
     /* check the CCR */
     fprintf(stdout, "CCR: %d%d%d (sign, zero, carry)\n",
-        (reg.ccr & SIGN_FLAG)  ? 1 : 0,
-        (reg.ccr & ZERO_FLAG)  ? 1 : 0,
-        (reg.ccr & CARRY_FLAG) ? 1 : 0
+        IS_CARRY_SET(reg.ccr),
+        IS_ZERO_SET(reg.ccr),
+        IS_SIGN_SET(reg.ccr)
     );
 
     fprintf(stdout, "MBR: 0x%08X\n", reg.mbr);
@@ -46,10 +48,8 @@ dumpreg(registers reg)
     fprintf(stdout, "IR1: 0x%04X\n", IR1(reg.ir));
 
     fprintf(stdout, "\n");
-    fprintf(stdout, "Stop Flag: %d\n", reg.stop_flag ? 1 : 0);
-    fprintf(stdout, "Active IR: %d\n", reg.ir_flag ? 1 : 0);
-    
-    fprintf(stdout, "\n");
+    fprintf(stdout, "Stop Flag: %d\n", IS_STOP_SET(reg.stop_flag));
+    fprintf(stdout, "Active IR: %d\n", WHICH_IR(reg.ir_flag));
 
     return;
 }

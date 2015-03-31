@@ -63,11 +63,10 @@
 
 /*
  * Macros that return the Rn or Rd from specific instruction types
- * that use them, along with the immediate value
+ * that use them.
  */
-#define RN(x)   (x & RN_MASK) >> RN_SHIFT
+#define RN(x)   ((x & RN_MASK) >> RN_SHIFT)
 #define RD(x)   (x & RD_MASK)
-#define IMM(x)  (x & IMM_VAL) >> IMM_VAL_SHIFT
 
 /*
  * Data Processing Instructions
@@ -128,6 +127,11 @@
 
 #define IMM_VAL     0x0FF0
 #define IMM_VAL_SHIFT    4  /* 4bit shift for this little guy. */
+
+/*
+ * Macro to return the immdiate value of the operation
+ */
+#define IMM(x)  ((x & IMM_VAL) >> IMM_VAL_SHIFT)
 
 #define IMM_OPCODE  0x7000
 #define IMM_GET_OPCODE(x)   (IMM_OPCODE & x)
