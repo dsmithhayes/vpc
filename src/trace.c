@@ -16,9 +16,9 @@ trace(void *memory, registers *reg)
 {
     char in;
 
-    fprintf(stdout, "Press any button to trace, '.' to exit.\n");
+    fprintf(stdout, "\nPress any button to trace, '.' to exit.\n");
 
-    fprintf(stdout, "\n0x%08X> ", reg->file[PC]);
+    fprintf(stdout, "0x%08X> ", reg->file[PC]);
 
     while((in = getchar()) != '.') {
         fetch(memory, reg);

@@ -92,8 +92,8 @@ main(int argc, char *argv[])
                 offset &= (TOTAL_MEMORY - 1);
                 
                 /*
-                 * Windows does weird things if its 0 so 0 defaults
-                 * to one line.
+                 * Windows does weird things if its '0' so '0' 
+                 * defaults to one line.
                  */
                 length = (((length > (TOTAL_MEMORY - offset))
                         ? (TOTAL_MEMORY - offset) : length) == 0)
@@ -131,7 +131,6 @@ main(int argc, char *argv[])
             case 't':   /* trace the program */
             case 'T':
                 trace((void *) memory, &reg);
-
                 getchar();
                 break;
 

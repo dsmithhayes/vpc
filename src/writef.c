@@ -40,7 +40,8 @@ writef(void *memory)
     
     /* actually write the memory to a file */
     if((res = fwrite(memory, 1, size, f)) > 0)
-        fprintf(stdout, "wrote %X (%d) bytes to file successfully.\n", 
+        fprintf(stdout, 
+                "Wrote 0x%X (%d) bytes to the file successfully.\n", 
                 res, res);
     else
         perror("fwrite");

@@ -26,7 +26,7 @@ loadf(void *memory, uint16_t max)
     const char *mode = "rb";
     uint16_t size;
     
-    fprintf(stdout, "file> ");
+    fprintf(stdout, "filename> ");
     fgets(file_name, INPUT_BUFFER, stdin);
     
     file_name[strlen(file_name) - 1] = '\0';
@@ -42,7 +42,7 @@ loadf(void *memory, uint16_t max)
         return errno;
     
     if(size > max) {
-        fprintf(stdout, "file truncated...\n");
+        fprintf(stdout, "The file was truncated...\n");
         size = max;
     }
     

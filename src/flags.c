@@ -61,16 +61,13 @@ set_reg_flag(uint16_t mask, uint32_t *ctrl_reg)
 }
 
 /*
- * Always set the flag to zero. To make sure it doesn't become
- * negative or something weird, just make sure it is on and toggle
- * it off, or just keep it off.
+ * Sets the according register flag to 0. 
  */
 void
 clear_reg_flag(uint16_t mask, uint32_t *ctrl_reg)
 {
     if(is_reg_mask(mask))
-        *ctrl_reg = (*ctrl_reg & mask)
-                ? (*ctrl_reg - mask) : *ctrl_reg;
+        *ctrl_reg &= ~mask;
 
     return;
 }
