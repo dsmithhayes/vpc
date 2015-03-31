@@ -21,27 +21,35 @@ dumpreg(registers reg)
         
         fprintf(stdout, "R%02d: 0x%08X ", i, reg.file[i++]);
 
-        if(i == SP)
+        if(i == SP) /* just to label the SP, LR, and PC */
             break;
 
         if(i % 4 == 0)
             fprintf(stdout, "\n");
     }
 
-    /* Special value registers */
+    /* 
+     * Special value registers 
+     */
     fprintf(stdout, " SP: 0x%08X ",  reg.file[SP]);
     fprintf(stdout, " LR: 0x%08X ",  reg.file[LR]);
     fprintf(stdout, " PC: 0x%08X\n", reg.file[PC]);
     
     fprintf(stdout, "\n");
     
-    /* check the CCR */
+    /* 
+     * check the CCR 
+     */
     fprintf(stdout, "CCR: %d%d%d (sign, zero, carry)\n",
         IS_CARRY_SET(reg.ccr),
         IS_ZERO_SET(reg.ccr),
         IS_SIGN_SET(reg.ccr)
     );
 
+    /*
+     * Memory Buffer Register, Memory Address Register, and the value
+     * of each instruction register
+     */
     fprintf(stdout, "MBR: 0x%08X\n", reg.mbr);
     fprintf(stdout, "MAR: 0x%08X\n", reg.mar);
     fprintf(stdout, "IR0: 0x%04X\n", IR0(reg.ir));

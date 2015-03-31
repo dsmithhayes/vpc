@@ -137,6 +137,20 @@
 #define IMM_GET_OPCODE(x)   (IMM_OPCODE & x)
 
 /*
+ * Load/Store instructions are basic. Load data from memory into a
+ * register or store the data in a register into memory. The L and B
+ * represent the Load/Store operation and the Byte/Word operations.
+ * 
+ * IS_LS_LOAD(x) will be 0 if its a Store, Load if 1
+ * IS_LS_WORD(x) will be 0 if its a Byte, Word if 1
+ */
+#define LS_L_MASK(x)    0x0800
+#define LS_B_MASK(x)    0x0400
+
+#define IS_LS_LOAD(x)   ((LS_L_MASK & x) == LS_L_MASK) ? 1 : 0
+#define IS_LS_WORD(x)   ((LS_B_MASK & x) == LS_B_MASK) ? 1 : 0
+
+/*
  * Conditional Code Masks used for conditional branches
  */
 #define COND_EQ     0x8000
@@ -205,13 +219,29 @@ void clear_reg_flag(uint16_t mask, uint32_t *ctrl_reg);
 void execute(uint16_t inst, registers *reg);
 
 /*
- * Performs immediate instructions
+ * Performs an immediate instruction
  */
 void immediate(uint16_t inst, registers *reg);
 
 /*
- * Performs a register to register operations
+ * Performs a register to register operation
  */
 void data(uint16_t inst, registers *reg);
+
+/*
+ * Load/Store operations
+ */
+void loadstore(uint16_t inst, registers *reg);
+
+/*
+ * Conditional Branches
+ */
+void cond(uint16_t inst, registers *reg);
+
+/*
+ * Unconditional Branches
+ */
+void uncond(uint16_t inst, registers *reg);
+
 
 #endif /* OPERATIONS_H */
