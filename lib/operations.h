@@ -69,7 +69,7 @@
 #define RD(x)   (x & RD_MASK)
 
 /*
- * Data Processing Instructions
+ * Data Processing Instructions.
  *
  * 0000ppppNNNNDDDD
  * 
@@ -140,9 +140,22 @@
  * Load/Store instructions are basic. Load data from memory into a
  * register or store the data in a register into memory. The L and B
  * represent the Load/Store operation and the Byte/Word operations.
+ *
+ * This operation uses Rn and Rd respectively.
  * 
  * IS_LS_LOAD(x) will be 0 if its a Store, Load if 1
  * IS_LS_WORD(x) will be 0 if its a Byte, Word if 1
+ *
+ * 0010LB00NNNNDDDD
+ *
+ * First nibble:    0010; the instruction identifier
+ * Second nibble:
+ *      L : value is 1 if load operation, 0 if stroe operation
+ *      B : value is 1 if word, 0 if byte
+ *      0 : not used
+ *      0 : not used
+ * Third nibble:    Rn
+ * Fourth nibble:   Rd
  */
 #define LS_L_MASK(x)    0x0800
 #define LS_B_MASK(x)    0x0400
@@ -231,7 +244,7 @@ void data(uint16_t inst, registers *reg);
 /*
  * Load/Store operations
  */
-void loadstore(uint16_t inst, registers *reg);
+void loadstore(uint16_t inst, registers *reg, void *memory);
 
 /*
  * Conditional Branches

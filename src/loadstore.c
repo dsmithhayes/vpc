@@ -11,8 +11,27 @@
 #include "operations.h"
 
 void
-loadstore(uint16_t inst, registers *reg)
+loadstore(uint16_t inst, registers *reg, void *memory)
 {
+    uint8_t rn = RN(inst);
+    uint8_t rd = RN(inst);
+    
+    if(IS_LS_LOAD(inst)) {  /* load transaction */
+        if(IS_LS_WORD(inst)) {
+
+        }
+        else {
+
+        }
+    }
+    else {                  /* store transation */
+        if(IS_LS_WORD(inst)) {
+
+        }
+        else {
+
+        }
+    }
     
     return;
 }
