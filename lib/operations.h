@@ -157,8 +157,8 @@
  * Third nibble:    Rn
  * Fourth nibble:   Rd
  */
-#define LS_L_MASK(x)    0x0800
-#define LS_B_MASK(x)    0x0400
+#define LS_L_MASK   0x0800
+#define LS_B_MASK   0x0400
 
 #define IS_LS_LOAD(x)   ((LS_L_MASK & x) == LS_L_MASK) ? 1 : 0
 #define IS_LS_WORD(x)   ((LS_B_MASK & x) == LS_B_MASK) ? 1 : 0
@@ -229,7 +229,7 @@ void clear_reg_flag(uint16_t mask, uint32_t *ctrl_reg);
 /*
  * Executes the proper instruction
  */
-void execute(uint16_t inst, registers *reg);
+void execute(uint16_t inst, registers *reg, void *memory);
 
 /*
  * Performs an immediate instruction

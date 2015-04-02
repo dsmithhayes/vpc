@@ -11,7 +11,7 @@
 #include "registers.h"
 
 /* HA! I used it! */
-#define BITS_PER_BYTE   8
+#define BYTE   8
 
 
 void
@@ -26,13 +26,13 @@ fetch(void *memory, registers *reg)
      * grab the next 4 bytes of memory into the mbr
      */
     reg->mbr += *((uint8_t *) memory + (reg->mar++));
-    reg->mbr = (reg->mbr << BITS_PER_BYTE);
+    reg->mbr = (reg->mbr << BYTE);
 
     reg->mbr += *((uint8_t *) memory + (reg->mar++));
-    reg->mbr = (reg->mbr << BITS_PER_BYTE);
+    reg->mbr = (reg->mbr << BYTE);
 
     reg->mbr += *((uint8_t *) memory + (reg->mar++));
-    reg->mbr = (reg->mbr << BITS_PER_BYTE);
+    reg->mbr = (reg->mbr << BYTE);
 
     reg->mbr += *((uint8_t *) memory + (reg->mar++));
     

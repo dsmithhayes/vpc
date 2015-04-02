@@ -34,7 +34,7 @@ execute(uint16_t inst, registers *reg, void *memory)
     if(IS_DAT_INST(inst))
         data(inst, reg);
 
-    if(IS_LS_INST(inst)
+    if(IS_LS_INST(inst))
         loadstore(inst, reg, memory);
 
     if(IS_STOP_INST(inst))
