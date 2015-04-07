@@ -11,6 +11,7 @@
 #include "operations.h"
 
 #define BYTE        8
+#define BYTE_MASK   0xF
 
 #define BYTE_1(x)   (0x000F & x)
 #define BYTE_2(x)   ((0x00F0 & x) >> BYTE)
