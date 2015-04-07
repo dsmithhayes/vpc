@@ -11,12 +11,11 @@
 #include "operations.h"
 
 #define BYTE        8
-#define BYTE_MASK   0x000F
 
-#define BYTE_1(x)   (BYTE_MASK & x)
-#define BYTE_2(x)   ((BYTE_MASK & x) >> BYTE)
-#define BYTE_3(x)   ((BYTE_MASK & x) >> (BYTE * 2))
-#define BYTE_4(x)   ((BYTE_MASK & x) >> (BYTE * 3))
+#define BYTE_1(x)   (0x000F & x)
+#define BYTE_2(x)   ((0x00F0 & x) >> BYTE)
+#define BYTE_3(x)   ((0x0F00 & x) >> (BYTE * 2))
+#define BYTE_4(x)   ((0xF000 & x) >> (BYTE * 3))
 
 void
 loadstore(uint16_t inst, registers *reg, void *memory)
@@ -27,7 +26,10 @@ loadstore(uint16_t inst, registers *reg, void *memory)
     reg->alu = 0;
     reg->mbr = 0;
     
-    if(IS_LS_LOAD(inst)) {  /* load transaction */
+    /*
+     * LOAD
+     */
+    if(IS_LS_LOAD(inst)) {
         if(IS_LS_DWORD(inst)) {
             reg->alu = *((uint8_t *) memory + (rn++));
             reg->alu = (reg->alu << BYTE);
@@ -45,12 +47,17 @@ loadstore(uint16_t inst, registers *reg, void *memory)
 
         reg->file[rd] = reg->alu;
     }
-    else {                  /* store transation */
+    /*
+     * STORE
+     */
+    else {
         if(IS_LS_DWORD(inst)) {
-            *((uint8_t *) memory + (rn++)) = BYTE_1(reg->file[rd]);
-            *((uint8_t *) memory + (rn++)) = BYTE_2(reg->file[rd]);
-            *((uint8_t *) memory + (rn++)) = BYTE_3(reg->file[rd]);
-            *((uint8_t *) memory + rn) = BYTE_4(reg->file[rd]);
+            reg->mbr = reg->file[rd];
+            
+            *((uint8_t *) memory + (rn++)) = BYTE_1(reg->mbr);
+            *((uint8_t *) memory + (rn++)) = BYTE_2(reg->mbr);
+            *((uint8_t *) memory + (rn++)) = BYTE_3(reg->mbr);
+            *((uint8_t *) memory + rn) = BYTE_4(reg->mbr);
         }
         else
             *((uint8_t *) memory + rn) =
