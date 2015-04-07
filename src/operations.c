@@ -21,6 +21,9 @@
 /* Functions */
 /*************/
 
+/*
+ * I don't like this logic, there is a better way.
+ */
 uint8_t
 is_inst(uint16_t inst)
 {
@@ -28,6 +31,15 @@ is_inst(uint16_t inst)
         return 1;
 
     if(IS_DAT_INST(inst))
+        return 1;
+
+    if(IS_LS_INST(inst))
+        return 1;
+    
+    if(IS_COND_INST(inst))
+        return 1;
+
+    if(IS_UN_INST(inst))
         return 1;
 
     if(IS_STOP_INST(inst))

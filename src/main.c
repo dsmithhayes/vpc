@@ -30,7 +30,7 @@ registers reg;
 /***************/
 
 int 
-main(int argc, char *argv[])
+main(void)
 {
     char selection;
     unsigned int file_size;     /* result of load_file();   */
