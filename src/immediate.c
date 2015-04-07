@@ -17,16 +17,16 @@
 void
 immediate(uint16_t inst, registers *reg)
 {
-    uint16_t buf = (inst & IMM_OPCODE);
+    uint16_t opcode = IMM_GET_OPCODE(inst);
     uint8_t rd = RD(inst);
-    uint8_t imm = IMM(inst);
+    uint16_t imm = IMM(inst);
 
     /*
      * Check which immediate instruction is given.
      */
-    switch(buf) {
+    switch(opcode) {
         case MOV_IMM:
-            reg->alu = (uint32_t) imm;
+            reg->alu = imm;
             reg->file[rd] = reg->alu;
             break;
 
@@ -44,18 +44,6 @@ immediate(uint16_t inst, registers *reg)
             reg->file[rd] = reg->alu;
             break;
     }
-    
-    /*
-     * Checks if the ZERO_FLAG should be set
-     */
-    if(IS_ZERO(reg->alu))
-        set_reg_flag(ZERO_FLAG, &(reg->ccr));
-    
-    /*
-     * Checks if the SIGN_FLAG should be set
-     */
-    if(IS_SIGN(reg->alu))
-        set_reg_flag(SIGN_FLAG, &(reg->ccr));
 
     return;
 }

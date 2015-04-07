@@ -14,29 +14,19 @@
 #include "registers.h"
 #include "operations.h"
 
-/*
- * THERE'S AN EASIER WAY TO DO THIS
- *
- * THERE DOESN'T SEEM TO BE AN EASIER WAY TO DO THIS JEEEEEEZ
- */
-
 void
 execute(uint16_t inst, registers *reg, void *memory)
 {
-    /*
-     * TEST THE TYPE OF INSTRUCTION IN EXECUTE, PERFORM THE
-     * APPROPRIATE FUNCTION
-     */
 
     if(IS_IMM_INST(inst))
         immediate(inst, reg);
     
     if(IS_DAT_INST(inst))
         data(inst, reg);
-
+    
     if(IS_LS_INST(inst))
         loadstore(inst, reg, memory);
-
+    
     if(IS_STOP_INST(inst))
         set_reg_flag(STOP_FLAG, (uint32_t *) &(reg->stop_flag));
 

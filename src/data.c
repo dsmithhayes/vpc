@@ -21,38 +21,58 @@ data(uint16_t inst, registers *reg)
     switch(opcode) {
         case AND_DAT:
             reg->alu = reg->file[rd] & reg->file[rn];
+            sz(reg->alu, &(reg->ccr));
+            reg->file[rd] = reg->alu;
             break;
         
         case EOR_DAT:
             reg->alu = reg->file[rd] ^ reg->file[rn];
+            sz(reg->alu, &(reg->ccr));
+            reg->file[rd] = reg->alu;
             break;
         
         case SUB_DAT:
-            reg->alu = reg->file[rd] - reg->file[rn];
+            reg->alu = reg->file[rd] + ~reg->file[rn] + 1;
+            scz(reg->alu, rd, rn, &(reg->ccr));
+            reg->file[rd] = reg->alu;
             break;
         
         case SXB_DAT:
-        
+            
             break;
         
         case ADD_DAT:
             reg->alu = reg->file[rd] + reg->file[rn];
+            scz(reg->alu, rd, rn, &(reg->ccr));
+            reg->file[rd] = reg->alu;
             break;
         
         case ADC_DAT:
+            reg->alu = reg->file[rd] 
+                    + reg->file[rn] 
+                    + IS_CARRY_SET(reg->ccr);
             
+            scz(reg->alu, rd, rn, &(reg->ccr));
+            
+            reg->file[rd] = reg->alu;
             break;
         
         case LSR_DAT:
             reg->alu = reg->file[rd] >> reg->file[rn];
+            scz(reg->alu, rd, rn, &(reg->ccr));
+            
+            reg->file[rd] = reg->alu;
             break;
         
         case LSL_DAT:
             reg->alu = reg->file[rd] << reg->file[rn];
+            scz(reg->alu, rd, rn, &(reg->ccr));
+            
+            reg->file[rd] = reg->alu;
             break;
 
         case TST_DAT:
-
+            
             break;
 
         case TEQ_DAT:
@@ -87,49 +107,4 @@ data(uint16_t inst, registers *reg)
     }
     
     return;
-}
-
-/*
- * Sets all the register flags for everything accordingly.
- *
- * sign
- * zero
- * carry
- */
-static void
-scz(uint32_t  alu,
-    uint8_t   rd,
-    uint8_t   rn,
-    uint32_t *ccr)
-{
-    if(IS_SIGN(alu))
-        set_reg_flag(SIGN_FLAG, ccr);
-    else
-        clear_reg_flag(SIGN_FLAG, ccr);
-
-    if(is_carry(rd, rn, IS_CARRY_SET(*ccr)))
-        set_reg_flag(CARRY_FLAG, ccr);
-    else
-        clear_reg_flag(CARRY_FLAG, ccr);
-
-    if(IS_ZERO(alu))
-        clear_reg_flag(ZERO_FLAG, ccr);
-    else
-        clear_reg_flag(ZERO_FLAG, ccr);
-
-    return;
-}
-
-static void
-sz(uint32_t alu, uint32_t *ccr)
-{
-    if(IS_SIGN(alu))
-        set_reg_flag(SIGN_FLAG, ccr);
-    else
-        clear_reg_flag(SIGN_FLAG, ccr);
-
-    if(IS_ZERO(alu))
-        clear_reg_flag(ZERO_FLAG, ccr);
-    else
-        clear_reg_flag(ZERO_FLAG, ccr);
 }

@@ -157,11 +157,11 @@
  * Third nibble:    Rn
  * Fourth nibble:   Rd
  */
-#define LS_L_MASK   0x0800
-#define LS_B_MASK   0x0400
+#define LS_L_MASK   0x0800  /* 1000 */
+#define LS_B_MASK   0x0400  /* 0100 */
 
 #define IS_LS_LOAD(x)   ((LS_L_MASK & x) == LS_L_MASK) ? 1 : 0
-#define IS_LS_WORD(x)   ((LS_B_MASK & x) == LS_B_MASK) ? 1 : 0
+#define IS_LS_DWORD(x)  ((LS_B_MASK & x) == LS_B_MASK) ? 1 : 0
 
 /*
  * Conditional Code Masks used for conditional branches
@@ -211,9 +211,20 @@
 uint8_t is_carry(uint32_t op1, uint32_t op2, uint32_t ccr);
 
 /*
+ * Returns non-zero if the word is a valid instruction.
+ */
+uint8_t is_inst(uint16_t inst);
+
+/*
  * Get the immediate value in the instruction
  */
 uint8_t get_imm(uint16_t inst);
+
+/*
+ * Set the sign, carry or zero flags.
+ */
+void scz(uint32_t alu, uint8_t rd, uint8_t rn, uint32_t *ccr);
+void sz(uint32_t alu, uint32_t *ccr);
 
 
 /*

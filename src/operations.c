@@ -47,3 +47,51 @@ is_carry(uint32_t op1, uint32_t op2, uint32_t ccr)
     
     return (op1 > (UINT32_MAX - op2 - IS_CARRY_SET(ccr))) ? 1 : 0;
 }
+
+/*
+ * Sets all the register flags for everything accordingly.
+ *
+ * sign
+ * zero
+ * carry
+ */
+void
+scz(uint32_t  alu,
+    uint8_t   rd,
+    uint8_t   rn,
+    uint32_t *ccr)
+{
+    if(IS_SIGN(alu))
+        set_reg_flag(SIGN_FLAG, ccr);
+    else
+        clear_reg_flag(SIGN_FLAG, ccr);
+
+    if(is_carry(rd, rn, IS_CARRY_SET(*ccr)))
+        set_reg_flag(CARRY_FLAG, ccr);
+    else
+        clear_reg_flag(CARRY_FLAG, ccr);
+
+    if(IS_ZERO(alu))
+        clear_reg_flag(ZERO_FLAG, ccr);
+    else
+        clear_reg_flag(ZERO_FLAG, ccr);
+
+    return;
+}
+
+/*
+ * This is the same as above, but without the check of the carry.
+ */
+void
+sz(uint32_t alu, uint32_t *ccr)
+{
+    if(IS_SIGN(alu))
+        set_reg_flag(SIGN_FLAG, ccr);
+    else
+        clear_reg_flag(SIGN_FLAG, ccr);
+
+    if(IS_ZERO(alu))
+        clear_reg_flag(ZERO_FLAG, ccr);
+    else
+        clear_reg_flag(ZERO_FLAG, ccr);
+}

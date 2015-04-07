@@ -22,6 +22,12 @@ trace(void *memory, registers *reg)
 
     while((in = getchar()) != '.') {
         fetch(memory, reg);
+
+        if(reg->ir_flag)
+            execute(IR1(reg->ir), reg, memory);
+        else
+            execute(IR0(reg->ir), reg, memory);
+
         dumpreg(*reg);
 
         fprintf(stdout, "\n0x%08X> ", reg->file[PC]);

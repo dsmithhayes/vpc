@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include "vpc.h"
 #include "registers.h"
 #include "operations.h"
@@ -67,7 +68,7 @@ main(int argc, char *argv[])
                     fprintf(stdout,
                             "File loaded. 0x%04X (%d) bytes read.\n", 
                             file_size, file_size);
-                else
+                else if(errno)
                     perror("loadf");
                 break;
 
