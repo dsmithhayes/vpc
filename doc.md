@@ -2,7 +2,7 @@
 
  *Author:* Dave Smith-Hayes
 
- *Date:* 24 March, 2015
+ *Date:* 8 March, 2015
 
 ## Abstract
 
@@ -49,21 +49,21 @@ data to the memory.
 
 ## Compilation
 
-If the desired system is Windows, there is a binary in the `bin/`
-directory called `vpc.exe` . There also includes a Visual Studio C++
-2010 Express project file which should be able to run in all later
-versions of Visual Studio. Along with that there is a Windows
- `makefile.win` that is used with the Orwell Dev-C++ project file
-(which in turn uses GCC and the glibc) that is included with the
-project. The program will run from these IDEs.
+Currently there is on-going progress with a Visual Studio 2013
+Community edition project file, as well as a Dev-C++ 5.10 project
+file that will be included.
+
+If the system you are using has `gcc` and `make`, just use those.
+The `makefile` will be updated to use `clang` and other compilers
+with other C libraries. *Portability is the name of the game*.
 
 ### Using make
 
     $ make
 
-This will create a `vpc` binary in the `bin/` directory. This directory
-will also be where all of the other binary files for instructions will
-go as well. More on this topic in the usage.
+This will create a `vpc` binary in the `bin/` directory. This 
+directory will also be where all of the other binary files for 
+instructions will go as well. More on this topic in the usage.
 
 ## Usage
 
@@ -85,7 +85,8 @@ stages of the development of this program. Defined here are extremely
 important routines that interact with the human input. Routines like
 loading and writing files from and to the physical disk.
 
-All of the header files for `vpc` are found within the `lib/` directory.
+All of the header files for `vpc` are found within the `lib/` 
+directory.
 
  `vpc.h` includes one system header: `<stdin.h>` for `uintN_t`
 declarations
@@ -101,8 +102,9 @@ address.
 
     #define TOTAL_MEMORY 0x4000
 
-There is a total of 16 kilobytes of memory in `vpc`. This is represented
-as `16 * (2^10)` (16384) bytes, or `0x4000` in hexadecimal.
+There is a total of 16 kilobytes of memory in `vpc`. This is 
+represented as `16 * (2^10)` (16384) bytes, or `0x4000` in 
+hexadecimal.
 
     #define HEX 0x10
 
@@ -121,8 +123,8 @@ by the user.
 
     int loadf(void* memory, uint16_t max);
 
-Loads a file to the memory. If the file size is larger than `max` bytes
-then it is truncated.
+Loads a file to the memory. If the file size is larger than `max` 
+bytes then it is truncated.
 
     void dumpmem(void* memory, uint16_t offset, uint16_t length);
 
@@ -132,8 +134,8 @@ memory and the contents of memory.
     void modmem(void* memory, uint16_t offset);
 
 Allows the user to edit contents of the memory, address per address.
-The user supplies an offset to begin editing the memory (in hexadecimal)
-and stops when the user supplies a period. 
+The user supplies an offset to begin editing the memory (in 
+hexadecimal) and stops when the user supplies a period. 
 
 #### registers.h
 
@@ -158,12 +160,6 @@ The register file is defines as a 16-32bit register file.
 The *Stack Pointer* is defined as the 13th index of the register file.
 The *Link Register* is the 14th index of the register file. Finally,
 the *Program Counter* is the 15th index of the register file.
-
-    #define SIGN  4
-    #define ZERO  2
-    #define CARRY 1
-    #define STOP  1
-    #define INST  1
 
 These are flags that have their own registers. `SIGN`, `ZERO` and
  `CARRY` are all apart of one 32bit register (much too big) called the
@@ -318,4 +314,3 @@ Displays the help text that shows which characters represent which
 command.
 
 ### Source Files
-
