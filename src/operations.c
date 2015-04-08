@@ -68,7 +68,7 @@ is_carry(uint32_t op1, uint32_t op2, uint32_t ccr)
  * carry
  */
 void
-scz(registers *reg, uint8_t rd, uint8_t rn)
+scz(registers *reg, uint32_t op1, uint32_t op2)
 {
     /*
      * SIGN
@@ -81,7 +81,7 @@ scz(registers *reg, uint8_t rd, uint8_t rn)
     /*
      * CARRY
      */
-    if(is_carry(reg->file[rd], reg->file[rn], IS_CARRY_SET(reg->ccr)))
+    if(is_carry(op1, op2, IS_CARRY_SET(reg->ccr)))
         set_reg_flag(CARRY_FLAG, &(reg->ccr));
     else
         clear_reg_flag(CARRY_FLAG, &(reg->ccr));

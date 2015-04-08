@@ -223,7 +223,7 @@ uint8_t get_imm(uint16_t inst);
 /*
  * Set the sign, carry or zero flags.
  */
-void scz(registers *reg, uint8_t rd, uint8_t rn);
+void scz(registers *reg, uint32_t op1, uint32_t op2);
 void sz(registers *reg);
 
 
