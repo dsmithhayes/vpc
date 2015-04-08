@@ -252,10 +252,6 @@ void immediate(uint16_t inst, registers *reg);
  */
 void data(uint16_t inst, registers *reg);
 
-void rotate_right();
-void shift_right();
-void shift_left();
-
 /*
  * Load/Store operations
  */
