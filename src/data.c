@@ -9,41 +9,56 @@
 #include "registers.h"
 #include "operations.h"
 
+#define BYTE_MASK   0x000000FF
+
+/*
+ * Bit shifting instructions are more intricate than the other
+ * data operations due to how they utilize the carry flag. These
+ * definitions and macros will help simplify their processes.
+ */
+
+#define MSB_MASK    0x80000000
+#define LSB_MASK    1
+
+#define HAS_MSB(x)  ((MSB_MASK & x) == MSB_MASK) ? 1 : 0
+#define HAS_LSB(x)  ((LSB_MASK & x) == LSB_MASK) ? 1 : 0
+
+
 void
 data(uint16_t inst, registers *reg)
 {
     uint8_t rd = RD(inst);
     uint8_t rn = RN(inst);
     uint16_t opcode = DAT_GET_OPCODE(inst);
-
-    uint32_t _buf;
     
     switch(opcode) {
         case AND_DAT:
             reg->alu = reg->file[rd] & reg->file[rn];
-            sz(reg->alu, &(reg->ccr));
+            sz(reg);
             reg->file[rd] = reg->alu;
             break;
         
         case EOR_DAT:
             reg->alu = reg->file[rd] ^ reg->file[rn];
-            sz(reg->alu, &(reg->ccr));
+            sz(reg);
             reg->file[rd] = reg->alu;
             break;
         
         case SUB_DAT:
             reg->alu = reg->file[rd] + ~reg->file[rn] + 1;
-            scz(reg->alu, rd, rn, &(reg->ccr));
+            scz(reg, rd, rn);
             reg->file[rd] = reg->alu;
             break;
         
         case SXB_DAT:
-            
+            reg->alu = (BYTE_MASK & reg->file[rn]);
+            sz(reg);
+            reg->file[rd] = reg->alu;
             break;
         
         case ADD_DAT:
             reg->alu = reg->file[rd] + reg->file[rn];
-            scz(reg->alu, rd, rn, &(reg->ccr));
+            scz(reg, rd, rn);
             reg->file[rd] = reg->alu;
             break;
         
@@ -51,45 +66,44 @@ data(uint16_t inst, registers *reg)
             reg->alu = reg->file[rd] 
                     + reg->file[rn] 
                     + IS_CARRY_SET(reg->ccr);
-            
-            scz(reg->alu, rd, rn, &(reg->ccr));
-            
+            scz(reg, rd, rn);
             reg->file[rd] = reg->alu;
             break;
         
         case LSR_DAT:
             reg->alu = reg->file[rd] >> reg->file[rn];
-            scz(reg->alu, rd, rn, &(reg->ccr));
-            
+            scz(reg, rd, rn);
             reg->file[rd] = reg->alu;
             break;
         
         case LSL_DAT:
             reg->alu = reg->file[rd] << reg->file[rn];
-            scz(reg->alu, rd, rn, &(reg->ccr));
-            
+            scz(reg, rd, rn);
             reg->file[rd] = reg->alu;
             break;
 
         case TST_DAT:
-            
+            reg->alu = reg->file[rd] & reg->file[rn];
+            scz(reg, rd, rn);
             break;
 
         case TEQ_DAT:
-
+            reg->alu = reg->file[rd] ^ reg->file[rn];
+            scz(reg, rd, rn);
             break;
 
         case CMP_DAT:
-
-
+            reg->alu = reg->file[rd] - reg->file[rn];
+            scz(reg, rd, rn);
             break;
 
         case ROR_DAT:
-
+            
             break;
 
         case ORR_DAT:
             reg->alu = reg->file[rd] | reg->file[rn];
+            sz(reg);
             break;
 
         case MOV_DAT:
@@ -98,11 +112,13 @@ data(uint16_t inst, registers *reg)
             break;
 
         case BIC_DAT:
-
+            
             break;
 
         case MVN_DAT:
-
+            reg->alu = ~reg->file[rn];
+            sz(reg);
+            reg->file[rd] = reg->alu;
             break;
     }
     

@@ -68,25 +68,31 @@ is_carry(uint32_t op1, uint32_t op2, uint32_t ccr)
  * carry
  */
 void
-scz(uint32_t  alu,
-    uint8_t   rd,
-    uint8_t   rn,
-    uint32_t *ccr)
+scz(registers *reg, uint8_t rd, uint8_t rn)
 {
-    if(IS_SIGN(alu))
-        set_reg_flag(SIGN_FLAG, ccr);
+    /*
+     * SIGN
+     */
+    if(IS_SIGN(reg->alu))
+        set_reg_flag(SIGN_FLAG, &(reg->ccr));
     else
-        clear_reg_flag(SIGN_FLAG, ccr);
+        clear_reg_flag(SIGN_FLAG, &(reg->ccr));
 
-    if(is_carry(rd, rn, IS_CARRY_SET(*ccr)))
-        set_reg_flag(CARRY_FLAG, ccr);
+    /*
+     * CARRY
+     */
+    if(is_carry(reg->file[rd], reg->file[rn], IS_CARRY_SET(reg->ccr)))
+        set_reg_flag(CARRY_FLAG, &(reg->ccr));
     else
-        clear_reg_flag(CARRY_FLAG, ccr);
+        clear_reg_flag(CARRY_FLAG, &(reg->ccr));
 
-    if(IS_ZERO(alu))
-        clear_reg_flag(ZERO_FLAG, ccr);
+    /*
+     * ZERO
+     */
+    if(IS_ZERO(reg->alu))
+        clear_reg_flag(ZERO_FLAG, &(reg->ccr));
     else
-        clear_reg_flag(ZERO_FLAG, ccr);
+        clear_reg_flag(ZERO_FLAG, &(reg->ccr));
 
     return;
 }
@@ -95,15 +101,15 @@ scz(uint32_t  alu,
  * This is the same as above, but without the check of the carry.
  */
 void
-sz(uint32_t alu, uint32_t *ccr)
+sz(registers *reg)
 {
-    if(IS_SIGN(alu))
-        set_reg_flag(SIGN_FLAG, ccr);
+    if(IS_SIGN(reg->alu))
+        set_reg_flag(SIGN_FLAG, &(reg->ccr));
     else
-        clear_reg_flag(SIGN_FLAG, ccr);
+        clear_reg_flag(SIGN_FLAG, &(reg->ccr));
 
     if(IS_ZERO(alu))
-        clear_reg_flag(ZERO_FLAG, ccr);
+        clear_reg_flag(ZERO_FLAG, &(reg->ccr));
     else
-        clear_reg_flag(ZERO_FLAG, ccr);
+        clear_reg_flag(ZERO_FLAG, &(reg->ccr));
 }

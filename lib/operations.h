@@ -104,7 +104,7 @@
 #define MVN_DAT     0x0F00
 
 #define DAT_OPCODE          0x0F00
-#define DAT_OPCODE_SHIFT    0xC
+#define DAT_OPCODE_SHIFT    8
 #define DAT_GET_OPCODE(x)   (DAT_OPCODE & x) >> DAT_OPCODE_SHIFT
 
 /*
@@ -223,8 +223,8 @@ uint8_t get_imm(uint16_t inst);
 /*
  * Set the sign, carry or zero flags.
  */
-void scz(uint32_t alu, uint8_t rd, uint8_t rn, uint32_t *ccr);
-void sz(uint32_t alu, uint32_t *ccr);
+void scz(registers *reg, uint8_t rd, uint8_t rn);
+void sz(registers *reg);
 
 
 /*
@@ -251,6 +251,10 @@ void immediate(uint16_t inst, registers *reg);
  * Performs a register to register operation
  */
 void data(uint16_t inst, registers *reg);
+
+void rotate_right();
+void shift_right();
+void shift_left();
 
 /*
  * Load/Store operations
