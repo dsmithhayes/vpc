@@ -26,7 +26,7 @@ loadf(void *memory, uint16_t max)
     const char *mode = "rb";
     uint16_t size;
     
-    fprintf(stdout, "filename> ");
+    fprintf(stdout, "file name> ");
     fgets(file_name, INPUT_BUFFER, stdin);
     
     file_name[strlen(file_name) - 1] = '\0';

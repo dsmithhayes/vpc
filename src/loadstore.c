@@ -10,22 +10,11 @@
 #include "registers.h"
 #include "operations.h"
 
-#define BYTE        8
-#define BYTE_MASK   0xF
-
-#define BYTE_1(x)   (0x000F & x)
-#define BYTE_2(x)   ((0x00F0 & x) >> BYTE)
-#define BYTE_3(x)   ((0x0F00 & x) >> (BYTE * 2))
-#define BYTE_4(x)   ((0xF000 & x) >> (BYTE * 3))
-
 void
 loadstore(uint16_t inst, registers *reg, void *memory)
 {
     uint8_t rn = RN(inst);
     uint8_t rd = RN(inst);
-
-    reg->alu = 0;
-    reg->mbr = 0;
     
     /*
      * LOAD

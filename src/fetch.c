@@ -10,9 +10,6 @@
 #include "vpc.h"
 #include "registers.h"
 
-/* HA! I used it! */
-#define BYTE   8
-
 
 void
 fetch(void *memory, registers *reg)

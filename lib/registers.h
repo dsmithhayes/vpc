@@ -7,7 +7,7 @@
 
     file:       registers.h
     author:     Dave Smith-Hayes
-    date:       March 13th, 2015
+    date:       April 8, 2015
 */
 
 /*******************/
@@ -47,9 +47,31 @@
 #define WHICH_IR(x)     (INST_FLAG & x) ? 1 : 0
 
 /*
+ * Byte stuff is here
+ */
+#define BYTE 8
+#define BYTE_MASK   0xFF
+
+/*
  * MSB in 32bits is set? That's a signed number yo.
+ * Have an LSB?
+ * How about an MSB?
  */
 #define SIGN_MASK   0x80000000
+#define LSB_MASK    1
+#define MSB_MASK    0x80000000
+
+#define HAS_MSB(x)  ((MSB_MASK & x) == MSB_MASK) ? 1 : 0
+#define HAS_LSB(x)  ((LSB_MASK & x) == LSB_MASK) ? 1 : 0
+
+/*
+ * This is used in the loadstore() function to break down
+ * the 32bit register into single byte chunks.
+ */
+#define BYTE_1(x)   (0xFF & x)
+#define BYTE_2(x)   ((0xFF00 & x) >> BYTE)
+#define BYTE_3(x)   ((0xFF0000 & x) >> (BYTE * 2))
+#define BYTE_4(x)   ((0xFF000000 & x) >> (BYTE * 3))
 
 /*
  * Registers & Instructions
@@ -106,7 +128,6 @@ typedef struct Registers {
 
     uint8_t ir_flag;
     uint8_t stop_flag;
-
 } registers;
 
 

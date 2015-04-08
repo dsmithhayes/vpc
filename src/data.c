@@ -27,7 +27,6 @@
 void
 data(uint16_t inst, registers *reg)
 {
-    uint8_t ror_buf;
     uint32_t i;
     
     uint8_t rd = RD(inst);
@@ -73,6 +72,10 @@ data(uint16_t inst, registers *reg)
         reg->file[rd] = reg->alu;
         break;
     
+    /*
+     * Push all the bits save for the last one, check if will
+     * be the carry, set the carry if it is, finish the shifting.
+     */
     case LSR_DAT:
         reg->alu = reg->file[rd] >> (reg->file[rn] - 1);
         
@@ -85,6 +88,9 @@ data(uint16_t inst, registers *reg)
         reg->file[rd] = reg->alu;
         break;
     
+    /*
+     * Same as above, other direction.
+     */
     case LSL_DAT:
         reg->alu = reg->file[rd] << (reg->file[rn] - 1);
         
@@ -112,6 +118,10 @@ data(uint16_t inst, registers *reg)
         scz(reg, rd, rn);
         break;
 
+    /*
+     * Rotate is weird because the LSB sets the carry and also 
+     * becomes the MSB every shift.
+     */
     case ROR_DAT:
         reg->alu = reg->file[rd];
         
