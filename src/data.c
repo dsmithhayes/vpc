@@ -49,7 +49,7 @@ data(uint16_t inst, registers *reg)
     
     case SUB_DAT:
         reg->alu = reg->file[rd] + ~reg->file[rn] + 1;
-        scz(reg, rd, rn);
+        scz(reg, rd, ~(rn + 1));
         reg->file[rd] = reg->alu;
         break;
     
@@ -108,7 +108,7 @@ data(uint16_t inst, registers *reg)
         break;
 
     case CMP_DAT:
-        reg->alu = reg->file[rd] - reg->file[rn];
+        reg->alu = reg->file[rd] + ~reg->file[rn] + 1;
         scz(reg, rd, rn);
         break;
 

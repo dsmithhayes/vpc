@@ -27,20 +27,31 @@ immediate(uint16_t inst, registers *reg)
     switch(opcode) {
         case MOV_IMM:
             reg->alu = imm;
+            sz(reg);
             reg->file[rd] = reg->alu;
             break;
 
         case CMP_IMM:
             reg->alu = reg->file[rd] & ~imm + 1;
+            sz(reg);
             break;
 
         case ADD_IMM:
             reg->alu = reg->file[rd] + imm;
+            scz(reg, reg->file[rd], imm);
             reg->file[rd] = reg->alu;
             break;
     
         case SUB_IMM:
             reg->alu = reg->file[rd] & ~imm + 1;
+            
+            if(is_carry(
+                    reg->file[rd], 
+                    ~(imm + 1), 
+                    IS_CARRY_SET(reg->ccr)))
+                set_reg_flag(CARRY_FLAG, &(reg->ccr));
+            
+            scz(reg);
             reg->file[rd] = reg->alu;
             break;
     }
