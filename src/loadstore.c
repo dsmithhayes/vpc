@@ -44,10 +44,10 @@ loadstore(uint16_t inst, registers *reg, void *memory)
         if(IS_LS_DWORD(inst)) {
             reg->mbr = reg->file[rd];
             
-            *((uint8_t *) memory + (rn++)) = BYTE_1(reg->mbr);
-            *((uint8_t *) memory + (rn++)) = BYTE_2(reg->mbr);
+            *((uint8_t *) memory + (rn++)) = BYTE_4(reg->mbr);
             *((uint8_t *) memory + (rn++)) = BYTE_3(reg->mbr);
-            *((uint8_t *) memory + rn) = BYTE_4(reg->mbr);
+            *((uint8_t *) memory + (rn++)) = BYTE_2(reg->mbr);
+            *((uint8_t *) memory + rn) = BYTE_1(reg->mbr);
         }
         else
             *((uint8_t *) memory + rn) =

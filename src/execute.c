@@ -3,8 +3,8 @@
     it is, and then proceeds to perform the operation to the according
     registers within the opcode data.
 
-    there is an `immediate()` and `data()` function that will perform
-    the appropriate operation based on the positive mask match.
+    for each type of instruction type, there is a corresponding function
+    with an obvious name. Immediate instructions is `immediate()`.
     
     file:       execute.c
     author:     Dave Smith-Hayes

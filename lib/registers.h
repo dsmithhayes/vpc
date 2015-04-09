@@ -52,14 +52,9 @@
 #define BYTE 8
 #define BYTE_MASK   0xFF
 
-/*
- * MSB in 32bits is set? That's a signed number yo.
- * Have an LSB?
- * How about an MSB?
- */
 #define SIGN_MASK   0x80000000
-#define LSB_MASK    1
 #define MSB_MASK    0x80000000
+#define LSB_MASK    1
 
 #define HAS_MSB(x)  ((MSB_MASK & x) == MSB_MASK) ? 1 : 0
 #define HAS_LSB(x)  ((LSB_MASK & x) == LSB_MASK) ? 1 : 0

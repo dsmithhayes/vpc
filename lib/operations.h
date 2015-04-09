@@ -75,14 +75,6 @@
  * 
  * first nibble:    0000
  * second nibble:   pppp = opcode
- *      0000 : AND
- *      0001 : EOR
- *      1100 : ORR
- *      0010 : SUB
- *      0100 : ADD
- *      0110 : LSR
- *      0111 : LSL
- *      1110 : MOV
  * third nibble:    NNNN = Rn, register source
  * fourth nibble:   DDDD = Rd, register destination
  */
@@ -144,7 +136,7 @@
  * This operation uses Rn and Rd respectively.
  * 
  * IS_LS_LOAD(x) will be 0 if its a Store, Load if 1
- * IS_LS_WORD(x) will be 0 if its a Byte, Word if 1
+ * IS_LS_DWORD(x) will be 0 if its a Byte, Double Word if 1
  *
  * 0010LB00NNNNDDDD
  *
