@@ -177,12 +177,20 @@
 /*
  * Push/Pull Operations
  */
-#define PP_OP_L     0x8000
-#define PP_OP_H     0x4000
-#define PP_OP_R     0x1000
+#define PP_OP_L     0x0800  /* load/store bit, 1 = load     */
+#define PP_OP_H     0x0400  /* high/low registers, 1 = high */
+#define PP_OP_R     0x0100  /* pull PC, push LR             */
 
 #define PP_OPCODE   0x0F00
+
+#define PP_REG      0x00FF  /* MSB = highest reg, LSB = lowest */
+
 #define PP_GET_OPCODE(x)    (PP_OPCODE & x)
+#define PP_GET_REG(x)       (PP_REG & x)
+
+#define PP_PUSH(x)  (PP_GET_OPCODE(x) == PP_OP_L) ? 1 : 0
+#define PP_HIGH(x)  (PP_GET_OPCODE(x) == PP_OP_H) ? 1 : 0
+#define PP_EXTRA(x) (PP_GET_OPCODE(x) == PP_OP_R) ? 1 : 0
 
 /*
  * Unconditional branches, there is a branch with link register and
