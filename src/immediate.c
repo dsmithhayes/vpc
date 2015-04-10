@@ -1,10 +1,10 @@
 /*
-    Performs the immediate instruction passed to the function.
-    Basically everything is done within the big ass switch statement.
-    
     file:       immediate.c
     author:     Dave Smith-Hayes
     date:       March 18, 2015
+    
+    Performs the immediate instruction passed to the function.
+    Basically everything is done within the big ass switch statement.
 */
 
 #include "registers.h"

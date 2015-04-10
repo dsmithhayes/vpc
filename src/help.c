@@ -1,9 +1,9 @@
 /*
-    Defines the function that displays the help menu. That's it.
-
     file:       help.c
     author:     Dave Smith-Hayes
     date:       March 13, 2015
+    
+    Defines the function that displays the help menu. That's it.
 */
 
 #include <stdio.h>

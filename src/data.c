@@ -1,9 +1,9 @@
 /*
-    Performs a register to register operation.
-    
     file:       data.c
     author:     Dave Smith-Hayes
     date:       March 28, 2015
+    
+    Performs a register to register operation.
 */
 
 #include "registers.h"

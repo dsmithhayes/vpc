@@ -1,7 +1,7 @@
 /*
-    file:   modmem.c
-    author: Dave Smith-Hayes
-    date:   February 13th, 2015
+    file:       modmem.c
+    author:     Dave Smith-Hayes
+    date:       February 13th, 2015
     
     This modifies the memory being held by the program. It asks the 
     user for an offset, and then begins to take in values and changes

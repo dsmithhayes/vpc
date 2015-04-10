@@ -1,10 +1,10 @@
 /*
-    The main entry point and where the memory and registers are
-    actually declared.
-
     file:       main.c
     author:     Dave Smith-Hayes
     date:       March 16, 2015
+    
+    The main entry point and where the memory and registers are
+    actually declared.
 */
 
 #include <stdio.h>

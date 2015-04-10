@@ -1,9 +1,9 @@
 /*
-    Fetches the next instruction from the memory. 
-
     file:       fetch.c
     author:     Dave Smith-Hayes
     date:       Mar 12, 2015
+    
+    Fetches the next instruction from the memory.
 */
 
 #include <stdio.h>
@@ -14,8 +14,6 @@
 void
 fetch(void *memory, registers *reg)
 {
-    reg->mbr = 0;
-
     reg->mar = reg->file[PC];
     reg->file[PC] += REG_SIZE;
 

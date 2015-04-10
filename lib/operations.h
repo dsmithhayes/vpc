@@ -2,14 +2,14 @@
 #define OPERATIONS_H
 
 /*
+    file:       operations.h
+    author:     Dave Smith-Hayes
+    date:       March 26, 2015
+    
     Defines all of the macros and prototypes used for analyzing
     instructions for the CPU. This will include masks for defining
     what type of instruction, and more in depth to decipher which
     instruction is being used.
-    
-    file:       operations.h
-    author:     Dave Smith-Hayes
-    date:       March 26, 2015
 */
 
 

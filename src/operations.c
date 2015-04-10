@@ -1,12 +1,12 @@
 /*
+    file:       operations.c
+    author:     Dave Smith-Hayes
+    date:       March 18, 2015
+    
     Functions in this file will help retrieve information from the
     16bit instructions that will be used all through out the actual
     operation. This includes getting the Rd or Rn, and confirming that
     the instruction is actually an instruction
-
-    file:       operations.c
-    author:     Dave Smith-Hayes
-    date:       March 18, 2015
 */
 
 /*******************/

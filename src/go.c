@@ -1,10 +1,10 @@
 /*
-    This file houses an awesome function which will fetch forever
-    until the stop flag is set.
-
     file:       go.c
     author:     Dave Smith-Hayes
     date:       March 16th, 2015
+    
+    This file houses an awesome function which will fetch forever
+    until the stop flag is set.
 */
 
 #include <stdio.h>

@@ -1,14 +1,15 @@
 /*
+    file:       execute.c
+    author:     Dave Smith-Hayes
+    date:       March 26, 2015
+    
     Executes the instruction given. First it decides which instruction
     it is, and then proceeds to perform the operation to the according
     registers within the opcode data.
 
-    for each type of instruction type, there is a corresponding function
-    with an obvious name. Immediate instructions is `immediate()`.
-    
-    file:       execute.c
-    author:     Dave Smith-Hayes
-    date:       March 26, 2015
+    for each type of instruction type, there is a corresponding 
+    function with an obvious name. Immediate instructions is 
+    `immediate()`.
 */
 
 #include "registers.h"
