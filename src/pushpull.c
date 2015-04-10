@@ -15,6 +15,7 @@
 #define LOW_REG     7   /* max for the low registers  */
 #define HIGH_REG    8   /* min for the high registers */
 
+
 void
 pushpull(uint16_t inst, registers *reg, void *memory)
 {
@@ -23,15 +24,7 @@ pushpull(uint16_t inst, registers *reg, void *memory)
      * the registers
      */
     if(PP_PUSH(inst)) {
-        if(PP_HIGH(inst)) {     /* use HIGH_REG and count to REG_FILE_S */
-
-        }
-        else {                  /* use 0 and count to REG_LOW */
-
-        }
-        /*
-         * check if pull the program counter
-         */
+        
     }
     /*
      * If the PP_OP_L isn't set, push the registers onto
@@ -47,6 +40,7 @@ pushpull(uint16_t inst, registers *reg, void *memory)
          */
         
     }
+    
     return;
 }
 
@@ -56,7 +50,30 @@ pushpull(uint16_t inst, registers *reg, void *memory)
 void
 push(uint16_t inst, registers *reg, void *memory)
 {
+    /*
+     * Pull the Program Counter
+     */
+    if(PP_EXTRA(inst)) {
+        /*
+         * pull here
+         */
+        
+        if(PP_HIGH(inst)) {
+            
+        }
+        else {
 
+        }
+    }
+    else {
+        if(PP_HIGH(inst)) {
+
+        }
+        else {
+
+        }
+    }
+    
     return;
 }
 
@@ -66,6 +83,29 @@ push(uint16_t inst, registers *reg, void *memory)
 void
 pull(uint16_t inst, registers *reg, void *memory)
 {
+    /*
+     * Push the Link Register
+     */
+    if(PP_EXTRA(inst)) {
+        /*
+         * push here
+         */
+        
+        if(PP_HIGH(inst)) {
+            
+        }
+        else {
 
+        }
+    }
+    else {
+        if(PP_HIGH(inst)) {
+
+        }
+        else {
+
+        }
+    }
+    
     return;
 }
