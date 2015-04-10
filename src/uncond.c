@@ -17,9 +17,8 @@ uncond(uint16_t inst, registers *reg)
     /*
      * This is your regular unconditional branch.
      */
-    if(IS_UN_BRA(inst)) {
-        
-    }
+    if(IS_UN_BRA(inst))
+        reg->file[PC] = (uint32_t) addr;
     /*
      * This is your unconditional branch with but
      * store the value of the link register

@@ -90,7 +90,7 @@ scz(registers *reg, uint32_t op1, uint32_t op2)
      * ZERO
      */
     if(IS_ZERO(reg->alu))
-        clear_reg_flag(ZERO_FLAG, &(reg->ccr));
+        set_reg_flag(ZERO_FLAG, &(reg->ccr));
     else
         clear_reg_flag(ZERO_FLAG, &(reg->ccr));
 
@@ -108,8 +108,8 @@ sz(registers *reg)
     else
         clear_reg_flag(SIGN_FLAG, &(reg->ccr));
 
-    if(IS_ZERO(alu))
-        clear_reg_flag(ZERO_FLAG, &(reg->ccr));
+    if(IS_ZERO(reg->alu))
+        set_reg_flag(ZERO_FLAG, &(reg->ccr));
     else
         clear_reg_flag(ZERO_FLAG, &(reg->ccr));
 }

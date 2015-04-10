@@ -9,20 +9,6 @@
 #include "registers.h"
 #include "operations.h"
 
-#define BYTE_MASK   0x000000FF
-
-/*
- * Bit shifting instructions are more intricate than the other
- * data operations due to how they utilize the carry flag. These
- * definitions and macros will help simplify their processes.
- */
-
-#define MSB_MASK    0x80000000
-#define LSB_MASK    1
-
-#define HAS_MSB(x)  ((MSB_MASK & x) == MSB_MASK) ? 1 : 0
-#define HAS_LSB(x)  ((LSB_MASK & x) == LSB_MASK) ? 1 : 0
-
 
 void
 data(uint16_t inst, registers *reg)

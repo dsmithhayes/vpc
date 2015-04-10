@@ -44,14 +44,7 @@ immediate(uint16_t inst, registers *reg)
     
         case SUB_IMM:
             reg->alu = reg->file[rd] & ~imm + 1;
-            
-            if(is_carry(
-                    reg->file[rd], 
-                    ~(imm + 1), 
-                    IS_CARRY_SET(reg->ccr)))
-                set_reg_flag(CARRY_FLAG, &(reg->ccr));
-            
-            scz(reg);
+            scz(reg, reg->file[rd], ~(imm + 1));
             reg->file[rd] = reg->alu;
             break;
     }
