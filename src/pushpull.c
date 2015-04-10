@@ -18,19 +18,57 @@
 void
 pushpull(uint16_t inst, registers *reg, void *memory)
 {
+    uint8_t i, j;
+    uint8_t reg_set[] = {
+        PP_REG_1, PP_REG_2, PP_REG_3, PP_REG_4,
+        PP_REG_5, PP_REG_6, PP_REG_7, PP_REG_8
+    };
+    uint8_t set_reg = PP_GET_REG(inst);
+
+    /*
+     * Set the Memory Address Buffer to the Stack Pointer
+     */
+    reg->mar = reg->file[SP];
+    
     /*
      * if the PP_OP_L bit is set, load the stack into
      * the registers
      */
     if(PP_PUSH(inst)) {
-        
+        /*
+         * pull the Program Counter
+         */
+        if(PP_EXTRA(inst))
+            pull(&(reg->file[PC]), &(reg->mar), memory);
+
+        /*
+         * If its the high part of the registers
+         */
+        if(PP_HIGH(inst)) {
+            for(i = HIGH_REG, j = 0; i < REG_FILE_S; i++)
+                if((reg_set[j++] & set_reg))
+                    push(reg->file[i], &(reg->mar), memory);
+        }
+        else {
+            for(i = 0; i <= LOW_REG; i++)
+                if((reg_set[i] & set_reg))
+                    push(reg->file[i], &(reg->mar), memory);
+        }
     }
     /*
      * If the PP_OP_L isn't set, push the registers onto
      * the stack.
      */
     else {
-        
+        /*
+         * Push the Link Register
+         */
+        if(PP_EXTRA(inst))
+            push(reg->file[LR], &(reg->mar), memory);
+
+        /*
+         * If its the high part of the registers
+         */
     }
     
     return;

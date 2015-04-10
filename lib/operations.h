@@ -185,12 +185,26 @@
 
 #define PP_REG      0x00FF  /* MSB = highest reg, LSB = lowest */
 
+/*
+ * These will define which set of registers will be used
+ */
+#define PP_REG_1    0x01    /* 00000001 */
+#define PP_REG_2    0x02    /* 00000010 */
+#define PP_REG_3    0x04    /* 00000100 */
+#define PP_REG_4    0x08    /* 00001000 */
+#define PP_REG_5    0x10    /* 00010000 */
+#define PP_REG_6    0x20    /* 00100000 */
+#define PP_REG_7    0x40    /* 01000000 */
+#define PP_REG_8    0x80    /* 10000000 */
+
 #define PP_GET_OPCODE(x)    (PP_OPCODE & x)
 #define PP_GET_REG(x)       (PP_REG & x)
 
 #define PP_PUSH(x)  (PP_GET_OPCODE(x) == PP_OP_L) ? 1 : 0
 #define PP_HIGH(x)  (PP_GET_OPCODE(x) == PP_OP_H) ? 1 : 0
 #define PP_EXTRA(x) (PP_GET_OPCODE(x) == PP_OP_R) ? 1 : 0
+
+
 
 /*
  * Unconditional branches, there is a branch with link register and
