@@ -12,7 +12,7 @@
 void
 cond(uint16_t inst, registers *reg)
 {
-    int8_t addr = COND_GET_ADDR(inst);
+    int8_t addr = COND_GET_ADDR(inst);  /* always a signed value */
     
     switch(COND_GET_OPCODE(inst)) {
     /*

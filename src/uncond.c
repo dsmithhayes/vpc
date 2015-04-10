@@ -12,7 +12,7 @@
 void
 uncond(uint16_t inst, registers *reg)
 {
-    uint16_t addr = GET_UN_OFFSET(inst);
+    uint16_t addr = GET_UN_OFFSET(inst);    /* 12bit offset */
     
     /*
      * This is your regular unconditional branch.

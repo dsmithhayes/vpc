@@ -12,6 +12,8 @@
 #include "registers.h"
 #include "operations.h"
 
+#define LOW_REG     7   /* max for the low registers  */
+#define HIGH_REG    8   /* min for the high registers */
 
 void
 pushpull(uint16_t inst, registers *reg, void *memory)
@@ -21,10 +23,12 @@ pushpull(uint16_t inst, registers *reg, void *memory)
      * the registers
      */
     if(PP_PUSH(inst)) {
-        /*
-         * High or low registers
-         */
-        
+        if(PP_HIGH(inst)) {     /* use HIGH_REG and count to REG_FILE_S */
+
+        }
+        else {                  /* use 0 and count to REG_LOW */
+
+        }
         /*
          * check if pull the program counter
          */
@@ -43,5 +47,25 @@ pushpull(uint16_t inst, registers *reg, void *memory)
          */
         
     }
+    return;
+}
+
+/*
+ * Pushes a full register into memory.
+ */
+void
+push(uint16_t inst, registers *reg, void *memory)
+{
+
+    return;
+}
+
+/*
+ * Pulls a full register's worth from memory.
+ */
+void
+pull(uint16_t inst, registers *reg, void *memory)
+{
+
     return;
 }
