@@ -158,14 +158,15 @@
 /*
  * Conditional Code Masks used for conditional branches
  */
-#define COND_EQ     0x8000
-#define COND_NE     0x8100
-#define COND_CS     0x8200
-#define COND_CC     0x8300
-#define COND_MI     0x8400
-#define COND_PL     0x8500
-#define COND_HI     0x8800
-#define COND_LS     0x8900
+#define COND_EQ     0x8000  /* equal                    */
+#define COND_NE     0x8100  /* not equal                */
+#define COND_CS     0x8200  /* unsigned, higher or same */
+#define COND_CC     0x8300  /* unsigned, lower          */
+#define COND_MI     0x8400  /* negative                 */
+#define COND_PL     0x8500  /* positive                 */
+#define COND_HI     0x8800  /* unsigned higher          */
+#define COND_LS     0x8900  /* unsigned lower or same   */
+#define COND_AL     0x8E00  /* all ignored              */
 
 #define COND_OPCODE 0x0F00
 #define COND_GET_OPCODE(x)  (COND_OPCODE & x)
