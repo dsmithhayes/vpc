@@ -13,7 +13,7 @@
 #include "operations.h"
 
 void
-pushpull(void *memory, register *reg)
+pushpull(uint16_t inst, registers *reg, void *memory)
 {
     
     return;

@@ -264,5 +264,9 @@ void cond(uint16_t inst, registers *reg);
  */
 void uncond(uint16_t inst, registers *reg);
 
+/*
+ * Push/Pull Instructions
+ */
+void pushpull(uint16_t inst, registers *reg, void *memory);
 
 #endif /* OPERATIONS_H */
