@@ -12,6 +12,21 @@
 void
 uncond(uint16_t inst, registers *reg)
 {
+    uint16_t addr = GET_UN_OFFSET(inst);
+    
+    /*
+     * This is your regular unconditional branch.
+     */
+    if(IS_UN_BRA(inst)) {
+        
+    }
+    /*
+     * This is your unconditional branch with but
+     * store the value of the link register
+     */
+    else if(IS_UN_BRL(inst)) {
+        
+    }
     
     return;
 }

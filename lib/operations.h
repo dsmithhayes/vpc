@@ -185,10 +185,14 @@
 #define PP_GET_OPCODE(x)    (PP_OPCODE & x)
 
 /*
- * Unconditional branches
+ * Unconditional branches, there is a branch with link register and
+ * branch without. Rather simple operations.
  */
 #define UN_BRA      0xC000
 #define UN_BRL      0xD000
+
+#define IS_UN_BRA(x)    ((UN_BRA & x) == UN_BRA) ? 1 : 0
+#define IS_UN_BRL(x)    ((UN_BRL & x) == UN_BRL) ? 1 : 0
 
 #define UN_OFFSET   0x0FFF
 #define GET_UN_OFFSET(x)    (UN_OFFSET & x)
