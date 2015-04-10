@@ -1,5 +1,5 @@
-CC=bcc
-CFLAGS=-C -V
+CC=gcc
+CFLAGS=-Wall
 INC=-Ilib/
 
 TARGET=bin/vpc.exe

@@ -46,34 +46,18 @@ pushpull(uint16_t inst, registers *reg, void *memory)
 
 /*
  * Pushes a full register into memory.
+ *
+ * the BYTE_N(x) macros are in 'registers.h' and define how to
+ * break 32bites into 4 seperate bytes.
  */
 void
-push(uint16_t inst, registers *reg, void *memory)
+push(uint32_t reg, uint32_t *mar, void *memory) 
 {
-    /*
-     * Pull the Program Counter
-     */
-    if(PP_EXTRA(inst)) {
-        /*
-         * pull here
-         */
-        
-        if(PP_HIGH(inst)) {
-            
-        }
-        else {
+    *((uint8_t *) memory + (*mar++)) = BYTE_1(reg);
+    *((uint8_t *) memory + (*mar++)) = BYTE_2(reg);
+    *((uint8_t *) memory + (*mar++)) = BYTE_3(reg);
+    *((uint8_t *) memory + *mar) = BYTE_4(reg);
 
-        }
-    }
-    else {
-        if(PP_HIGH(inst)) {
-
-        }
-        else {
-
-        }
-    }
-    
     return;
 }
 
@@ -81,31 +65,18 @@ push(uint16_t inst, registers *reg, void *memory)
  * Pulls a full register's worth from memory.
  */
 void
-pull(uint16_t inst, registers *reg, void *memory)
+pull(uint32_t *reg, uint32_t *mar, void *memory)
 {
-    /*
-     * Push the Link Register
-     */
-    if(PP_EXTRA(inst)) {
-        /*
-         * push here
-         */
-        
-        if(PP_HIGH(inst)) {
-            
-        }
-        else {
+    *reg = *((uint8_t *) memory + (*mar++));
+    *reg = (*reg << BYTE);
 
-        }
-    }
-    else {
-        if(PP_HIGH(inst)) {
+    *reg |= *((uint8_t *) memory + (*mar++));
+    *reg = (*reg << BYTE);
 
-        }
-        else {
+    *reg |= *((uint8_t *) memory + (*mar++));
+    *reg = (*reg << BYTE);
 
-        }
-    }
-    
+    *reg = *((uint8_t *) memory + (*mar++));
+
     return;
 }
