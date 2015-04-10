@@ -270,7 +270,7 @@ void cond(uint16_t inst, registers *reg);
 /*
  * Unconditional Branches
  */
-void uncond(uint16_t inst, registers *reg);
+void uncond(uint16_t inst, registers *reg, void *memory);
 
 /*
  * Push/Pull Instructions

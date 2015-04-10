@@ -8,7 +8,6 @@
 */
 
 #include <stdint.h>
-
 #include "registers.h"
 #include "operations.h"
 
@@ -31,13 +30,6 @@ pushpull(uint16_t inst, registers *reg, void *memory)
      * the stack.
      */
     else {
-        /*
-         * High or low registers
-         */
-        
-        /*
-         * check if push the link register
-         */
         
     }
     
