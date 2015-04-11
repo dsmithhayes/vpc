@@ -23,5 +23,8 @@ directories:
 	mkdir -p $(OBJDIR)
 	mkdir -p $(BINDIR)
 
+run:
+	./$(TARGET)
+
 clean:
 	rm -r $(OBJECTS) $(TARGET) $(OBJDIR) $(BINDIR)

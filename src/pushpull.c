@@ -3,8 +3,8 @@
     author:     Dave Smith-Hayes
     date;       April 10, 2015
     
-    The push and pull instruction for the stack. This will store
-    or load register values from memory.
+    The push and pull instruction for the stack. This will store or load
+    register values from memory.
 */
 
 #include <stdint.h>
@@ -100,7 +100,7 @@ push(uint32_t reg, uint32_t *mar, void *memory)
 void
 pull(uint32_t *mbr, uint32_t *mar, void *memory)
 {
-    *mbr = *((uint8_t *) memory + (*mar)++);
+    *mbr = *((uint8_t *) memory + (*mar)++);            /* MSByte */
     *mbr = (*mbr << BYTE);
 
     *mbr |= *((uint8_t *) memory + (*mar)++);
@@ -109,7 +109,7 @@ pull(uint32_t *mbr, uint32_t *mar, void *memory)
     *mbr |= *((uint8_t *) memory + (*mar)++);
     *mbr = (*mbr << BYTE);
 
-    *mbr |= *((uint8_t *) memory + (*mar)++);
+    *mbr |= *((uint8_t *) memory + (*mar)++);           /* LSByte */
 
     return;
 }
