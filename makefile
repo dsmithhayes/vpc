@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall
-INC=-Ilib/
+INC=-Iinc/
 
 TARGET=bin/vpc
 
