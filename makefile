@@ -5,11 +5,13 @@ INC=-Iinc/
 TARGET=bin/vpc
 
 OBJDIR=obj
+SRCDIR=src
+BINDIR=bin
 
-SOURCES=$(wildcard src/*.c)
+SOURCES=$(wildcard $(SRCDIR)/*.c)
 OBJECTS=$(addprefix obj/,$(notdir $(SOURCES:.c=.o)))
 
-all: vpc
+all: directories vpc
 
 vpc: $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $(TARGET)
@@ -17,5 +19,9 @@ vpc: $(OBJECTS)
 obj/%.o: src/%.c
 	$(CC) $(CLFAGS) $(INC) -c -o $@ $<
 
+directories:
+	mkdir -p $(OBJDIR)
+	mkdir -p $(BINDIR)
+
 clean:
-	rm $(OBJECTS) $(TARGET)
+	rm -r $(OBJECTS) $(TARGET) $(OBJDIR) $(BINDIR)
