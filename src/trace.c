@@ -25,17 +25,19 @@ trace(void *memory, registers *reg)
     fprintf(stdout, "0x%08X> ", reg->file[PC]);
 
     /*
-     * Fetch the memory, execute the instruction according
-     * to the instruction register set.
+     * Fetch the memory, execute the instruction according to the instruction
+     * register set, dump the register after each instruction is performed.
      */
     while((in = getchar()) != '.') {
         fetch(memory, reg);
 
-        if(reg->ir_flag)
-            execute(IR1(reg->ir), reg, memory);
-        else
-            execute(IR0(reg->ir), reg, memory);
+        execute(IR0(reg->ir), reg, memory);
+        dumpreg(*reg);
 
+        fprintf(stdout, "\n0x%08X> ", (reg->file[PC] - INSTR_SIZE));
+        in = getchar();
+        
+        execute(IR1(reg->ir), reg, memory);
         dumpreg(*reg);
 
         fprintf(stdout, "\n0x%08X> ", reg->file[PC]);

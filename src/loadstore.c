@@ -21,7 +21,7 @@ loadstore(uint16_t inst, registers *reg, void *memory)
      */
     if(IS_LS_LOAD(inst)) {
         if(IS_LS_DWORD(inst))
-            pull(&(reg->alu), (uint32_t *) &rn, memory);
+            pull(&(reg->alu), ((uint32_t *) &rn), memory);
         else
             reg->alu = *((uint8_t *) memory + rn);
 
@@ -33,7 +33,7 @@ loadstore(uint16_t inst, registers *reg, void *memory)
     else {
         if(IS_LS_DWORD(inst)) {
             reg->mbr = reg->file[rd];
-            push(&(reg->mbr), (uint32_t *) &rn, memory);
+            push(reg->mbr, ((uint32_t *) &rn), memory);
         }
         else
             *((uint8_t *) memory + rn) =
