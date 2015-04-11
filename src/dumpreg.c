@@ -19,7 +19,7 @@ dumpreg(registers reg)
      */
     while(i < REG_FILE_S) {
         
-        fprintf(stdout, "R%02d: 0x%08X ", i, reg.file[i++]);
+        fprintf(stdout, "R%02d: 0x%08X ", (i - 1), reg.file[i++]);
 
         if(i == SP) /* just to label the SP, LR, and PC */
             break;

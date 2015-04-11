@@ -10,9 +10,14 @@
 #include "operations.h"
 
 void
-uncond(uint16_t inst, registers *reg)
+uncond(uint16_t inst, registers *reg, void *memory)
 {
-    uint16_t addr = GET_UN_OFFSET(inst);
+    uint16_t addr = GET_UN_OFFSET(inst);    /* 12bit offset */
+
+    /*
+     * set the address buffer to targer the appropriate memory
+     */
+    reg->mar = addr;
     
     /*
      * This is your regular unconditional branch.
@@ -24,7 +29,8 @@ uncond(uint16_t inst, registers *reg)
      * store the value of the link register
      */
     else if(IS_UN_BRL(inst)) {
-        
+        push(reg->file[LR], &(reg->mar), memory);
+        reg->file[PC] = (uint32_t) addr;
     }
     
     return;
