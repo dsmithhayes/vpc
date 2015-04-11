@@ -48,7 +48,7 @@ main(void)
     /*
      * main program loop
      */
-    while(1) {          /* bold statement assuming numbers exist! */
+    while(1) {
         fprintf(stdout, "option> ");
         selection = getchar();
         while(getchar() != '\n');
@@ -56,6 +56,7 @@ main(void)
         switch(selection) {
             case 'q':
             case 'Q':
+            case '.':       /* why not? */
                 exit(0);
                 break;
 
@@ -93,8 +94,9 @@ main(void)
                 offset &= (TOTAL_MEMORY - 1);
                 
                 /*
-                 * Windows does weird things if its '0' so '0' 
-                 * defaults to one line.
+                 * Windows does weird things if its '0' so '0' defaults to
+                 * one line. This is a failsafe to never go past the total
+                 * memory. Nested triadic operator.
                  */
                 length = (((length > (TOTAL_MEMORY - offset))
                         ? (TOTAL_MEMORY - offset) : length) == 0)
@@ -124,7 +126,7 @@ main(void)
             
             case 'z':   /* sets registers to zero */
             case 'Z':
-                fprintf(stdout, "Setting all registers to 0.\n");
+                fprintf(stdout, "Clearing all registers...\n");
                 zero(&reg);
                 break;
 
