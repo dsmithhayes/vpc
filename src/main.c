@@ -52,6 +52,8 @@ main(void)
         fprintf(stdout, "option> ");
         selection = getchar();
         while(getchar() != '\n');
+
+        fprintf(stdout, "\n");
         
         switch(selection) {
             case 'q':
@@ -91,6 +93,8 @@ main(void)
                 fprintf(stdout, "length> ");
                 fscanf(stdin, "%X", (unsigned int *) &length);
 
+                fprintf(stdout, "\n");  /* just makes the table look nice */
+
                 offset &= (TOTAL_MEMORY - 1);
                 
                 /*
@@ -113,6 +117,8 @@ main(void)
             case 'M':
                 fprintf(stdout, "offset> ");
                 fscanf(stdin, "%X", (unsigned int *) &offset);
+
+                fprintf(stdout, "\n");
                 
                 modmem((void *) memory, offset);
                 break;

@@ -13,7 +13,7 @@ void
 help()
 {
     fprintf(stdout, "All number input should be in UPPER CASE HEX\n");
-    fprintf(stdout, "Using lowercase will yield unfavourable results\n\n");
+    fprintf(stdout, "Using lowercase could yield to unfavourable results\n\n");
 
     fprintf(stdout, "d\tdump memory\n");
     fprintf(stdout, "g\tgo - run the program\n");
@@ -24,7 +24,7 @@ help()
     fprintf(stdout, "t\ttrace - execute one instruction\n");
     fprintf(stdout, "w\twrite file\n");
     fprintf(stdout, "z\treset all registers to 0\n");
-    fprintf(stdout, "?, h\tdisplay this menu\n\n");
+    fprintf(stdout, "?, h\tdisplay this menu\n");
 
     return;
 }

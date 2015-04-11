@@ -24,7 +24,7 @@ modmem(void *memory, uint16_t offset)
     char input[HEX_INPUT];
     uint8_t buffer;
 
-    fprintf(stdout, "modify the memory. enter '.' to end.\n");
+    fprintf(stdout, "Modify the memory. enter '.' to end.\n\n");
 
     /* Failsafe the memory location to manipulate. */
     offset = (offset >= TOTAL_MEMORY) ? 0 : offset;
