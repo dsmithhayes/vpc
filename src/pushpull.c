@@ -103,13 +103,13 @@ pull(uint32_t *mbr, uint32_t *mar, void *memory)
     *mbr = *((uint8_t *) memory + (*mar)++);
     *mbr = (*mbr << BYTE);
 
-    *mbr += *((uint8_t *) memory + (*mar)++);
+    *mbr |= *((uint8_t *) memory + (*mar)++);
     *mbr = (*mbr << BYTE);
 
-    *mbr += *((uint8_t *) memory + (*mar)++);
+    *mbr |= *((uint8_t *) memory + (*mar)++);
     *mbr = (*mbr << BYTE);
 
-    *mbr += *((uint8_t *) memory + (*mar)++);
+    *mbr |= *((uint8_t *) memory + (*mar)++);
 
     return;
 }
