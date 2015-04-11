@@ -15,9 +15,9 @@
 void
 trace(void *memory, registers *reg)
 {
-    char in;
+    char in, _exit = '.';
 
-    fprintf(stdout, "Press any button to trace, '.' to exit.\n");
+    fprintf(stdout, "Press any button to trace, '%c' to exit.\n", _exit);
 
     /*
      * The cursor for the trace displays the Program Counter
@@ -28,7 +28,7 @@ trace(void *memory, registers *reg)
      * Fetch the memory, execute the instruction according to the instruction
      * register set, dump the register after each instruction is performed.
      */
-    while((in = getchar()) != '.') {
+    while((in = getchar()) != _exit) {
         fetch(memory, reg);
 
         execute(IR0(reg->ir), reg, memory);
@@ -36,7 +36,7 @@ trace(void *memory, registers *reg)
 
         fprintf(stdout, "\n0x%08X> ", (reg->file[PC] - INSTR_SIZE));
 
-        if((in = getchar()) == '.')
+        if((in = getchar()) == _exit)
             return;
         
         execute(IR1(reg->ir), reg, memory);
