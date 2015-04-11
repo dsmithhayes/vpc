@@ -16,14 +16,16 @@
 
 
 void
-pushpull(uint16_t inst, registers *reg, void *memory)
+pushpull(uint16_t inst, registers *reg, void *memory) 
 {
-    uint8_t i, j;
-    uint8_t reg_set[] = {
-        PP_REG_1, PP_REG_2, PP_REG_3, PP_REG_4,
-        PP_REG_5, PP_REG_6, PP_REG_7, PP_REG_8
+    uint8_t i, j;               /* counters */
+    uint8_t reg_mask_set[] = {  /* the masks for the 8 registers */
+        PP_REG_1, PP_REG_2,
+        PP_REG_3, PP_REG_4,
+        PP_REG_5, PP_REG_6,
+        PP_REG_7, PP_REG_8
     };
-    uint8_t set_reg = PP_GET_REG(inst);
+    uint8_t set_reg = PP_GET_REG(inst); /* the registers */
 
     /*
      * Set the Memory Address Buffer to the Stack Pointer
@@ -31,8 +33,7 @@ pushpull(uint16_t inst, registers *reg, void *memory)
     reg->mar = reg->file[SP];
     
     /*
-     * if the PP_OP_L bit is set, load the stack into
-     * the registers
+     * if the PP_OP_L bit is set, load the stack into the registers
      */
     if(PP_PUSH(inst)) {
         /*
@@ -44,20 +45,20 @@ pushpull(uint16_t inst, registers *reg, void *memory)
         /*
          * If its the high part of the registers
          */
-        if(PP_HIGH(inst)) {
+        if(PP_HIGH(inst))
             for(i = HIGH_REG, j = 0; i < REG_FILE_S; i++)
-                if(reg_set[j++] & set_reg)
+                if(reg_mask_set[j++] & set_reg)
                     push(reg->file[i], &(reg->mar), memory);
-        }
-        else {
+        /*
+         * The low part of the registers
+         */
+        else
             for(i = 0; i <= LOW_REG; i++)
-                if(reg_set[i] & set_reg)
+                if(reg_mask_set[i] & set_reg)
                     push(reg->file[i], &(reg->mar), memory);
-        }
     }
     /*
-     * If the PP_OP_L isn't set, push the registers onto
-     * the stack.
+     * If the PP_OP_L isn't set, push the registers onto the stack.
      */
     else {
         /*
@@ -78,7 +79,8 @@ pushpull(uint16_t inst, registers *reg, void *memory)
  * Pushes a full register into memory.
  *
  * the BYTE_N(x) macros are in 'registers.h' and define how to
- * break 32bits into 4 seperate bytes.
+ * break 32bits into 4 seperate bytes. The push takes the most
+ * significant byte first and pushes that.
  */
 void
 push(uint32_t reg, uint32_t *mar, void *memory) 
@@ -92,21 +94,22 @@ push(uint32_t reg, uint32_t *mar, void *memory)
 }
 
 /*
- * Pulls a full register's worth from memory.
+ * Pulls a full register's worth from memory. The pull starts
+ * with the most significant byte and move on.
  */
 void
-pull(uint32_t *reg, uint32_t *mar, void *memory)
+pull(uint32_t *mbr, uint32_t *mar, void *memory)
 {
-    *reg = *((uint8_t *) memory + (*mar++));
-    *reg = (*reg << BYTE);
+    *mbr = *((uint8_t *) memory + (*mar)++);
+    *mbr = (*mbr << BYTE);
 
-    *reg |= *((uint8_t *) memory + (*mar++));
-    *reg = (*reg << BYTE);
+    *mbr += *((uint8_t *) memory + (*mar)++);
+    *mbr = (*mbr << BYTE);
 
-    *reg |= *((uint8_t *) memory + (*mar++));
-    *reg = (*reg << BYTE);
+    *mbr += *((uint8_t *) memory + (*mar)++);
+    *mbr = (*mbr << BYTE);
 
-    *reg |= *((uint8_t *) memory + *mar);
+    *mbr += *((uint8_t *) memory + (*mar)++);
 
     return;
 }

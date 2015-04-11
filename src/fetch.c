@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include "vpc.h"
 #include "registers.h"
+#include "operations.h"
 
 
 void
@@ -18,18 +19,9 @@ fetch(void *memory, registers *reg)
     reg->file[PC] += REG_SIZE;
 
     /*
-     * grab the next 4 bytes of memory into the mbr
+     * Get the bytes out of memory.
      */
-    reg->mbr += *((uint8_t *) memory + (reg->mar++));
-    reg->mbr = (reg->mbr << BYTE);
-
-    reg->mbr += *((uint8_t *) memory + (reg->mar++));
-    reg->mbr = (reg->mbr << BYTE);
-
-    reg->mbr += *((uint8_t *) memory + (reg->mar++));
-    reg->mbr = (reg->mbr << BYTE);
-
-    reg->mbr += *((uint8_t *) memory + (reg->mar++));
+    pull(&(reg->mbr), &(reg->mar), memory);
     
     /*
      * Set the instruction register to the result of MBR

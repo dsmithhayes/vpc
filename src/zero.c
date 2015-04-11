@@ -13,7 +13,7 @@
 void
 zero(registers *reg)
 {
-    int i;
+    uint16_t i;
     
     for(i = 0; i < REG_FILE_S; i++)
         reg->file[i] = 0;

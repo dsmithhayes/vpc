@@ -19,8 +19,15 @@ trace(void *memory, registers *reg)
 
     fprintf(stdout, "\nPress any button to trace, '.' to exit.\n");
 
+    /*
+     * The cursor for the trace displays the Program Counter
+     */
     fprintf(stdout, "0x%08X> ", reg->file[PC]);
 
+    /*
+     * Fetch the memory, execute the instruction according
+     * to the instruction register set.
+     */
     while((in = getchar()) != '.') {
         fetch(memory, reg);
 

@@ -15,12 +15,14 @@
 void 
 writef(void *memory) 
 { 
-    unsigned int size;
-    unsigned int res;   /* result of fwrite */
+    uint32_t size;
+    uint32_t res;   /* result of fwrite */
     char file_name[INPUT_BUFFER];
     FILE *f;
 
-    /* Get the user to input a new file name. */
+    /* 
+     * Get the user to input a new file name. 
+     */
     fprintf(stdout, "filename> ");
     fgets(file_name, INPUT_BUFFER, stdin);
     
@@ -31,17 +33,21 @@ writef(void *memory)
         return;
     }
     
-    /* Ask for how many bytes to write. */
+    /* 
+     * Ask for how many bytes to write. 
+     */
     fprintf(stdout, "bytes to write (hex)> ");
     fscanf(stdin, "%X", &size);
 
     if(size > TOTAL_MEMORY)
         size = TOTAL_MEMORY;
     
-    /* actually write the memory to a file */
+    /* 
+     * actually write the memory to a file 
+     */
     if((res = fwrite(memory, 1, size, f)) > 0)
-        fprintf(stdout, 
-                "Wrote 0x%X (%d) bytes to the file successfully.\n", 
+        fprintf(stdout,
+                "Wrote 0x%X (%d) bytes to the file successfully.\n",
                 res, res);
     else
         perror("fwrite");

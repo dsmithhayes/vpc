@@ -28,8 +28,10 @@ execute(uint16_t inst, registers *reg, void *memory)
     if(IS_LS_INST(inst))
         loadstore(inst, reg, memory);
     
-    if(IS_STOP_INST(inst))
+    if(IS_STOP_INST(inst)) {
         set_reg_flag(STOP_FLAG, (uint32_t *) &(reg->stop_flag));
+        return;
+    }
 
     toggle_reg_flag(INST_FLAG, (uint32_t *) &(reg->ir_flag));
     

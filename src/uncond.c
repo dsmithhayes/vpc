@@ -22,15 +22,21 @@ uncond(uint16_t inst, registers *reg, void *memory)
     /*
      * This is your regular unconditional branch.
      */
-    if(IS_UN_BRA(inst))
+    if(IS_UN_BRA(inst)) {
         reg->file[PC] = (uint32_t) addr;
+        
+        return;
+    }
+    
     /*
      * This is your unconditional branch with but
      * store the value of the link register
      */
-    else if(IS_UN_BRL(inst)) {
+    if(IS_UN_BRL(inst)) {
         push(reg->file[LR], &(reg->mar), memory);
         reg->file[PC] = (uint32_t) addr;
+        
+        return;
     }
     
     return;
