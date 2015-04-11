@@ -46,12 +46,12 @@ pushpull(uint16_t inst, registers *reg, void *memory)
          */
         if(PP_HIGH(inst)) {
             for(i = HIGH_REG, j = 0; i < REG_FILE_S; i++)
-                if((reg_set[j++] & set_reg))
+                if(reg_set[j++] & set_reg)
                     push(reg->file[i], &(reg->mar), memory);
         }
         else {
             for(i = 0; i <= LOW_REG; i++)
-                if((reg_set[i] & set_reg))
+                if(reg_set[i] & set_reg)
                     push(reg->file[i], &(reg->mar), memory);
         }
     }
@@ -78,15 +78,15 @@ pushpull(uint16_t inst, registers *reg, void *memory)
  * Pushes a full register into memory.
  *
  * the BYTE_N(x) macros are in 'registers.h' and define how to
- * break 32bites into 4 seperate bytes.
+ * break 32bits into 4 seperate bytes.
  */
 void
 push(uint32_t reg, uint32_t *mar, void *memory) 
 {
-    *((uint8_t *) memory + (*mar++)) = BYTE_1(reg);
-    *((uint8_t *) memory + (*mar++)) = BYTE_2(reg);
+    *((uint8_t *) memory + (*mar++)) = BYTE_4(reg);     /* MSB first */
     *((uint8_t *) memory + (*mar++)) = BYTE_3(reg);
-    *((uint8_t *) memory + *mar) = BYTE_4(reg);
+    *((uint8_t *) memory + (*mar++)) = BYTE_2(reg);
+    *((uint8_t *) memory + *mar) = BYTE_1(reg);         /* LSB last */
 
     return;
 }
@@ -106,7 +106,7 @@ pull(uint32_t *reg, uint32_t *mar, void *memory)
     *reg |= *((uint8_t *) memory + (*mar++));
     *reg = (*reg << BYTE);
 
-    *reg = *((uint8_t *) memory + (*mar++));
+    *reg |= *((uint8_t *) memory + *mar);
 
     return;
 }
