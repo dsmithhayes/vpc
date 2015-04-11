@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-Wall
 INC=-Ilib/
 
-TARGET=bin/vpc.exe
+TARGET=bin/vpc
 
 OBJDIR=obj
 

@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include "vpc.h"
 #include "registers.h"
+#include "operations.h"
 
 void
 trace(void *memory, registers *reg)
