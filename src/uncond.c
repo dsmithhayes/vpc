@@ -3,7 +3,8 @@
     author:     Dave Smith-Hayes
     date:       March 31, 2015
 
-    This function will do any type of unconditional branch.
+    This function will do any type of unconditional branch. I mean there is
+    only two but that's okay because this function will take care of them.
 */
 
 #include "registers.h"
