@@ -17,7 +17,7 @@ trace(void *memory, registers *reg)
 {
     char in;
 
-    fprintf(stdout, "\nPress any button to trace, '.' to exit.\n");
+    fprintf(stdout, "Press any button to trace, '.' to exit.\n");
 
     /*
      * The cursor for the trace displays the Program Counter
@@ -35,7 +35,9 @@ trace(void *memory, registers *reg)
         dumpreg(*reg);
 
         fprintf(stdout, "\n0x%08X> ", (reg->file[PC] - INSTR_SIZE));
-        in = getchar();
+
+        if((in = getchar()) == '.')
+            return;
         
         execute(IR1(reg->ir), reg, memory);
         dumpreg(*reg);
