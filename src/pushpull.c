@@ -30,7 +30,7 @@ pushpull(uint16_t inst, registers *reg, void *memory)
     /*
      * Set the Memory Address Buffer to the Stack Pointer
      */
-    reg->mar = reg->file[SP];
+    reg->mar = (reg->file[SP] - 1);
     
     /*
      * if the PP_OP_L bit is set, load the stack into the registers
@@ -47,15 +47,19 @@ pushpull(uint16_t inst, registers *reg, void *memory)
          */
         if(PP_HIGH(inst))
             for(i = HIGH_REG, j = 0; i < REG_FILE_S; i++)
-                if(reg_mask_set[j++] & set_reg)
+                if(reg_mask_set[j++] & set_reg) {
+                    reg->file[SP] = (reg->file[SP] - REG_SIZE);
                     push(reg->file[i], &(reg->mar), memory);
+                }
         /*
          * The low part of the registers
          */
         else
             for(i = 0; i <= LOW_REG; i++)
-                if(reg_mask_set[i] & set_reg)
+                if(reg_mask_set[i] & set_reg) {
+                    reg->file[SP] = (reg->file[SP] - REG_SIZE);
                     push(reg->file[i], &(reg->mar), memory);
+                }
     }
     /*
      * If the PP_OP_L isn't set, push the registers onto the stack.

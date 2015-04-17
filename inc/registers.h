@@ -49,7 +49,7 @@
 /*
  * Byte stuff is here
  */
-#define BYTE 8
+#define BYTE        8
 #define BYTE_MASK   0xFF
 
 #define SIGN_MASK   0x80000000
