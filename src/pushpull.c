@@ -3,8 +3,8 @@
     author:     Dave Smith-Hayes
     date;       April 10, 2015
     
-    The push and pull instruction for the stack. This will store or load
-    register values from memory.
+    The push and pull instruction for the stack. This will store or 
+    load register values from memory.
 */
 
 #include <stdint.h>
@@ -26,13 +26,9 @@ pushpull(uint16_t inst, registers *reg, void *memory)
         PP_REG_7, PP_REG_8
     };
     uint8_t set_reg = PP_GET_REG(inst); /* the registers */
-
-    /*
-     * Set the Memory Address Buffer to the Stack Pointer
-     */
-    reg->mar = (reg->file[SP] - 1);
     
-    /*
+    /* PUSH
+     * 
      * if the PP_OP_L bit is set, load the stack into the registers
      */
     if(PP_PUSH(inst)) {
@@ -41,9 +37,9 @@ pushpull(uint16_t inst, registers *reg, void *memory)
          */
         if(PP_EXTRA(inst))
             pull(&(reg->file[PC]), &(reg->mar), memory);
-
+        
         /*
-         * If its the high part of the registers
+         * push the higher registers
          */
         if(PP_HIGH(inst))
             for(i = HIGH_REG, j = 0; i < REG_FILE_S; i++)
@@ -52,7 +48,7 @@ pushpull(uint16_t inst, registers *reg, void *memory)
                     push(reg->file[i], &(reg->mar), memory);
                 }
         /*
-         * The low part of the registers
+         * push the lower registers
          */
         else
             for(i = 0; i <= LOW_REG; i++)
@@ -62,6 +58,8 @@ pushpull(uint16_t inst, registers *reg, void *memory)
                 }
     }
     /*
+     * PULL
+     * 
      * If the PP_OP_L isn't set, push the registers onto the stack.
      */
     else {
@@ -70,10 +68,25 @@ pushpull(uint16_t inst, registers *reg, void *memory)
          */
         if(PP_EXTRA(inst))
             push(reg->file[LR], &(reg->mar), memory);
-
+        
         /*
          * If its the high part of the registers
          */
+        if(PP_HIGH(inst))
+            for(i = HIGH_REG, j = REG_FILE_S; i >= HIGH_REG; i--)
+                if(reg_mask_set[j--] & set_reg) {
+                    pull(&(reg->mbr), &(reg->mar), memory);
+                    reg->file[SP] = (reg->file[SP] + REG_SIZE);
+                }
+        /*
+         * The low part of the registers
+         */
+        else
+            for(i = LOW_REG; i <= 0; i--)
+                if(reg_mask_set[i] & set_reg) {
+                    pull(&(reg->mbr), &(reg->mar), memory);
+                    reg->file[SP] = (reg->file[SP] + REG_SIZE);
+                }
     }
     
     return;
