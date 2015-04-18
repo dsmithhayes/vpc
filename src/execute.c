@@ -28,6 +28,9 @@ execute(uint16_t inst, registers *reg, void *memory)
     if(IS_LS_INST(inst))
         loadstore(inst, reg, memory);
     
+    if(IS_PP_INST(inst))
+        pushpull(inst, reg, memory);
+    
     if(IS_STOP_INST(inst)) {
         set_reg_flag(STOP_FLAG, (uint32_t *) &(reg->stop_flag));
         return;

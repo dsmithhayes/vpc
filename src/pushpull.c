@@ -95,7 +95,7 @@ pushpull(uint16_t inst, registers *reg, void *memory)
 /*
  * Pushes a full register into memory.
  *
- * the BYTE_N(x) macros are in 'registers.h' and define how to
+ * the BYTE_N(x) macros are in 'inc/registers.h' and define how to
  * break 32bits into 4 seperate bytes. The push takes the most
  * significant byte first and pushes that.
  */
@@ -111,8 +111,8 @@ push(uint32_t reg, uint32_t *mar, void *memory)
 }
 
 /*
- * Pulls a full register's worth from memory. The pull starts
- * with the most significant byte and move on.
+ * Pulls a full register's worth from memory. The pull starts with 
+ * the most significant byte and move on.
  */
 void
 pull(uint32_t *mbr, uint32_t *mar, void *memory)
