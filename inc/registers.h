@@ -88,7 +88,8 @@
  * The registers struct is just an easy way to move and use the
  * registers with how the program is designed.
  *
- * file[]   register file, constants SP, LR and PC are used here.
+ * file[]   register file, constants SP, LR and PC are used here as the
+ *          index for the array. Example: file[SP] is the Stack Pointer.
  *
  * ccr      code control registers, has the sign, zero and carry
  *          flags, where SZC (000) = Sign, Zero Carry. Constants SIGN,
@@ -106,9 +107,13 @@
  *          and ir0 and ir1 pseudo register. Macros IR0() and IR1()
  *          are used to split the register.
  *
+ * alu      the Arithmetic Logical Unit is actually the register that
+ *          performs all of the necessary mathematical expressions for
+ *          the instruction.
+ *
  * ir_flag      determines which instruction register is being used
  *
- * stop_flag tells the program to stop its execution.
+ * stop_flag    tells the program to stop its execution.
  * 
  */
 

@@ -33,10 +33,10 @@ pushpull(uint16_t inst, registers *reg, void *memory)
      */
     if(PP_PUSH(inst)) {
         /*
-         * pull the Program Counter
+         * Push the Link Register
          */
         if(PP_EXTRA(inst))
-            pull(&(reg->file[PC]), &(reg->mar), memory);
+            push(reg->file[LR], &(reg->mar), memory);
         
         /*
          * push the higher registers
@@ -64,12 +64,6 @@ pushpull(uint16_t inst, registers *reg, void *memory)
      */
     else {
         /*
-         * Push the Link Register
-         */
-        if(PP_EXTRA(inst))
-            push(reg->file[LR], &(reg->mar), memory);
-        
-        /*
          * If its the high part of the registers
          */
         if(PP_HIGH(inst))
@@ -87,6 +81,12 @@ pushpull(uint16_t inst, registers *reg, void *memory)
                     pull(&(reg->mbr), &(reg->mar), memory);
                     reg->file[SP] = (reg->file[SP] + REG_SIZE);
                 }
+
+        /*
+         * pull the Program Counter
+         */
+        if(PP_EXTRA(inst))
+            pull(&(reg->file[PC]), &(reg->mar), memory);
     }
     
     return;

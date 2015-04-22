@@ -58,8 +58,8 @@
 /*
  * Macros that return non-zero if register flag set
  */
-#define IS_SIGN(x)      ((SIGN_MASK & x) == SIGN_MASK) ? 1 : 0
-#define IS_ZERO(x)      (x == 0) ? 1 : 0
+#define IS_SIGN(x) ((SIGN_MASK & x) == SIGN_MASK) ? 1 : 0
+#define IS_ZERO(x) (x == 0) ? 1 : 0
 
 /*
  * Macros that return the Rn or Rd from specific instruction types
@@ -125,7 +125,7 @@
  */
 #define IMM(x)  ((x & IMM_VAL) >> IMM_VAL_SHIFT)
 
-#define IMM_OPCODE  0x7000
+#define IMM_OPCODE          0x7000
 #define IMM_GET_OPCODE(x)   (IMM_OPCODE & x)
 
 /*
