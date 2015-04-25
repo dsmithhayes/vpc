@@ -24,7 +24,31 @@
 3.  **Testing**
 
     1.  Immediate Instructions
+
+        1.  MOV_IMM
+        2.  CMP_IMM
+        3.  ADD_IMM
+        4.  SUB_IMM
+    
     2.  Data Instructions
+    
+        1.  AND_DAT
+        2.  EOR_DAT
+        3.  SUB_DAT
+        4.  SXB_DAT
+        5.  ADD_DAT
+        6.  ADC_DAT
+        7.  LSR_DAT
+        8.  LSL_DAT
+        9.  TST_DAT
+        10. TEQ_DAT
+        11. CMP_DAT
+        12. ROR_DAT
+        13. ORR_DAT
+        14. MOV_DAT
+        15. BIC_DAT
+        16. MVN_DAT
+    
     3.  Load/Store Instructions
     4.  Push/Pull Instructions
     5.  Conditional Branch
