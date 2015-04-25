@@ -291,7 +291,32 @@ the registers (the same as `r` would) to the screen.
 
 ## 4.0 Code Review
 
+The following is an explanation of a given file in the project along with its
+purpose and any comments necessary to the operation of VPC. It is encouraged
+to actually realy the source code file as well as they are extremely well
+documented.
 
+### 4.1 Header Files
+
+VPC ships with four defined header files for the four seperate components of
+the actual program. `vpc.h` is the general operations of the program to the
+disk, including loading and writing files. `interface.h` defines all of the
+routines that would act as an interface to the user. `registers.h` defines
+constants and macros that pertain to the registers, along with a structure
+called `registers` that contains all of the registers. `operations.h` is
+a massive file that defines routines, macros and constants for **all** of the
+operations that the processor can do.
+
+#### vpc.h
+
+#### interface.h
+
+#### registers.h
+
+#### operations.h
+
+
+### 4.2 Source Files
 
 
 
