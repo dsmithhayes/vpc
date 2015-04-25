@@ -435,7 +435,16 @@ a table representation of the different instructions.
         <th>0x2</th>
         <th>0x1</th>
         <th>0x0</th>
-        <th>Operatiom</th>
+        <th>Operation</th>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td colspan="4">Operation</td>
+        <td colspan="8">Immediate Value</td>
+        <td colspan="4">Rd</td>
     </tr>
 </table>
 
