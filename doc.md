@@ -344,7 +344,17 @@ that can be used. All of the constants are defined with a `_DAT` suffix.
     <tr>
         <td><code>AND</code></td>
         <td><code>0x0000</code></td>
-        <td>This will bitwise <code>AND</code> the values from Rn into Rd.</td>
+        <td>Bitwise AND the value from Rn into Rd.</td>
+    </tr>
+    <tr>
+        <td><code>EOR</code></td>
+        <td><code>0x0100</code></td>
+        <td>Bitwise exclusive OR the value from Rn into Rd.</td>
+    </tr>
+    <tr>
+        <td><code>SUB</code></td>
+        <td><code>0x0200</code></td>
+        <td>Substract the value Rn from Rd and store in Rd.</td>
     </tr>
 </table>
 
