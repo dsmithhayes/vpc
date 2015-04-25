@@ -344,7 +344,7 @@ that can be used. All of the constants are defined with a `_DAT` suffix.
     <tr>
         <td><code>AND</code></td>
         <td><code>0x0000</code></td>
-        <td>This will bitwise `AND` the values from Rn into Rd.</td>
+        <td>This will bitwise <code>AND</code> the values from Rn into Rd.</td>
     </tr>
 </table>
 
