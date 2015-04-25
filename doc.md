@@ -314,8 +314,7 @@ constants are defined with a `_IMM` suffix.
     <tr>
         <td><code>CMP</code></td>
         <td><code>0x5000</code></td>
-        <td>Compares the immediate value with the value in Rd, and sets the
-            according flag.</td>
+        <td>Compares the immediate value with the value in Rd.</td>
     </tr>
     <tr>
         <td><code>ADD</code>
@@ -365,6 +364,63 @@ that can be used. All of the constants are defined with a `_DAT` suffix.
         <td><code>ADD</code></td>
         <td><code>0x0400</code></td>
         <td>Adds the value of Rn into Rd.</td>
+    </tr>
+    <tr>
+        <td><code>ADC</code></td>
+        <td><code>0x0500</code></td>
+        <td>Adds the value of Rn into Rd with consideration of the carry
+        flag.</td>
+    </tr>
+    <tr>
+        <td><code>LSR</code></td>
+        <td><code>0x0600</code></td>
+        <td>Performs a logical shift right on Rd by Rn bits.</td>
+    </tr>
+    <tr>
+        <td><code>LSL</code></td>
+        <td><code>0x0700</code></td>
+        <td>Performs a logical shit left on Rd by Rn bits.</td>
+    </tr>
+    <tr>
+        <td><code>TST</code></td>
+        <td><code>0x0800</code></td>
+        <td>Performs bitwise AND between Rn and Rd, does not store result.</td>
+    </tr>
+    <tr>
+        <td><code>TEQ</code><td>
+        <td><code>0x0900</code></td>
+        <td>Performs bitwise exclusive OR between Rn and Rd, does not store
+        the result.</td>
+    </tr>
+    <tr>
+        <td><code>CMP</code></td>
+        <td><code>0x0A00</code></td>
+        <td>Compares the values in Rd and Rn, does not store the result.</td>
+    </tr>
+    <tr>
+        <td><code>ROR</code></td>
+        <td><code>0x0B00</code></td>
+        <td>Rotates the values in Rd by Rn bits.</td>
+    </tr>
+    <tr>
+        <td><code>ORR</code></td>
+        <td><code>0x0C00</code></td>
+        <td>Performs a bitwise OR between Rn and Rd.</td>
+    </tr>
+    <tr>
+        <td><code>MOV</code></td>
+        <td><code>0x0D00</code></td>
+        <td>Moves the value in Rn into Rd.</td>
+    </tr>
+    <tr>
+        <td><code>BIC</code></td>
+        <td><code>0x0E00</code></td>
+        <td>Clears all of the bits defined by Rn in Rd</td>
+    </tr>
+    <tr>
+        <td><code>MVN</code></td>
+        <td><code>0x0F00</code></td>
+        <td>Places the 1's compliment of Rn in Rd.</td>
     </tr>
 </table>
 
