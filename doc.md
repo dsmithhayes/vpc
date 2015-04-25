@@ -440,9 +440,7 @@ a table representation of the different instructions.
     <tr>
         <td>0</td>
         <td>0</td>
-        <td>0</td>
-        <td>0</td>
-        <td colspan="4">Operation</td>
+        <td colspan="2">Opcode</td>
         <td colspan="8">Immediate Value</td>
         <td colspan="4">Rd</td>
         <td>Immediate Operation</td>
