@@ -356,6 +356,16 @@ that can be used. All of the constants are defined with a `_DAT` suffix.
         <td><code>0x0200</code></td>
         <td>Substract the value Rn from Rd and store in Rd.</td>
     </tr>
+    <tr>
+        <td><code>SXB</code></td>
+        <td><code>0x0300</code></td>
+        <td>Rd becomes a signed version of Rn.</td>
+    </tr>
+    <tr>
+        <td><code>ADD</code></td>
+        <td><code>0x0400</code></td>
+        <td>Adds the value of Rn into Rd.</td>
+    </tr>
 </table>
 
 ### 3.3 Load/Store Instructions
