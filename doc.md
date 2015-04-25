@@ -388,10 +388,58 @@ their own `.c` file.
     void fetch(void * memory, registers * reg);
     void go(void * memory, registers * reg);
 
+Note that all of the memory is passed as a `void` throughout the program. This
+is to assure that technical modifications to the memory can be made with very
+little change to the program's logic.
+
 #### operations.h
 
-All of the operations are defined according to the specification. 
+All of the operations are defined according to the specification. The first
+thing to note about the instructions is that they are 16 bits in length and
+a number of them share similar properties. Consider the constant `RD_MASK`
+which defines the four bit number that represents which register is the
+destination for the operation. This is referred to as `Rd` throughout equations
+and `rd` within functions in the source code. There is a macro to determine
+this value called `RD`. Another common value found in instructions is the
+`Rn` value which can determin the source of data stored in a register. There is
+a corresponding `RN_MASK` that defines which bits of the instruction are `Rn`.
+The value can be seen in functions with the name of `rn` with the corresponding
+macro to determine the value with `RN`. There is a very obvious pattern here.
 
+There are six definite types of operations. They are immediate instructions
+(`IMM_MASK`), data instructions (`DAT_MASK`), load/store instructions
+(`LS_MASK`), push/pull instructions (`PP_MASK`), conditional branches
+(`COND_MASK`) and unconditional branched (`UN_MASK`). Of course one special
+instruction is the stop instruction which is defined as `STOP_MASK`.
+
+Note the prefixes in the constants that are defined. There are macros to test
+the instruction against the mask defined. Each instruction mask is defined as
+the bit pattern in the first four bits of the instruction. The following is
+a table representation of the different instructions.
+
+<table>
+    <tr>
+        <th>0xF</th>
+        <th>0xE</th>
+        <th>0xD</th>
+        <th>0xC</th>
+        <th>0xB</th>
+        <th>0xA</th>
+        <th>0x9</th>
+        <th>0x8</th>
+        <th>0x7</th>
+        <th>0x6</th>
+        <th>0x5</th>
+        <th>0x4</th>
+        <th>0x3</th>
+        <th>0x2</th>
+        <th>0x1</th>
+        <th>0x0</th>
+        <th>Operatiom</th>
+    </tr>
+</table>
+
+        
 ### 4.2 Source Files
 
 
