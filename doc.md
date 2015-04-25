@@ -445,6 +445,16 @@ a table representation of the different instructions.
         <td colspan="4">Rd</td>
         <td>Immediate Operation</td>
     </tr>
+    <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td colspan="4">Opcode</td>
+        <td colspan="4">Rn</td>
+        <td colspan="4">Rd</td>
+        <td>Data Operations</td>
+    </tr>
 </table>
 
         
