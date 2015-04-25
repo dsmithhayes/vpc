@@ -29,6 +29,7 @@
     4.  Push/Pull Instructions
     5.  Conditional Branch
     6.  Unconditional Branch
+    7.  Stopping
 
 4.  **Code Review**
 
@@ -289,6 +290,65 @@ the registers (the same as `r` would) to the screen.
 
 ## 3.0 Testing
 
+Throughout this section of the documentation the instructions are described
+and each operation of that instruction type is tested.
+
+### 3.1 Immediate Instructions
+
+An immediate instruction places a value represented by eight bits into the
+register file defines in the last four bits of the instruction (`RD`). There are
+four opcodes that are used to determine immediate instructions.
+
+<table>
+    <tr>
+        <th>Operation</th>
+        <th>Constant</th>
+        <th>Mask</th>
+    </tr>
+    <tr>
+        <td><code>MOV</code></td>
+        <td><code>MOV_IMM</code></td>
+        <td><code>0x4000</code></td>
+    </tr>
+    <tr>
+        <td><code>CMP</code></td>
+        <td><code>CMP_IMM</code></td>
+        <td><code>0x5000</code></td>
+    </tr>
+    <tr>
+        <td><code>ADD</code>
+        <td><code>ADD_IMM</code>
+        <td><code>0x6000</code></td>
+    </tr>
+</table>
+
+### 3.2 Data Instructions
+
+Data instructions take the value in the register defined by `RN` and perform
+the necessary operation to the value in `RD`. There are 16 data operations
+that can be used.
+
+    1.  `AND`
+    2.  `EOR`
+    3.  `SUB`
+    4.  `SXB`
+    5.  `ADD`
+    6.  `ADC`
+    7.  `LSR`
+    8.  `LSL`
+    9.  `TST`
+    8.  `TEQ`
+
+### 3.3 Load/Store Instructions
+
+### 3.4 Push/Pull Instructions
+
+### Conditional Branch
+
+### Unconditional Branch
+
+### Stopping
+
 ## 4.0 Code Review
 
 The following is an explanation of a given file in the project along with its
@@ -523,6 +583,12 @@ default all invalid operations as a data operations by doing a bitwise `AND`
 with all zeros. The `DAT_MASK` constant is set to all ones so that when a
 valid data operation is inverted it matches the mask properly. This will
 render all invalid operations useless.
+
+There are macros and cosntants defined all throughout `operations.h` that
+will help extract the data necessary to perform each operation. It is
+recommended that the documentation in `operations.h` be read to fully
+understand what each value of these constants are, and what each function per
+operation's prototype means.
 
 ### 4.2 Source Files
 
