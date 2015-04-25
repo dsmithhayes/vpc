@@ -301,20 +301,96 @@ documented.
 VPC ships with four defined header files for the four seperate components of
 the actual program. `vpc.h` is the general operations of the program to the
 disk, including loading and writing files. `interface.h` defines all of the
-routines that would act as an interface to the user. `registers.h` defines
+functions that would act as an interface to the user. `registers.h` defines
 constants and macros that pertain to the registers, along with a structure
 called `registers` that contains all of the registers. `operations.h` is
 a massive file that defines routines, macros and constants for **all** of the
 operations that the processor can do.
 
+The header files are all located within the `inc/` directory and are
+included by the compiler during compilation.
+
 #### vpc.h
+
+`vpc.h` has two constants defined, one for the total memory and the other
+for a word-representation for hexadecimal that will be used in the `strtoul()`
+function to capture hexadecimal values up to `0xF`.
+
+    #define TOTAL_MEMORY    0x4000
+    #define HEX             0x10
+
+The function prototypes in `vpc.h` define routines that allow VPC to interact
+with the memory. The following is a listing of these prototypes.
+
+    void writef(void * memory);
+    int  loadf(void * memory, uint16_t max);
+    void dumpmem(void * memory, uint16_t offset, uint16_t length);
+    void modmem(void * memory, uint16_t offset);
+
+The use of these functions are described in the `main.c` file. 
 
 #### interface.h
 
+The `interface.h` file is rather small, defines three constants and one
+function prototype. They help define interface values for input from the user.
+
+    #define INPUT_BUFFER    0xFF
+    #define HEX_INPUT       4
+    #define ROW_LENGTH      0x10
+
+    void help();
+
+The `help()` function displays the options available to the user.
+
 #### registers.h
+
+Seeing as registers are a very important part of the program, the `registers.h`
+header defines a lot of constants and macros that are important to the
+flow of the program.
+
+A crucial part of the register file is the aliases used to describe the special
+functioning registers, `SP`, `LR` and `PC` which are all assigned to the
+index of the array that is the register file.
+
+Because the CCR is a single register, there needs to be three bits for the
+flags. The `SIGN_FLAG` is assigned to the third bit, `ZERO_FLAG` is the
+second bit and the `CARRY_FLAG` is the least significant bit of the register.
+There are macros defiend to determine if any of these flags are set.
+
+The most important part of the `registers.h` file is the actual `registers`
+structure that contains all of the registers. It is defined as follows.
+
+    typedef struct Registers {
+        uint32_t file[REG_FILE_S];
+        
+        uint32_t ccr;
+        uint32_t mbr;
+        uint32_t mar;
+        uint32_t ir;
+        uint32_t alu;
+    
+        uint8_t ir_flag;
+        uint8_t stop_flag;
+    } registers;
+
+The `REG_FILE_S` constant is defined at `0x10` because there's 16 registers
+in the file.
+
+Function prototypes within `registers.h` define the functions that actually
+move and manipulate the data from the memory to the register. These are all
+called from the main program loop save for the `fetch()` function which
+is called from all over the program. Each of these functions reside within
+their own `.c` file.
+
+    void zero(registers * reg);
+    void dumpreg(registers reg);
+    void trace(void * memory, registers * reg);
+    void fetch(void * memory, registers * reg);
+    void go(void * memory, registers * reg);
 
 #### operations.h
 
+All of the operations are defined according to the specification. 
 
 ### 4.2 Source Files
 
