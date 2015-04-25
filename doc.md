@@ -439,7 +439,7 @@ a table representation of the different instructions.
     </tr>
     <tr>
         <td>0</td>
-        <td>0</td>
+        <td>1</td>
         <td colspan="2">Opcode</td>
         <td colspan="8">Immediate Value</td>
         <td colspan="4">Rd</td>
@@ -455,9 +455,75 @@ a table representation of the different instructions.
         <td colspan="4">Rd</td>
         <td>Data Operations</td>
     </tr>
+    <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>1</td>
+        <td>0</td>
+        <td>L</td>
+        <td>B</td>
+        <td>0</td>
+        <td>0</td>
+        <td colspan="4">Rn</td>
+        <td colspan="4">Rd</td>
+        <td>Load/Store Instructions</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>0</td>
+        <td>1</td>
+        <td>0</td>
+        <td>L</td>
+        <td>H</td>
+        <td>0</td>
+        <td>R</td>
+        <td colspan="8">Register List</td>
+        <td>Push/Pull</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td colspan="4">Condition Code</td>
+        <td colspan="8">Relative Address</td>
+        <td>Conditional Branch</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>0</td>
+        <td>K</td>
+        <td colspan="12">Memory Address Offset</td>
+        <td>Unconditional Branch</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>Stop</td>
+    </tr>
 </table>
 
-        
+Note that the data operations use `0000` as its instruction code. This would
+default all invalid operations as a data operations by doing a bitwise `AND`
+with all zeros. The `DAT_MASK` constant is set to all ones so that when a
+valid data operation is inverted it matches the mask properly. This will
+render all invalid operations useless.
+
 ### 4.2 Source Files
 
 
