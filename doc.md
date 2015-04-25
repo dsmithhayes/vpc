@@ -445,6 +445,7 @@ a table representation of the different instructions.
         <td colspan="4">Operation</td>
         <td colspan="8">Immediate Value</td>
         <td colspan="4">Rd</td>
+        <td>Immediate Operation</td>
     </tr>
 </table>
 
