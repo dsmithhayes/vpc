@@ -304,21 +304,32 @@ four opcodes that are used to determine immediate instructions.
         <th>Operation</th>
         <th>Constant</th>
         <th>Mask</th>
+        <th>Description</th>
     </tr>
     <tr>
         <td><code>MOV</code></td>
         <td><code>MOV_IMM</code></td>
         <td><code>0x4000</code></td>
+        <td>Moves the immediate value into the register specified by Rd</td>
     </tr>
     <tr>
         <td><code>CMP</code></td>
         <td><code>CMP_IMM</code></td>
         <td><code>0x5000</code></td>
+        <td>Compares the immediate value with the value in Rd, and sets the
+            according flag.</td>
     </tr>
     <tr>
         <td><code>ADD</code>
         <td><code>ADD_IMM</code>
         <td><code>0x6000</code></td>
+        <td>Adds the immediate value into the Rd.</td>
+    </tr>
+    <tr>
+        <td><code>SUB</code></td>
+        <td><code>SUB_IMM</code></td>
+        <td><code>0x7000</code></td>
+        <td>Substracts the immediate value from Rd.</td>
     </tr>
 </table>
 
@@ -327,17 +338,6 @@ four opcodes that are used to determine immediate instructions.
 Data instructions take the value in the register defined by `RN` and perform
 the necessary operation to the value in `RD`. There are 16 data operations
 that can be used.
-
-    1.  `AND`
-    2.  `EOR`
-    3.  `SUB`
-    4.  `SXB`
-    5.  `ADD`
-    6.  `ADC`
-    7.  `LSR`
-    8.  `LSL`
-    9.  `TST`
-    8.  `TEQ`
 
 ### 3.3 Load/Store Instructions
 
