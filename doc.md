@@ -387,7 +387,7 @@ that can be used. All of the constants are defined with a `_DAT` suffix.
         <td>Performs bitwise AND between Rn and Rd, does not store result.</td>
     </tr>
     <tr>
-        <td><code>TEQ</code><td>
+        <td><code>TEQ</code></td>
         <td><code>0x0900</code></td>
         <td>Performs bitwise exclusive OR between Rn and Rd, does not store
         the result.</td>
