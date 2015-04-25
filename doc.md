@@ -297,37 +297,33 @@ and each operation of that instruction type is tested.
 
 An immediate instruction places a value represented by eight bits into the
 register file defines in the last four bits of the instruction (`RD`). There are
-four opcodes that are used to determine immediate instructions.
+four opcodes that are used to determine immediate instructions. All of these
+constants are defined with a `_IMM` suffix.
 
 <table>
     <tr>
         <th>Operation</th>
-        <th>Constant</th>
         <th>Mask</th>
         <th>Description</th>
     </tr>
     <tr>
         <td><code>MOV</code></td>
-        <td><code>MOV_IMM</code></td>
         <td><code>0x4000</code></td>
         <td>Moves the immediate value into the register specified by Rd</td>
     </tr>
     <tr>
         <td><code>CMP</code></td>
-        <td><code>CMP_IMM</code></td>
         <td><code>0x5000</code></td>
         <td>Compares the immediate value with the value in Rd, and sets the
             according flag.</td>
     </tr>
     <tr>
         <td><code>ADD</code>
-        <td><code>ADD_IMM</code>
         <td><code>0x6000</code></td>
         <td>Adds the immediate value into the Rd.</td>
     </tr>
     <tr>
         <td><code>SUB</code></td>
-        <td><code>SUB_IMM</code></td>
         <td><code>0x7000</code></td>
         <td>Substracts the immediate value from Rd.</td>
     </tr>
@@ -335,19 +331,32 @@ four opcodes that are used to determine immediate instructions.
 
 ### 3.2 Data Instructions
 
-Data instructions take the value in the register defined by `RN` and perform
-the necessary operation to the value in `RD`. There are 16 data operations
-that can be used.
+Data instructions take the value in the register defined by Rn and perform
+the necessary operation to the value in Rd. There are 16 data operations
+that can be used. All of the constants are defined with a `_DAT` suffix.
+
+<table>
+    <tr>
+        <th>Operation</th>
+        <th>Mask</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><code>AND</code></td>
+        <td><code>0x0000</code></td>
+        <td>This will bitwise `AND` the values from Rn into Rd.</td>
+    </tr>
+</table>
 
 ### 3.3 Load/Store Instructions
 
 ### 3.4 Push/Pull Instructions
 
-### Conditional Branch
+### 3.5 Conditional Branch
 
-### Unconditional Branch
+### 3.6 Unconditional Branch
 
-### Stopping
+### 3.7 Stopping
 
 ## 4.0 Code Review
 
