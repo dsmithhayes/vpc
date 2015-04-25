@@ -50,9 +50,13 @@
         16. `MVN_DAT`
     
     3.  Load/Store Instructions
+    
     4.  Push/Pull Instructions
+
     5.  Conditional Branch
+
     6.  Unconditional Branch
+
     7.  Stopping
 
 4.  **Code Review**
