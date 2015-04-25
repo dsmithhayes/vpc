@@ -37,6 +37,13 @@
 
 ## 1.0 Preface
 
+It is assumed that the reader of this document is competent in the C programming
+language enough to understand it's datatypes, the differences in compilers
+and the nuances of the language. There will not be a lot of discussion about
+simple concepts like bit-masking or type casting. This document will provide
+helpful information about using the program, how testing was done and how the
+program works from the code's perspective.
+
 ### 1.1 Abstract
 
 VPC is a central processing unit emulation program. It acts as an interactive
@@ -231,7 +238,58 @@ register.
     Stop Flag: 0
     Active IR: 0
 
+### 2.7 Execution
 
+Execution runs every instruction possible until it reaches the ever so important
+stop instruction. This must always be considered when assembling a program so
+that the execution loop can properly be stopped. There is no visual indication
+of executions.
+
+### 2.8 Tracing
+
+Tracing is extremely important to the debugging of the assembled program. When
+tracing through `test.bin`, the registers display the immediate instruction's
+value and operation. Tracing will perform each individual instruction and dump
+the registers (the same as `r` would) to the screen.
+
+    option> t
+    
+    Press any button to trace, '.' to exit.
+    0x00000000> 
+    R00: 0x00000000 R01: 0x00000000 R02: 0x00000000 R03: 0x00000000 
+    R04: 0x00000000 R05: 0x000000AA R06: 0x00000000 R07: 0x00000000 
+    R08: 0x00000000 R09: 0x00000000 R10: 0x00000000 R11: 0x00000000 
+    R12: 0x00000000  SP: 0x00000000  LR: 0x00000000  PC: 0x00000004
+    
+    CCR: 000 (sign, zero, carry)
+    MBR: 0x4AA56115
+    MAR: 0x00000004
+    IR0: 0x4AA5
+    IR1: 0x6115
+    
+    Stop Flag: 0
+    Active IR: 1
+    
+    0x00000002> 
+    R00: 0x00000000 R01: 0x00000000 R02: 0x00000000 R03: 0x00000000 
+    R04: 0x00000000 R05: 0x000000BB R06: 0x00000000 R07: 0x00000000 
+    R08: 0x00000000 R09: 0x00000000 R10: 0x00000000 R11: 0x00000000 
+    R12: 0x00000000  SP: 0x00000000  LR: 0x00000000  PC: 0x00000004
+    
+    CCR: 100 (sign, zero, carry)
+    MBR: 0x4AA56115
+    MAR: 0x00000004
+    IR0: 0x4AA5
+    IR1: 0x6115
+    
+    Stop Flag: 0
+    Active IR: 0
+    
+    0x00000004>
+
+## 3.0 Testing
+
+## 4.0 Code Review
 
 
 
