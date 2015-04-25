@@ -34,7 +34,7 @@ execute(uint16_t inst, registers *reg, void *memory)
         cond(inst, reg);
 
     if(IS_UN_INST(inst))
-        uncond(inst, reg);
+        uncond(inst, reg, memory);
     
     if(IS_STOP_INST(inst)) {
         set_reg_flag(STOP_FLAG, (uint32_t *) &(reg->stop_flag));
