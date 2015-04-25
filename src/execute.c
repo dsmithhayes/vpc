@@ -18,7 +18,6 @@
 void
 execute(uint16_t inst, registers *reg, void *memory)
 {
-
     if(IS_IMM_INST(inst))
         immediate(inst, reg);
     
@@ -30,6 +29,12 @@ execute(uint16_t inst, registers *reg, void *memory)
     
     if(IS_PP_INST(inst))
         pushpull(inst, reg, memory);
+
+    if(IS_COND_INST(inst))
+        cond(inst, reg);
+
+    if(IS_UN_INST(inst))
+        uncond(inst, reg);
     
     if(IS_STOP_INST(inst)) {
         set_reg_flag(STOP_FLAG, (uint32_t *) &(reg->stop_flag));

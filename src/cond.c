@@ -16,6 +16,13 @@ cond(uint16_t inst, registers *reg)
     
     switch(COND_GET_OPCODE(inst)) {
     /*
+     * ignores all conditions
+     */
+    case COND_AL:
+        reg->file[PC] += addr;
+        break;
+    
+    /*
      * zero set
      */
     case COND_EQ:

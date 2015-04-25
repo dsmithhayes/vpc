@@ -1,316 +1,105 @@
-# vpc
+# VPC
+
+*A Virtual Processor written in C*
+
+**Table of Contents**
+
+1.  Preface
+
+    1.  Abstract
+    2.  Considerations
+    3.  Comments
+2.  Overview
+
+    1.  Compiling
+    2.  Usage
+    3.  Reading Files
+    4.  Writing Files
+    5.  Dumping Memory
+    6.  Dumping Registers
+    7.  Execution
+    8.  Tracing
+3.  Testing
+
+    1.  Immediate Instructions
+    2.  Data Instructions
+    3.  Load/Store Instructions
+    4.  Push/Pull Instructions
+    5.  Conditional Branch
+    6.  Unconditional Branch
+4.  Code Review
+
+    1.  Header Files
+    2.  Source Files
+
+## 0.0 Preface
+
+### 0.1 Abstract
+
+VPC is a central processing unit emulation program. It acts as an interactive
+shell where one can run, trace, load (from the hard disk of the host operating
+system), edit and save binary files that will operate within VPC. These binary
+files represent the instructions and data that would constitute for a computer
+program. VPC is written in C and conforms with C99 standards.
+
+### 0.2 Considerations
+
+VPC had most of its development and testing done on a 64bit Linux (v3.13)
+distribution using the GNU C Compiler (*GCC*). When the project had started the
+specification noted that there must be a 16bit version of the program compiled
+with the Borland C/C++ 5.2 Compiler (*BCC*) for DOS. It was also suggested to
+use one file to represent the entire processor. Throughout the development of
+these original specs a lot of issues were encountered in terms of data type
+association and casting. Consider *Table 0.1*, where the size of a `long` is
+not the same between the 64bit GCC and the others, just as the size of an
+`int` is not the same between BCC and the others. 
+
+<table>
+    <tr>
+        <th>Compiler</th>
+        <th>Size of <code>int</code></th>
+        <th>Size of <code>long</code></th>
+    </tr>
+    <tr>
+        <td>GCC 4.8.2 (<em>64bit</em>)</td>
+        <td>4</td>
+        <td>8</td>
+    </tr>
+    <tr>
+        <td>Microsoft VS C++2013 (<em>32bit</em>)</td>
+        <td>4</td>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>BCC 5.2 (<em>16bit</em>)</td>
+        <td>2</td>
+        <td>4</td>
+    </tr>
+</table>
+
+*Table 0.1 - Demonstrating the sizes of data types within C*
+
+Data types become a crucial aspect of VPC, as there is a lot of casting between
+types to determine specific information about the binary data being moved
+within the program. Because of these mismatch in sizes the project moved to
+the C99 standard library, which includes data types that have a fixed bit-width
+inside the stdint.h header file. This transistion however has left the BCC
+inoperable because of it's lack of C99 standard library definitions. Instead,
+the Open Watcom (*OWC*) 16bit DOS compiler will be used for testing on 16bit
+systems.
+
+### 0.3 Comments
+
+The Microsoft Visual Studio 2013 compiler will be referenced as *VSC*. There
+was almost no actual development done on a Windows system, but all of the
+testing was compliant.
+
+VPC makes use of the `fprintf()`, `fgets()` and `fscanf()` functions that
+VSC really hates and has declared deprecated (for their system). This function
+is however extremely safe to use on POSIX compliant operating systems (such as
+Linux, or BSD). This is a not a real problem, but an interesting note.
+
+## 1.0 Overview
 
- *Author:* Dave Smith-Hayes
-
- *Date:* 8 March, 2015
-
-## Abstract
-
- `vpc` is a small virtual processor written in C to target multiple
-platforms. The processor is attached to 16kB (`0x4000`) of memory,
-uses 16bit instructions and has a handful of 32bit registers. The
-instructions used and the program flow control simulate an ARM
-Cortex-3 processor.
-
-The following literature is usage documentation, along with instruction
-documentation and explanation of how several components of the software
-interact with each other.
-
-### Instruction Operation
-
-The processor has a very simple cycle of operation. Firstly, it fetches
-the data from the memory, interprets the instruction, fetches further
-data from meory, performs an operation and finally stores the result
-of the operation in memory.
-
-1. Fetch an instruction from memory
-2. Decode an instruction
-3. Put data in registers
-4. Perform data operation between registers
-5. Store result in memory
-
-Despite there being 32bit registers, the one *Instruction Register*
-is actually viewed as a combination 16bit instruction register. The
-first 2bytes of the value in the Instruction Register is the value
-for `ir0` and the last 2bytes is `ir1`.
-
-### Registers
-
-When there are more that one register in an array format, this is
-called a register file. The last three indexes of the register file
-for `vpc` have special consideration. They are aliased with the
-named *Stack Pointer*, *Link Register* and *Program Counter* and
-perform their own special operations. The rest of the register file
-is used for generic high speed data computation.
-
-There is a *Memory Buffer Register*, *Memory Address Register* and
- *Arithmatic Logic Unit* which control the loading and storing of
-data to the memory.
-
-## Compilation
-
-Currently there is on-going progress with a Visual Studio 2013
-Community edition project file, as well as a Dev-C++ 5.10 project
-file that will be included.
-
-If the system you are using has `gcc` and `make`, just use those.
-The `makefile` will be updated to use `clang` and other compilers
-with other C libraries. *Portability is the name of the game*.
-
-### Using make
-
-    $ make
-
-This will create a `vpc` binary in the `bin/` directory. This 
-directory will also be where all of the other binary files for 
-instructions will go as well. More on this topic in the usage.
-
-## Usage
-
-Topics in this section will be how to use the actual `vpc` program.
-This presumes that the program was a successful compile, and is now
-running as a binary on your system. *Which ever system that is.*
-
-Using the characters `?`, `H` or `h` will prompt the help text for
- `vpc`. 
-
-## Code Documentation
-
-### Headers
-
-#### vpc.h
-
-This is the main header file that was used in the extremely early
-stages of the development of this program. Defined here are extremely
-important routines that interact with the human input. Routines like
-loading and writing files from and to the physical disk.
-
-All of the header files for `vpc` are found within the `lib/` 
-directory.
-
- `vpc.h` includes one system header: `<stdin.h>` for `uintN_t`
-declarations
-
-The use of `uintN_t` type definitions is to assure fixed bit-width
-datatypes. This assures that contents of the registers are actually
-32bits and the content of memory exacty 8bits (one byte) at each
-address.
-
-* * *
-
- **Definitions**
-
-    #define TOTAL_MEMORY 0x4000
-
-There is a total of 16 kilobytes of memory in `vpc`. This is 
-represented as `16 * (2^10)` (16384) bytes, or `0x4000` in 
-hexadecimal.
-
-    #define HEX 0x10
-
-This definition is used for a function that is in the standard
-library (`strtoul()`) which allows the user to specify which base to
-capture from the string. In this case, it is `HEX`.
-
-* * *
-
- **Function Prototypes**
-
-    void writef(void* memory);
-
-Writes the contents of the memory to a file. The file name is supplied
-by the user.
-
-    int loadf(void* memory, uint16_t max);
-
-Loads a file to the memory. If the file size is larger than `max` 
-bytes then it is truncated.
-
-    void dumpmem(void* memory, uint16_t offset, uint16_t length);
-
-Dumps the contents of memory to the screen, based on the offset in
-memory and the contents of memory.
-
-    void modmem(void* memory, uint16_t offset);
-
-Allows the user to edit contents of the memory, address per address.
-The user supplies an offset to begin editing the memory (in 
-hexadecimal) and stops when the user supplies a period. 
-
-#### registers.h
-
-A crucial library for this processor, most things defined and
-prototyped here are used for the registers in the CPU.
-
- `registers.h` includes one system header: `<stdin.h>` used for the
- `uintN_t` datatypes
-
-* * *
-
- **Definitions**
-
-    #define REG_FILE_S 0x10
-
-The register file is defines as a 16-32bit register file.
-
-    #define SP 0xD
-    #define LR 0xE
-    #define PC 0xF
-
-The *Stack Pointer* is defined as the 13th index of the register file.
-The *Link Register* is the 14th index of the register file. Finally,
-the *Program Counter* is the 15th index of the register file.
-
-These are flags that have their own registers. `SIGN`, `ZERO` and
- `CARRY` are all apart of one 32bit register (much too big) called the
- *Code Control Register*. Each number represents a 3bit logical
-representation. Remember 4 in binary is `100`, 2 is `010` and 1 is
- `001`.
-
-    ccr = SIGN | CARRY // 100 | 001 = 101
-
-This shows how to apply both the `SIGN` and `CARRY` flag to a variable
-that would represent the Code Control Register.
-
-    #define REG_SIZE   4
-    #define REG_BIT_S  0x20
-    #define INSTR_SIZE 2
-    #define INS_BIT_S  0x10
-
-These are byte and bit definitions. `vpc` defines 4byte (32bit)
-registers and 2byte (16bit) instruction sizes.
-
-* * *
-
- **typedef**
-
-    typedef struct Registers {
-        uint32_t file[REG_FILE_S];
-        
-        uint32_t ccr;
-        uint32_t mbr;
-        uint32_t mar;
-        uint32_t ir;
-        uint32_t alu;
-        
-        uint8_t ir_flg;
-        uint8_t stp_flg;
-    } registers;
-
-This struct defines all of the registers, along with two flags. The
-register `alu` is the arithmatic logic unit, where all arithmetic is
-performed. `ir_flg` is the instruction flag, which flip-flops according
-to which instruction register is to be used. Remember the `ir` register
-defined here is split into `ir0` and `ir1`. The `stp_flg` indicates
-when the program should halt.
-
-* * *
-
- **Prototypes**
-
-    void zero(registers* reg);
-
-Given the registers, sets all of the values within it to zero.
-
-    void dumpreg(registers reg);
-
-Displays all of the registers to the standard output.
-
-    uint16_t ir0(uint32_t in);
-    uint16_t ir1(uint32_t in);
-
-Returns values that represent the 16bit pseudo-registers `ir0` and
- `ir1`
-
-    void trace(void* memory, registers* reg);
-
-Prompts the user to single step through the program counter while
-loading the registers and performing operations accordingly.
-
-    void fetch(void* memory, registers* reg);
-
-This routine represents the fetch step in the CPU instruction cycle of
- `vpc`.
-
-    void go(void* memory, registers* reg);
-
-Run the program loaded in memory.
-
-#### operations.h
-
-The instruction set for this processor is defined here, mostly in
-masks.
-
-* * *
-
- **Prototypes**
-
-    uint8_t is_inst(uint16_t mask, uint16_t inst);
-
-Given the instruction mask defined in this header and the (pseudo)
-Instruction Register (`ir0` or `ir1`), returns non-zero if they
-match.
-
-    uint8_t is_mask(uint16_t mask);
-    void toggle_flg(uint16_t mask, uint32_t* ctrl_reg);
-    void set_flg(uint16_t mask, uint32_t* ctrl_reg);
-    void clear_flg(uint16_t mask, uint32_t* ctrl_reg);
-
- `is_mask` is a giant switch that returns the value of the mask if true
-or 0 if it is not a valid mask. The next three functions manipulate the
-bit according. Given the mask and the `ccr` from the `registers`
-struct.
-
-    void execute(uint16_t inst, registers* reg);
-
-Given an instruction and all the registers, it will execute accordingly.
-
-    uint8_t get_rd(uint16_t val);
-    uint8_t get_rn(uint16_t val);
-
-These get the `Rd` and `Rn` out of the instruction respectively.
-
-    void immediate(uint16_t mask, uint16_t inst, registers * reg);
-
-Performs the immediate instruction declared by the `mask` using the
-instruction `inst` with all of the `registers`.
-
-    uint8_t get_imm(uint16_t inst);
-
-Returns the immediate value (only a byte, oh no!) of the instruction.
-
-#### interface.h
-
-The user interface is an important part of `vpc`.
-
- `interface.h` include one system library: `<stdint.h>` for `uintN_t`
-data types.
-
-* * * 
-
- **Definitions**
-
-    #define INPUT_BUFFER 0xFF
-    #define HEX_INPUT    4
-
-The `INPUT_BUFFER` is actually used in the `loadf()` and `writef()`
-routines for the `fgets()` function, defining how much to buffer for
-the filenames in bytes. `HEX_INPUT` is just like `INPUT_BUFFER` but
-strictly for hexadecimal numbers. This is used in the `modmem()`
-routine.
-
-    #define ROW_LENGTH 0x10
-
-When dumping the memory to the screen (`dumpmem()`), show 16 bytes per
-line.
-
-* * * 
-
- **Prototypes**
-
-    void help();
-
-Displays the help text that shows which characters represent which
-command.
-
-### Source Files
+VPC emulates a processor. Processors are usually equipped with registers to
+help the speed and calculation of data. 
