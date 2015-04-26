@@ -305,7 +305,9 @@ the registers (the same as `r` would) to the screen.
 ## 3.0 Testing
 
 Throughout this section of the documentation the instructions are described
-and each operation of that instruction type is tested.
+and each operation of that instruction type is tested. Please refer to Section
+4.1, header file `operations.h` for a table explaining how the 16bits are
+used for each instruction.
 
 ### 3.1 Immediate Instructions
 
@@ -566,6 +568,71 @@ to store a value in the register file index 0, consider the examples below.
 </table>
 
 ### 3.4 Push/Pull Instructions
+
+The push and pull instructions are used to store the values of the registers
+onto into memory as a stack. The lower byte of the instruction actually
+determines which registers are to be stored in memory. There are three control
+bits that determine what will happen with this instruction. The table below
+will demonstrate how it works.
+
+The lower byte of the instruction is set so that the most significant bit is
+the highest register in the list; for each bit set, the corresponding register
+from the file is pushed into memory, or the contents of memory are pulled
+into it.
+
+The opcode bit pattern (lower half of the most significant byte) holds the three
+control bits that determine the load/store bit (L), which registers are to be
+pushed or pulled (H) and finally whether to perform any extra pushes or pulls
+(R). Their bit pattern looks like `LH0R`.
+
+<table>
+    <tr>
+        <th>16bit Instruction</th>
+        <th>Explanation</th>
+    </tr>
+    <tr>
+        <td><code>0xA0AA</code></td>
+        <td>Push every other register from the lower half of the register
+        file.</td>
+    </tr>
+    <tr>
+        <td><code>0xA1AA</code></td>
+        <td>Push every other register from the lower half of the register file
+        as well as the Link Register.</td>
+    </tr>
+    <tr>
+        <td><code>0xA4AA</code></td>
+        <td>Push ever other register from the upper half of the register
+        file.</td>
+    </tr>
+    <tr>
+        <td><code>0xA5AA</code></td>
+        <td>Push every other register from the upper half of the register file
+        as well as the Link Register.</td>
+    </tr>
+    <tr>
+        <td><code>0xA8AA</code></td>
+        <td>Pull data from the memory and place it in every other register in
+        the lower half of the register file.</td>
+    </tr>
+    <tr>
+        <td><code>0xA9AA</code></td>
+        <td>Pull data from the memory and place it in every other register in
+        the lower half of the register file, as well as the Program
+        Counter.</td>
+    </tr>
+    <tr>
+        <td><code>0xACAA</code></td>
+        <td>Pull data from the memory and place it in every other register in
+        the upper half of the register file.</td>
+    </tr>
+    <tr>
+        <td><code>0xADAA</code></td>
+        <td>Pull data from the memory and place it in every other register in
+        the upper half of the register file, as well as the Program
+        Counter.</td>
+    </tr>
+</table>
 
 ### 3.5 Conditional Branch
 

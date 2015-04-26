@@ -17,7 +17,7 @@ trace(void *memory, registers *reg)
 {
     char in, _exit = '.';
 
-    fprintf(stdout, "Press any button to trace, '%c' to exit.\n", _exit);
+    fprintf(stdout, "Press enter/return to trace, '%c' to exit.\n", _exit);
 
     /*
      * The cursor for the trace displays the Program Counter
