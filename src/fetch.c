@@ -16,7 +16,6 @@ void
 fetch(void *memory, registers *reg)
 {
     reg->mar = reg->file[PC];
-    reg->file[PC] += REG_SIZE;
 
     /*
      * Get the bytes out of memory.
@@ -27,5 +26,10 @@ fetch(void *memory, registers *reg)
      * Set the instruction register to the result of MBR
      */
     reg->ir = reg->mbr;
+
+    /*
+     * Increment the program counter
+     */
+    reg->file[PC] += REG_SIZE;
     return;
 }

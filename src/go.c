@@ -18,20 +18,27 @@
  * the instruction flag is set, execute the instruction and reloop.
  *
  * note: each execute() call toggles the instruction flag.
+ *
+ * after the execution there will be N periods after "Running" showing
+ * all of the instructions save for the stop.
  */
 void
 go(void *memory, registers *reg)
 {
+    fprintf(stdout, "Running");
+    
     while(!reg->stop_flag) {
-        if(reg->ir_flag) {
-            execute(IR1(reg->ir), reg, memory);
-            continue;
-        }
-        else {
+        if(!reg->ir_flag) {
             fetch(memory, reg);
-            execute(IR0(reg->ir), reg, memory);
+            execute((uint16_t) IR0(reg->ir), reg, memory);
         }
+        else
+            execute((uint16_t) IR1(reg->ir), reg, memory);
+
+        fprintf(stdout, ".");
     }
+
+    fprintf(stdout, "\nFinished.\n");
 
     return;
 }

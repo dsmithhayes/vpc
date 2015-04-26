@@ -32,7 +32,7 @@ immediate(uint16_t inst, registers *reg)
             break;
 
         case CMP_IMM:
-            reg->alu = reg->file[rd] & ~imm + 1;
+            reg->alu = reg->file[rd] + (~imm + 1);
             sz(reg);
             break;
 
@@ -43,11 +43,13 @@ immediate(uint16_t inst, registers *reg)
             break;
     
         case SUB_IMM:
-            reg->alu = reg->file[rd] & ~imm + 1;
-            scz(reg, reg->file[rd], ~(imm + 1));
+            reg->alu = reg->file[rd] + (~imm + 1);
+            scz(reg, reg->file[rd], ~(imm)++);
             reg->file[rd] = reg->alu;
             break;
     }
+
+    reg->alu = 0;
 
     return;
 }

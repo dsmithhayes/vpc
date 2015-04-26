@@ -5,13 +5,10 @@
 **Table of Contents**
 
 1.  **Preface**
-
     1.  Abstract
     2.  Considerations
     3.  Comments
-
 2.  **Overview**
-
     1.  Compiling
     2.  Usage
     3.  Reading Files
@@ -20,18 +17,13 @@
     6.  Dumping Registers
     7.  Execution
     8.  Tracing
-
 3.  **Testing**
-
     1.  Immediate Instructions
-
         1.  `MOV_IMM`
         2.  `CMP_IMM`
         3.  `ADD_IMM`
         4.  `SUB_IMM`
-    
     2.  Data Instructions
-    
         1.  `AND_DAT`
         2.  `EOR_DAT`
         3.  `SUB_DAT`
@@ -48,21 +40,15 @@
         14. `MOV_DAT`
         15. `BIC_DAT`
         16. `MVN_DAT`
-    
     3.  Load/Store Instructions
-    
     4.  Push/Pull Instructions
-
     5.  Conditional Branch
-
     6.  Unconditional Branch
-
     7.  Stopping
-
 4.  **Code Review**
-
     1.  Header Files
     2.  Source Files
+
 
 ## 1.0 Preface
 
@@ -356,6 +342,32 @@ constants are defined with a `_IMM` suffix.
     </tr>
 </table>
 
+#### 3.1.1 MOV
+
+The following 16bit instruction, `0x4100`, will move the value of `0x10` into
+the first indexed register in the file (`0x0`). Because this moves a value into
+the register there is no need to check for the carry flag to be set. This
+instruction will however set the sign and zero flags respectively. 
+
+#### 3.1.2 CMP
+
+Comparing a value will subtract the imemdiate value from the register but not
+store the result. Because there is arithmetic involved with the operation
+(even without storing the result) all of the CCR flags are set accordingly.
+The 16bit instruction used is `0x5110` to compared `0x11` in the register
+file with the `0` index (`0x10` from our last instruction). This will set the
+carry flag accordingly.
+
+#### 3.1.3 ADD
+
+Now the instruction to add `0x20` into the same register would look like `6200`
+and adds the value correctly.
+
+#### 3.1.4 SUB
+
+To substract the total value from the register (now `0x30`) use the 16bit
+instruction `0x7300`. This will set the zero flag.
+
 ### 3.2 Data Instructions
 
 Data instructions take the value in the register defined by Rn and perform
@@ -451,6 +463,74 @@ that can be used. All of the constants are defined with a `_DAT` suffix.
         <td>Places the 1's compliment of Rn in Rd.</td>
     </tr>
 </table>
+
+For testing purposes, it is to assume that all al of the Rn values are in the
+1 index of the register file, and all of the Rd values are in the 0 index.
+
+#### 3.2.1 AND
+
+To perform an AND and store the value in Rd, use `0x0010`.
+
+#### 3.2.2 EOR
+
+`0x0110` would perform a bitwise exclusive `OR` between Rn and Rd, and store
+the value in Rd.
+
+#### 3.2.3 SUB
+
+To substract the value of Rn from Rd use `0x0210`
+
+#### 3.2.4 SXB
+
+`0x0310` will sign (toggle the most significant bit) Rn and place it in Rd.
+
+#### 3.2.5 ADD
+
+`0x0410`
+
+#### 3.2.6 ADC
+
+`0x0510`
+
+#### 3.2.7 LSR
+
+`0x0610`
+
+#### 3.2.8 LSL
+
+`0x0710`
+
+#### 3.2.9 TST
+
+`0x0810`
+
+#### 3.2.10 TEQ
+
+`0x0910`
+
+#### 3.2.11 CMP
+
+`0x0A10`
+
+#### 3.2.12 ROR
+
+`0x0B10`
+
+#### 3.2.13 ORR
+
+`0x0C10`
+
+#### 3.2.14 MOV
+
+`0x0D10`
+
+#### 3.2.15 BIC
+
+`0x0E10`
+
+#### 3.2.16 MVN
+
+`0x0F10`
 
 ### 3.3 Load/Store Instructions
 

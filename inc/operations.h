@@ -230,11 +230,6 @@
 uint8_t is_carry(uint32_t op1, uint32_t op2, uint32_t ccr);
 
 /*
- * Returns non-zero if the word is a valid instruction.
- */
-uint8_t is_inst(uint16_t inst);
-
-/*
  * Get the immediate value in the instruction
  */
 uint8_t get_imm(uint16_t inst);

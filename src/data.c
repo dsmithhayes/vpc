@@ -149,6 +149,8 @@ data(uint16_t inst, registers *reg)
         reg->file[rd] = reg->alu;
         break;
     }
+
+    reg->alu = 0;
     
     return;
 }
