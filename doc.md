@@ -303,7 +303,7 @@ the registers (the same as `r` would) to the screen.
     
     0x00000004>
 
-## 3.0 Testing
+## 3.0 Operations & Testing
 
 Throughout this section of the documentation the instructions are described
 and each operation of that instruction type is tested. Please refer to Section
@@ -989,11 +989,15 @@ consider similar actions.
 
 ### 5.1 Trace
 
+As mentioned above, when tracing through a program the user explicitly executes
+each individual instruction. The user can exit the tracing by pressing the `.`
+character. Each trace will do a full register dump. The prompt of the tracing
+indicates which part of the PC they are on. Note that each instruction is
+executed before the registers are dumped. This will display the *current* IR
+flag, such as the prompt shows the *current* location in memory.
+
 ### 5.2 Go
 
-
-
-
-
-
-
+Letting the program execute on its own will display text letting the user know
+the program is running. Each period displayed on the screen indicates how many
+instructions were actually executed, save for the stop instruction.
