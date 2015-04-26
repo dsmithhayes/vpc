@@ -25,15 +25,20 @@
 void
 go(void *memory, registers *reg)
 {
+    if(reg->stop_flag)  /* can't make a stopped program run... */
+        return;
+    
     fprintf(stdout, "Running");
     
-    while(!reg->stop_flag) {
-        if(!reg->ir_flag) {
+    while(reg->stop_flag == 0) {
+        if(reg->ir_flag) {
+            execute((uint16_t) IR1(reg->ir), reg, memory);
+            continue;
+        }
+        else {
             fetch(memory, reg);
             execute((uint16_t) IR0(reg->ir), reg, memory);
         }
-        else
-            execute((uint16_t) IR1(reg->ir), reg, memory);
 
         fprintf(stdout, ".");
     }

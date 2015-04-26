@@ -17,7 +17,7 @@
     6.  Dumping Registers
     7.  Execution
     8.  Tracing
-3.  **Testing**
+3.  **Operations & Testing**
     1.  Immediate Instructions
         1.  `MOV_IMM`
         2.  `CMP_IMM`
@@ -48,6 +48,7 @@
 4.  **Code Review**
     1.  Header Files
     2.  Source Files
+5.  **Program Flow**
 
 
 ## 1.0 Preface
@@ -969,7 +970,26 @@ operation's prototype means.
 
 ### 4.2 Source Files
 
+Please refer to the actual source files for they have adequate documentation
+as to what they are doing.
 
+## 5.0 Program Flow and Operation
+
+Once a binary program is written, it can be executed in one of two ways. The
+first to be discussed is tracing the program, which steps through each
+individual instruction while displaying all of the registers affected and in
+use. The second is to execute the whole program while in the background. Both
+consider similar actions.
+
+1.  Fetch four bytes from memory, store these values in the IR
+2.  Check which instruction sub-register is to be used, either IR0 or IR1.
+3.  Decode appropriate instruction, perform the associated operation.
+4.  Repeat forever until the stop instruction is hit, or the end of memory is
+    reached.
+
+### 5.1 Trace
+
+### 5.2 Go
 
 
 
