@@ -307,7 +307,8 @@ the registers (the same as `r` would) to the screen.
 Throughout this section of the documentation the instructions are described
 and each operation of that instruction type is tested. Please refer to Section
 4.1, header file `operations.h` for a table explaining how the 16bits are
-used for each instruction.
+used for each instruction. This section demonstrates the exact binary
+instructions that are included within the program.
 
 ### 3.1 Immediate Instructions
 
@@ -540,7 +541,8 @@ Loading and storing is done by finding the value in memory that is pointed to
 by Rn and placing that value in Rd. There are two control bits that determine
 the size of a load or store. This can be a full register size (32bits) or a
 single byte. Assuming we have a value in the register file at index 1 and want
-to store a value in the register file index 0, consider the examples below.
+to store a value in the register file index 0, consider the examples below. All
+of these masks and macros are prefixed with `LS_`.
 
 <table>
     <tr>
@@ -584,6 +586,8 @@ The opcode bit pattern (lower half of the most significant byte) holds the three
 control bits that determine the load/store bit (L), which registers are to be
 pushed or pulled (H) and finally whether to perform any extra pushes or pulls
 (R). Their bit pattern looks like `LH0R`.
+
+All of these instruction constants and macros are prefixed with `PP_`.
 
 <table>
     <tr>
@@ -636,7 +640,86 @@ pushed or pulled (H) and finally whether to perform any extra pushes or pulls
 
 ### 3.5 Conditional Branch
 
+Conditional branches are used when specific events in the CCR occur. There
+are a number of conditions to which the table below will specify their 16bit
+instruction and a small explanation.
+
+The lower byte of the conditional branch instruction is a signed relative
+address. Consider the program counter is at `4` during a conditional branch
+execution, and the next set of instructions are at an offset of `+0x40`. This
+will make the lower byte of each example used below as `0x40`.
+
+There are a total of nine conditions, including a condition to ignore all of
+the other conditions. All of the constants and macros for these instructions
+are prefixed with `COND_`.
+
+<table>
+    <tr>
+        <th>16bit Instruction</th>
+        <th>Explanation</th>
+    </tr>
+    <tr>
+        <td><code>0x8040</code></td>
+        <td>Branches if the zero flag is set.</td>
+    </tr>
+    <tr>
+        <td><code>0x8140</code></td>
+        <td>Branches if the zero flag is clear.</td>
+    </tr>
+    <tr>
+        <td><code>0x8240</code></td>
+        <td>Branches if the carry flag is set.</td>
+    </tr>
+    <tr>
+        <td><code>0x8340</code></td>
+        <td>Branches if the carry flag is clear.</td>
+    </tr>
+    <tr>
+        <td><code>0x8440</code></td>
+        <td>Branches if the sign flag is set.</td>
+    </tr>
+    <tr>
+        <td><code>0x8540</code></td>
+        <td>Branches if the sign flag is clear.</td>
+    </tr>
+    <tr>
+        <td><code>0x8840</code></td>
+        <td>Branches if carry flag is set and zero flag is clear.</td>
+    </tr>
+    <tr>
+        <td><code>0x8940</code></td>
+        <td>Branches if the carry flag is clear and the zero flag is set.</td>
+    </tr>
+    <tr>
+        <td><code>0x8E40</code></td>
+        <td>Just branch no matter what.</td>
+    </tr>
+</tr>
+
 ### 3.6 Unconditional Branch
+
+The unconditional branch only has two options to it. There is a 12bit absolute
+address stored within the instruction, along with one control bit that
+determines if the current address in memory is stored in the Link Register to
+be used as a return address. All of the constants and macros associated with
+this instruction are prefixed with `UN_`
+
+Assume the absolute location in memory is address `0x1F0`.
+
+<table>
+    <tr>
+        <th>16bit Instruction</th>
+        <th>Explanation</th>
+    </tr>
+    <tr>
+        <td><code>0xC1F0</code></td>
+        <td>Branches to `0x1F0` without storing a return address.</td>
+    </tr>
+    <tr>
+        <td><code>0xD1F0</code></td>
+        <td>Branches to `0x1F0` with a stored return address.</td>
+    </tr>
+</table>
 
 ### 3.7 Stopping
 
