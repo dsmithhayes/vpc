@@ -18,12 +18,6 @@
 void
 execute(uint16_t inst, registers *reg, void *memory)
 {
-
-    if(IS_STOP_INST(inst)) {
-        set_reg_flag(STOP_FLAG, (uint32_t *) &(reg->stop_flag));
-        return;
-    }
-
     if(IS_IMM_INST(inst))
         immediate(inst, reg);
     
@@ -41,6 +35,11 @@ execute(uint16_t inst, registers *reg, void *memory)
 
     if(IS_UN_INST(inst))
         uncond(inst, reg, memory);
+
+    if(IS_STOP_INST(inst)) {
+        set_reg_flag(STOP_FLAG, (uint32_t *) &(reg->stop_flag));
+        return;
+    }
 
     toggle_reg_flag(INST_FLAG, (uint32_t *) &(reg->ir_flag));
     

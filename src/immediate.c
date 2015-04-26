@@ -44,7 +44,7 @@ immediate(uint16_t inst, registers *reg)
     
         case SUB_IMM:
             reg->alu = reg->file[rd] + (~imm + 1);
-            scz(reg, reg->file[rd], ~(imm)++);
+            scz(reg, reg->file[rd], ~(imm + 1));
             reg->file[rd] = reg->alu;
             break;
     }

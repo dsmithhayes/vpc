@@ -534,6 +534,37 @@ To substract the value of Rn from Rd use `0x0210`
 
 ### 3.3 Load/Store Instructions
 
+Loading and storing is done by finding the value in memory that is pointed to
+by Rn and placing that value in Rd. There are two control bits that determine
+the size of a load or store. This can be a full register size (32bits) or a
+single byte. Assuming we have a value in the register file at index 1 and want
+to store a value in the register file index 0, consider the examples below.
+
+<table>
+    <tr>
+        <th>16bit Instruction</th>
+        <th>Explanation</th>
+    </tr>
+    <tr>
+        <td><code>0x2010</code></td>
+        <td>Stores the whole register into memory.</td>
+    </tr>
+    <tr>
+        <td><code>0x2810</code></td>
+        <td>Loads a whole register from memory.</td>
+    </tr>
+    <tr>
+        <td><code>0x2410</code></td>
+        <td>Stores a single byte from the register into memory. This is the
+        least significant byte (lower part of the register).</td>
+    </tr>
+    <tr>
+        <td><code>0x2C10</code></td>
+        <td>Loads a single byte from memory into the lower half of the
+        register</td>
+    </tr>
+</table>
+
 ### 3.4 Push/Pull Instructions
 
 ### 3.5 Conditional Branch
@@ -541,6 +572,9 @@ To substract the value of Rn from Rd use `0x0210`
 ### 3.6 Unconditional Branch
 
 ### 3.7 Stopping
+
+The end-all, be-all of the stop instruction is `0xE000`. The stop flag will
+stop execution, but will not stop the tracing.
 
 ## 4.0 Code Review
 
