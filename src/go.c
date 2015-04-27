@@ -30,20 +30,15 @@ go(void *memory, registers *reg)
     
     fprintf(stdout, "Running");
     
-    while(reg->stop_flag == 0) {
-        if(reg->ir_flag) {
-            execute((uint16_t) IR1(reg->ir), reg, memory);
-            continue;
-        }
+    while(reg->stop_flag != 1) {
+        if(reg->ir_flag)
+            execute(IR1(reg->ir), reg, memory);
         else {
             fetch(memory, reg);
-            execute((uint16_t) IR0(reg->ir), reg, memory);
+            execute(IR0(reg->ir), reg, memory);
         }
-
-        fprintf(stdout, ".");
     }
 
     fprintf(stdout, "\nFinished.\n");
-
     return;
 }

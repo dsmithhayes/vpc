@@ -19,7 +19,7 @@ immediate(uint16_t inst, registers *reg)
 {
     uint16_t opcode = IMM_GET_OPCODE(inst);
     uint8_t rd = RD(inst);
-    uint16_t imm = IMM(inst);
+    uint32_t imm = IMM(inst);
 
     /*
      * Check which immediate instruction is given.

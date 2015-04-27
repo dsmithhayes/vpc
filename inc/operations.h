@@ -33,11 +33,12 @@
 /*
  * Check first byte for instruction type
  */
-#define INST_MASK   0xF000
+#define INST_MASK   0xE000
  
 #define DAT_MASK    0xF000      /* data processing      */
 #define LS_MASK     0x2000      /* load/store           */
 #define IMM_MASK    0x4000      /* immediate            */
+#define IMM_MASK_2  0x6000      /* why? */
 #define COND_MASK   0x8000      /* conditional branch   */
 #define PP_MASK     0xA000      /* push/pull            */
 #define UN_MASK     0xC000      /* unconditional branch */
@@ -47,13 +48,14 @@
 /*
  * Macros that return non-zero if correct mask
  */
-#define IS_DAT_INST(x)  ((DAT_MASK & ~x) == DAT_MASK)  ? 1 : 0
-#define IS_LS_INST(x)   ((LS_MASK & x) == LS_MASK)     ? 1 : 0
-#define IS_IMM_INST(x)  ((IMM_MASK & x) == IMM_MASK)   ? 1 : 0
-#define IS_COND_INST(x) ((COND_MASK & x) == COND_MASK) ? 1 : 0
-#define IS_PP_INST(x)   ((PP_MASK & x) == PP_MASK)     ? 1 : 0
-#define IS_UN_INST(x)   ((UN_MASK & x) == UN_MASK)     ? 1 : 0
-#define IS_STOP_INST(x) ((STOP_MASK & x) == STOP_MASK) ? 1 : 0
+#define IS_DAT_INST(x)  ((INST_MASK & ~x) == DAT_MASK) ? 1 : 0
+#define IS_LS_INST(x)   ((INST_MASK & x) == LS_MASK)   ? 1 : 0
+#define IS_IMM_INST(x)  (((INST_MASK & x) == IMM_MASK) \
+                        || ((INST_MASK & x) == IMM_MASK_2))  ? 1 : 0
+#define IS_COND_INST(x) ((INST_MASK & x) == COND_MASK) ? 1 : 0
+#define IS_PP_INST(x)   ((INST_MASK & x) == PP_MASK)   ? 1 : 0
+#define IS_UN_INST(x)   ((INST_MASK & x) == UN_MASK)   ? 1 : 0
+#define IS_STOP_INST(x) ((INST_MASK & x) == STOP_MASK) ? 1 : 0
 
 /*
  * Macros that return non-zero if register flag set
